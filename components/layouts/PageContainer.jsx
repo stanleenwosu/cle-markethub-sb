@@ -1,45 +1,46 @@
 import React from 'react';
 import Head from 'next/head';
-import HeaderDefault from '~/components/shared/headers/HeaderDefault';
+// import HeaderDefault from '~/components/shared/headers/HeaderDefault';
+import HeaderDefault from '~/components/shared/headers/HeaderMarketPlace2';
 import HeaderMobile from '~/components/shared/headers/HeaderMobile';
 import FooterFullwidth from '~/components/shared/footers/FooterFullwidth';
 
 const initHeaders = (
-    <>
-        <HeaderDefault />
-        <HeaderMobile />
-    </>
+  <>
+    <HeaderDefault />
+    <HeaderMobile />
+  </>
 );
 const initFooters = (
-    <>
-        <FooterFullwidth />
-    </>
+  <>
+    <FooterFullwidth />
+  </>
 );
 
 const PageContainer = ({
-    header = initHeaders,
-    footer = initFooters,
-    children,
-    title = 'Page',
+  header = initHeaders,
+  footer = initFooters,
+  children,
+  title = 'Page',
 }) => {
-    let titleView;
+  let titleView;
 
-    if (title !== '') {
-        titleView = process.env.title + ' | ' + title;
-    } else {
-        titleView = process.env.title + ' | ' + process.env.titleDescription;
-    }
+  if (title !== '') {
+    titleView = process.env.title + ' | ' + title;
+  } else {
+    titleView = process.env.title + ' | ' + process.env.titleDescription;
+  }
 
-    return (
-        <>
-            <Head>
-                <title>{titleView}</title>
-            </Head>
-            {header}
-            {children}
-            {footer}
-        </>
-    );
+  return (
+    <>
+      <Head>
+        <title>{titleView}</title>
+      </Head>
+      {header}
+      {children}
+      {footer}
+    </>
+  );
 };
 
 export default PageContainer;

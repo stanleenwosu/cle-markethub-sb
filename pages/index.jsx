@@ -12,33 +12,33 @@ import HomeDefaultBanner from '~/components/partials/homepage/home-default/HomeD
 import PageContainer from '~/components/layouts/PageContainer';
 
 const HomepageDefaultPage = () => {
-    return (
-        <PageContainer title="Multipurpose Marketplace React Ecommerce Template">
-            <main id="homepage-1">
-                <HomeDefaultBanner />
-                <SiteFeatures />
-                <HomeDefaultDealOfDay collectionSlug="deal-of-the-day" />
-                <HomeAdsColumns />
-                <HomeDefaultTopCategories />
-                <HomeDefaultProductListing
-                    collectionSlug="consumer-electronics"
-                    title="Consumer Electronics"
-                />
-                <HomeDefaultProductListing
-                    collectionSlug="clothings"
-                    title="Clothings"
-                />
-                <HomeDefaultProductListing
-                    collectionSlug="garden-and-kitchen"
-                    title="Garden & Kitchen"
-                />
-                <HomeAds />
-                <DownLoadApp />
-                <NewArrivals collectionSlug="new-arrivals-products" />
-                <Newletters />
-            </main>
-        </PageContainer>
-    );
+  return (
+    <PageContainer title="">
+      <main id="homepage-1">
+        <HomeDefaultBanner />
+        <SiteFeatures />
+        <HomeDefaultDealOfDay collectionSlug="deal-of-the-day" />
+        <HomeAdsColumns />
+        <HomeDefaultTopCategories />
+        <HomeDefaultProductListing
+          collectionSlug="consumer-electronics"
+          title="Consumer Electronics"
+        />
+        <HomeDefaultProductListing
+          collectionSlug="clothings"
+          title="Clothings"
+        />
+        <HomeDefaultProductListing
+          collectionSlug="garden-and-kitchen"
+          title="Garden & Kitchen"
+        />
+        <HomeAds />
+        <DownLoadApp />
+        <NewArrivals collectionSlug="new-arrivals-products" />
+        <Newletters />
+      </main>
+    </PageContainer>
+  );
 };
 
 export default HomepageDefaultPage;
