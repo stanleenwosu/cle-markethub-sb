@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 // import HeaderDefault from '~/components/shared/headers/HeaderDefault';
 import HeaderDefault from '~/components/shared/headers/HeaderMarketPlace2';
-import HeaderMobile from '~/components/shared/headers/HeaderMobile';
+import HeaderMobile from '~/components/shared/headers/HeaderMobileTechnology';
 import FooterFullwidth from '~/components/shared/footers/FooterFullwidth';
 
 const initHeaders = (
