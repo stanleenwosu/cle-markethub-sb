@@ -20,7 +20,7 @@ jobs:
           node-version: "14"
 
       - name: Install NPM Modules
-        run: npm ci
+        run: npm i
 
       - name: Build Project
         run: npm run build
