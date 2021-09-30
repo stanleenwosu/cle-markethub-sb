@@ -31,6 +31,6 @@ jobs:
           server: ${{ secrets.SERVER }}
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
-          local-dir: ./dist/
+          local-dir: .next/
           server-dir: ./cle.ng/
           dangerous-clean-slate: false
