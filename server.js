@@ -1,21 +1,23 @@
-const { createServer } = require('http');
-const { parse } = require('url');
+const express = require('express');
 const next = require('next');
 
+console.log(1);
+const port = 26902;
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+console.log(2);
 app.prepare().then(() => {
-  createServer((req, res) => {
-    // Be sure to pass `true` as the second argument to `url.parse`.
-    // This tells it to parse the query portion of the URL.
-    const parsedUrl = parse(req.url, true);
-    const { pathname, query } = parsedUrl;
+  console.log(3);
+  const server = express();
 
-    handle(req, res, parsedUrl);
-  }).listen(26902, (err) => {
+  server.all('*', (req, res) => {
+    return handle(req, res);
+  });
+
+  server.listen(port, (err) => {
     if (err) throw err;
-    console.log('> Ready on http://localhost:3000');
+    console.log(`> Ready on http://localhost:${port}`);
   });
 });
