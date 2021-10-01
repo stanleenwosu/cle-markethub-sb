@@ -7,7 +7,7 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-console.log(2);
+console.log(app);
 app.prepare().then(() => {
   console.log(3);
   const server = express();
