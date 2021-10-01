@@ -6,7 +6,7 @@ const path = require('path');
 
 console.log(1);
 const dev = process.env.NODE_ENV !== 'production';
-const pth = path.join(__dirname, '..', 'cle.ng2/server');
+const pth = path.join(__dirname, '..', 'cle.ng3/server');
 console.log('path:', pth);
 const app = next({ dir: pth, dev });
 const handle = app.getRequestHandler();
