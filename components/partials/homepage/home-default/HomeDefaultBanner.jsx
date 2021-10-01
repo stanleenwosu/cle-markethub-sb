@@ -78,14 +78,23 @@ const HomeDefaultBanner = () => {
             class="img-fluid"
             alt="img"></img> */}
           <div
-            className=""
+            className="p-5 container-fluid d-flex align-items-center"
             style={{
               backgroundImage: `url('/static/img/mine/image-1.jpg')`,
-              backgroundPosition: 'top left',
+              backgroundPosition: 'top right',
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
               height: `100%`,
             }}>
+            <div className="row ">
+              <div className="col-md-6">
+                <h3>
+                  One stop platform for online shopping and cooperative
+                  management
+                </h3>
+                <button className="ps-btn">Launching Soon</button>
+              </div>
+            </div>
             {/* <Link href="/shop">
               <a className="ps-banner-item--default bg--cover" />
             </Link> */}

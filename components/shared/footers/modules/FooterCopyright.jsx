@@ -4,7 +4,7 @@ const FooterCopyright = () => (
   <div className="ps-footer__copyright">
     <p>&copy; 2021 CLE Marketplace. All Rights Reserved</p>
     <p>
-      <span>We Using Safe Payment For:</span>
+      <span>Secured payment channels:</span>
       <a href="#">
         <img src="/static/img/payment-method/3.jpg" alt="CLE Marketplace" />
       </a>
