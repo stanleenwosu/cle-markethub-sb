@@ -5,8 +5,9 @@ const path = require('path');
 console.log(1);
 const port = 26902;
 const dev = process.env.NODE_ENV !== 'production';
-console.log('path:', path.join(__dirname, '..', 'www/cle.ng/.next/server'));
-const app = next({ dir: path.join(__dirname, '..', 'www/cle.ng'), dev });
+const pth = path.join(__dirname, '..', 'cle.ng/.next/server');
+console.log('path:', pth);
+const app = next({ dir: pth, dev });
 const handle = app.getRequestHandler();
 
 console.log(app);
