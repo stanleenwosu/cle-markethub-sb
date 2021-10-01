@@ -12,27 +12,30 @@ import '~/scss/market-place-1.scss';
 import '~/scss/market-place-2.scss';
 import '~/scss/market-place-3.scss';
 import '~/scss/market-place-4.scss';
-import '~/scss/electronic.scss';
-import '~/scss/furniture.scss';
-import '~/scss/organic.scss';
-import '~/scss/technology.scss';
-import '~/scss/autopart.scss';
-import '~/scss/electronic.scss';
+// import '~/scss/electronic.scss';
+// import '~/scss/furniture.scss';
+// import '~/scss/organic.scss';
+// import '~/scss/technology.scss';
+// import '~/scss/autopart.scss';
+// import '~/scss/electronic.scss';
+
+// MINE
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App({ Component, pageProps }) {
-    useEffect(() => {
-        setTimeout(function () {
-            document.getElementById('__next').classList.add('loaded');
-        }, 100);
-    });
+  useEffect(() => {
+    setTimeout(function () {
+      document.getElementById('__next').classList.add('loaded');
+    }, 100);
+  });
 
-    return (
-        <CookiesProvider>
-            <MasterLayout>
-                <Component {...pageProps} />
-            </MasterLayout>
-        </CookiesProvider>
-    );
+  return (
+    <CookiesProvider>
+      <MasterLayout>
+        <Component {...pageProps} />
+      </MasterLayout>
+    </CookiesProvider>
+  );
 }
 
 export default wrapper.withRedux(App);

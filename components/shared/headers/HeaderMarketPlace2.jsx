@@ -60,7 +60,7 @@ const HeaderMarketPlace2 = () => {
           </div>
           <div className="header__right">
             <ul className="header__top-links">
-              <li>
+              {/* <li>
                 <Link href="/vendor/store-list">
                   <a>Store Location</a>
                 </Link>
@@ -69,7 +69,7 @@ const HeaderMarketPlace2 = () => {
                 <Link href="/page/blank">
                   <a>Track Your Order</a>
                 </Link>
-              </li>
+              </li> */}
               {/* <li>
                 <CurrencyDropdown />
               </li>
@@ -83,12 +83,12 @@ const HeaderMarketPlace2 = () => {
       <div className="header__content">
         <div className="container">
           <div className="header__content-left">
-            <Link href="/home/market-place-2">
+            <Link href="/">
               <a className="ps-logo">
                 <img height="60" src="/static/img/logo.png" alt="CLE" />
               </a>
             </Link>
-            <div className="menu--product-categories">
+            {/* <div className="menu--product-categories">
               <div className="menu__toggle">
                 <i className="icon-menu"></i>
                 <span> Shop by Category</span>
@@ -99,11 +99,11 @@ const HeaderMarketPlace2 = () => {
                   className="menu--dropdown"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="header__content-center">
             <SearchHeader />
-            <p>
+            {/* <p>
               <Link href="/shop">
                 <a>iphone x</a>
               </Link>
@@ -125,11 +125,11 @@ const HeaderMarketPlace2 = () => {
               <Link href="/shop">
                 <a>macbook</a>
               </Link>
-            </p>
+            </p> */}
           </div>
-          <div className="header__content-right">
+          {/* <div className="header__content-right">
             <ElectronicHeaderActions />
-          </div>
+          </div> */}
         </div>
       </div>
       {/* <nav className="navigation">
