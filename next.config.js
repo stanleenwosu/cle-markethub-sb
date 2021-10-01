@@ -18,7 +18,7 @@ const nextSettings = {
     title: 'CLE',
     titleDescription: 'Multipurpose Marketplace',
   },
-  useFileSystemPublicRoutes: true,
+  useFileSystemPublicRoutes: false,
 };
 
 module.exports = nextSettings;
