@@ -127,9 +127,9 @@ const HeaderMarketPlace2 = () => {
               </Link>
             </p> */}
           </div>
-          <div className="header__content-right">
+          {/* <div className="header__content-right">
             <ElectronicHeaderActions />
-          </div>
+          </div> */}
         </div>
       </div>
       {/* <nav className="navigation">
