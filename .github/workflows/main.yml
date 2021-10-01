@@ -17,7 +17,7 @@ jobs:
       - name: Use Node.js 14 LTS
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: '14'
 
       - name: Install NPM Modules
         run: npm i
@@ -32,5 +32,5 @@ jobs:
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
           local-dir: .next/
-          server-dir: ./cle.ng2/
+          server-dir: ./cle.ng3/
           dangerous-clean-slate: false
