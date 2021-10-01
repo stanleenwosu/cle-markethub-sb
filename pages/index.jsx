@@ -16,7 +16,7 @@ const HomepageDefaultPage = () => {
     <PageContainer title="">
       <main id="homepage-1">
         <HomeDefaultBanner />
-        <SiteFeatures />
+        {/* <SiteFeatures />
         <HomeDefaultDealOfDay collectionSlug="deal-of-the-day" />
         <HomeAdsColumns />
         <HomeDefaultTopCategories />
@@ -35,7 +35,7 @@ const HomepageDefaultPage = () => {
         <HomeAds />
         <DownLoadApp />
         <NewArrivals collectionSlug="new-arrivals-products" />
-        <Newletters />
+        <Newletters /> */}
       </main>
     </PageContainer>
   );

@@ -103,7 +103,7 @@ const HeaderMarketPlace2 = () => {
           </div>
           <div className="header__content-center">
             <SearchHeader />
-            <p>
+            {/* <p>
               <Link href="/shop">
                 <a>iphone x</a>
               </Link>
@@ -125,7 +125,7 @@ const HeaderMarketPlace2 = () => {
               <Link href="/shop">
                 <a>macbook</a>
               </Link>
-            </p>
+            </p> */}
           </div>
           <div className="header__content-right">
             <ElectronicHeaderActions />
