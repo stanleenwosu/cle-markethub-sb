@@ -81,8 +81,9 @@ const HomeDefaultBanner = () => {
             className=""
             style={{
               backgroundImage: `url('/static/img/mine/image-1.jpg')`,
-              backgroundPosition: 'center center',
-              backgroundSize: 'contain',
+              backgroundPosition: 'top left',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
               height: `100%`,
             }}>
             {/* <Link href="/shop">

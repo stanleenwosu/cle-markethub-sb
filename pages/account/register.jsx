@@ -7,27 +7,27 @@ import FooterDefault from '~/components/shared/footers/FooterDefault';
 import Newletters from '~/components/partials/commons/Newletters';
 
 const RegisterPage = () => {
-    const breadCrumb = [
-        {
-            text: 'Home',
-            url: '/',
-        },
-        {
-            text: 'Register an account',
-        },
-    ];
+  const breadCrumb = [
+    {
+      text: 'Home',
+      url: '/',
+    },
+    {
+      text: 'Register an account',
+    },
+  ];
 
-    return (
-        <>
-            <PageContainer footer={<FooterDefault />} title="Register">
-                <div className="ps-page--my-account">
-                    <BreadCrumb breacrumb={breadCrumb} />
-                    <Register />
-                </div>
-                <Newletters layout="container" />
-            </PageContainer>
-        </>
-    );
+  return (
+    <>
+      <PageContainer title="Register">
+        <div className="ps-page--my-account">
+          <BreadCrumb breacrumb={breadCrumb} />
+          <Register />
+        </div>
+        <Newletters layout="container" />
+      </PageContainer>
+    </>
+  );
 };
 
 export default RegisterPage;

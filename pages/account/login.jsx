@@ -7,26 +7,26 @@ import FooterDefault from '~/components/shared/footers/FooterDefault';
 import Newletters from '~/components/partials/commons/Newletters';
 
 const LoginPage = () => {
-    const breadCrumb = [
-        {
-            text: 'Home',
-            url: '/',
-        },
-        {
-            text: 'Login',
-        },
-    ];
-    return (
-        <>
-            <PageContainer footer={<FooterDefault />} title="Login">
-                <div className="ps-page--my-account">
-                    <BreadCrumb breacrumb={breadCrumb} />
-                    <Login />
-                </div>
-                <Newletters layout="container" />
-            </PageContainer>
-        </>
-    );
+  const breadCrumb = [
+    {
+      text: 'Home',
+      url: '/',
+    },
+    {
+      text: 'Login',
+    },
+  ];
+  return (
+    <>
+      <PageContainer title="Login">
+        <div className="ps-page--my-account">
+          <BreadCrumb breacrumb={breadCrumb} />
+          <Login />
+        </div>
+        <Newletters layout="container" />
+      </PageContainer>
+    </>
+  );
 };
 
 export default LoginPage;
