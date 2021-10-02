@@ -33,4 +33,4 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           local-dir: ./
           server-dir: ./cle.ng4/
-          dangerous-clean-slate: true
+          dangerous-clean-slate: false
