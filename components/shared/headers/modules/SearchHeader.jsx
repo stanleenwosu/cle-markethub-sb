@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
 import { Spin } from 'antd';
-import ProductRepository from '~/repositories/ProductRepository';
+import ProductRepository from '~/repositories/ProductRepositoryOld';
 import ProductSearchResult from '~/components/elements/products/ProductSearchResult';
 
 const exampleCategories = [

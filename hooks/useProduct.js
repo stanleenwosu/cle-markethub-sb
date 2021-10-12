@@ -62,11 +62,11 @@ export default function useProduct() {
     },
     price: (payload) => {
       let view;
-      if (payload.sale_price) {
+      if (payload.discount) {
         view = (
           <p className="ps-product__price sale">
             <span>₦</span>
-            {formatCurrency(payload.sale_price)}
+            {formatCurrency(payload.is_discount_active)}
             <del className="ml-2">
               <span>₦</span>
               {formatCurrency(payload.price)}
@@ -157,7 +157,7 @@ export default function useProduct() {
     title: (payload) => {
       let view = (
         <Link href="/product/[pid]" as={`/product/${payload.id}`}>
-          <a className="ps-product__title">{payload.title}</a>
+          <a className="ps-product__title">{payload.name}</a>
         </Link>
       );
       return view;

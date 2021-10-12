@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import ProductRepository from '~/repositories/ProductRepository';
+import ProductRepository from '~/repositories/ProductRepositoryOld';
 import SkeletonProductDetail from '~/components/elements/skeletons/SkeletonProductDetail';
 import BreadCrumb from '~/components/elements/BreadCrumb';
 import ProductWidgets from '~/components/partials/product/ProductWidgets';
@@ -11,75 +11,72 @@ import PageContainer from '~/components/layouts/PageContainer';
 import Newsletters from '~/components/partials/commons/Newletters';
 
 const ProductDefaultPage = () => {
-    const router = useRouter();
-    const { pid } = router.query;
-    const [product, setProduct] = useState(null);
-    const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  const { pid } = router.query;
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-    async function getProduct(pid) {
-        setLoading(true);
-        const responseData = await ProductRepository.getProductsById(pid);
-        if (responseData) {
-            setProduct(responseData);
-            setTimeout(
-                function () {
-                    setLoading(false);
-                }.bind(this),
-                250
-            );
-        }
+  async function getProduct(pid) {
+    setLoading(true);
+    const responseData = await ProductRepository.getProductsById(pid);
+    if (responseData) {
+      setProduct(responseData);
+      setTimeout(
+        function () {
+          setLoading(false);
+        }.bind(this),
+        250
+      );
     }
+  }
 
-    useEffect(() => {
-        getProduct(pid);
-    }, [pid]);
+  useEffect(() => {
+    getProduct(pid);
+  }, [pid]);
 
-    const breadCrumb = [
-        {
-            text: 'Home',
-            url: '/',
-        },
-        {
-            text: 'Shop',
-            url: '/shop',
-        },
-        {
-            text: product ? product.title : 'Loading...',
-        },
-    ];
-    // Views
-    let productView;
-    if (!loading) {
-        if (product) {
-            productView = <ProductDetailAffiliate product={product} />;
-        } else {
-        }
+  const breadCrumb = [
+    {
+      text: 'Home',
+      url: '/',
+    },
+    {
+      text: 'Shop',
+      url: '/shop',
+    },
+    {
+      text: product ? product.title : 'Loading...',
+    },
+  ];
+  // Views
+  let productView;
+  if (!loading) {
+    if (product) {
+      productView = <ProductDetailAffiliate product={product} />;
     } else {
-        productView = <SkeletonProductDetail />;
     }
+  } else {
+    productView = <SkeletonProductDetail />;
+  }
 
-    return (
-        <PageContainer title="Product Afilliate" boxed={true}>
-            <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
-            <div className="ps-page--product">
-                <div className="ps-container">
-                    <div className="ps-page__container">
-                        <div className="ps-page__left">{productView}</div>
-                        <div className="ps-page__right">
-                            <ProductWidgets />
-                        </div>
-                    </div>
-
-                    <CustomerBought
-                        layout="fullwidth"
-                        collectionSlug="deal-of-the-day"
-                    />
-                    <RelatedProduct collectionSlug="shop-recommend-items" />
-                </div>
+  return (
+    <PageContainer title="Product Afilliate" boxed={true}>
+      <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
+      <div className="ps-page--product">
+        <div className="ps-container">
+          <div className="ps-page__container">
+            <div className="ps-page__left">{productView}</div>
+            <div className="ps-page__right">
+              <ProductWidgets />
             </div>
-            <Newsletters layout="container" />
-        </PageContainer>
-    );
+          </div>
+
+          <CustomerBought layout="fullwidth" collectionSlug="deal-of-the-day" />
+          <RelatedProduct collectionSlug="shop-recommend-items" />
+        </div>
+      </div>
+      <Newsletters layout="container" />
+    </PageContainer>
+  );
 };
 
 export default ProductDefaultPage;

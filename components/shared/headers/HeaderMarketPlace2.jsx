@@ -8,12 +8,19 @@ import ElectronicHeaderActions from '~/components/shared/headers/modules/Electro
 import Menu from '~/components/elements/menu/Menu';
 import { stickyHeader } from '~/utilities/common-helpers';
 
-const HeaderMarketPlace2 = () => {
+const HeaderMarketPlace2 = ({ isReady = true }) => {
   useEffect(() => {
     if (process.browser) {
       window.addEventListener('scroll', stickyHeader);
     }
   }, []);
+
+  let headerActions, searchHeader;
+
+  if (isReady) {
+    headerActions = <ElectronicHeaderActions />;
+    searchHeader = <SearchHeader />;
+  }
 
   const menuMarket2 = [
     {
@@ -102,7 +109,7 @@ const HeaderMarketPlace2 = () => {
             </div> */}
           </div>
           <div className="header__content-center">
-            <SearchHeader />
+            {searchHeader}
             {/* <p>
               <Link href="/shop">
                 <a>iphone x</a>
@@ -127,9 +134,7 @@ const HeaderMarketPlace2 = () => {
               </Link>
             </p> */}
           </div>
-          {/* <div className="header__content-right">
-            <ElectronicHeaderActions />
-          </div> */}
+          <div className="header__content-right">{headerActions}</div>
         </div>
       </div>
       {/* <nav className="navigation">
