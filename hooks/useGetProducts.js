@@ -62,12 +62,12 @@ export default function useGetProducts() {
       }
       if (responseData) {
         setProductItems(responseData.data);
-        setTimeout(
-          function () {
-            setLoading(false);
-          }.bind(this),
-          250
-        );
+        // setTimeout(
+        //   function () {
+        //     setLoading(false);
+        //   }.bind(this),
+        //   250
+        // );
       }
     },
 
@@ -76,12 +76,12 @@ export default function useGetProducts() {
       const responseData = await ProductRepository.getProductsById(payload);
       if (responseData) {
         setProduct(responseData);
-        setTimeout(
-          function () {
-            setLoading(false);
-          }.bind(this),
-          250
-        );
+        // setTimeout(
+        //   function () {
+        //     setLoading(false);
+        //   }.bind(this),
+        //   250
+        // );
       }
     },
   };

@@ -75,7 +75,7 @@ const ShopItems = ({ columns = 4, pageSize = 12 }) => {
       };
     }
     // getTotalRecords();
-    getProducts({ limit: 10 });
+    getProducts({ limit: 10, offset: 0 });
     handleSetColumns();
   }, [query]);
 
