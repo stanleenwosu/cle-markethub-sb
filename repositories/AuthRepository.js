@@ -6,7 +6,7 @@ class AuthRepository {
   }
 
   async login(payload) {
-    const endPoint = `login`;
+    const endPoint = `customers/login`;
     const response = await Repository.post(
       `${basePostUrl}/${endPoint}`,
       payload
@@ -21,7 +21,7 @@ class AuthRepository {
   }
 
   async register(payload) {
-    const endPoint = `signup`;
+    const endPoint = `customers/signup`;
     const response = await Repository.post(
       `${basePostUrl}/${endPoint}`,
       payload

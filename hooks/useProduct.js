@@ -46,27 +46,34 @@ export default function useProduct() {
   return {
     thumbnailImage: (payload) => {
       if (payload) {
-        if (payload.thumbnail) {
+        if (payload.images) {
           return (
             <>
               <LazyLoad>
                 <img
-                  src={getImageURL(payload.thumbnail)}
-                  alt={getImageURL(payload.thumbnail)}
+                  src="/static/img/prod-placeholder.gif"
+                  alt="cle-product-placeholder-available"
                 />
               </LazyLoad>
             </>
+          );
+        } else {
+          return (
+            <img
+              src="/static/img/prod-placeholder.gif"
+              alt="cle-product-placeholder"
+            />
           );
         }
       }
     },
     price: (payload) => {
       let view;
-      if (payload.discount) {
+      if (payload.discount_price) {
         view = (
           <p className="ps-product__price sale">
             <span>₦</span>
-            {formatCurrency(payload.is_discount_active)}
+            {formatCurrency(payload.discount_price)}
             <del className="ml-2">
               <span>₦</span>
               {formatCurrency(payload.price)}

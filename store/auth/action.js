@@ -1,6 +1,7 @@
 export const actionTypes = {
   LOGIN_REQUEST: 'LOGIN_REQUEST',
   REGISTER_REQUEST: 'REGISTER_REQUEST',
+  USER_SUCCESS: 'USER_SUCCESS',
   LOGIN_SUCCESS: 'LOGIN_SUCCESS',
   REGISTER_SUCCESS: 'REGISTER_SUCCESS',
   LOGOUT: 'LOGOUT',
@@ -14,6 +15,10 @@ export function login(payload) {
 
 export function register(payload) {
   return { type: actionTypes.REGISTER_REQUEST, payload };
+}
+
+export function userSuccess(payload) {
+  return { type: actionTypes.USER_SUCCESS, payload };
 }
 
 export function loginSuccess(payload) {

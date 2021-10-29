@@ -19,17 +19,17 @@ const ProductDefaultPage = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  async function getProduct(pid) {
+  async function getProduct(id) {
     setLoading(true);
-    const responseData = await ProductRepository.getProductsById(pid);
+    const responseData = await ProductRepository.getProductsById(id);
     if (responseData) {
-      setProduct(responseData);
-      setTimeout(
-        function () {
-          setLoading(false);
-        }.bind(this),
-        250
-      );
+      setProduct(responseData.data);
+      setLoading(false);
+      // setTimeout(
+      //   function () {
+      //   }.bind(this),
+      //   250
+      // );
     }
   }
 
@@ -47,7 +47,7 @@ const ProductDefaultPage = () => {
       url: '/shop',
     },
     {
-      text: product ? product.title : 'Loading...',
+      text: product ? product.name : 'Loading...',
     },
   ];
   // Views
@@ -75,7 +75,7 @@ const ProductDefaultPage = () => {
 
   return (
     <PageContainer
-      header={headerView}
+      // header={headerView}
       title={product ? product.title : 'Loading...'}>
       <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
       <div className="ps-page--product">

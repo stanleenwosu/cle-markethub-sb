@@ -10,14 +10,14 @@ const Product = ({ product }) => {
     <div className="ps-product">
       <div className="ps-product__thumbnail">
         <Link href="/product/[pid]" as={`/product/${product.id}`}>
-          <a>{/* {thumbnailImage(product)} */}</a>
+          <a>{thumbnailImage(product)}</a>
         </Link>
         {/* {badge(product)} */}
         <ModuleProductActions product={product} />
       </div>
       <div className="ps-product__container">
         <Link href="/shop">
-          <a className="ps-product__vendor">Young Shop</a>
+          <a className="ps-product__vendor">{product.shop_name}</a>
         </Link>
         <div className="ps-product__content">
           {title(product)}

@@ -62,6 +62,8 @@ export default function useGetProducts() {
       }
       if (responseData) {
         setProductItems(responseData.data);
+        setLoading(false);
+
         // setTimeout(
         //   function () {
         //     setLoading(false);
@@ -76,6 +78,8 @@ export default function useGetProducts() {
       const responseData = await ProductRepository.getProductsById(payload);
       if (responseData) {
         setProduct(responseData);
+        setLoading(false);
+
         // setTimeout(
         //   function () {
         //     setLoading(false);

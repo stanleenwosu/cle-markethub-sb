@@ -159,7 +159,7 @@ export default function useEcomerce() {
       }
     },
 
-    addItemToCart: (newItem, group) => {
+    addItemToCart: (newItem, group = 'cart') => {
       let cartItems = cookies.cart || [];
       const existItem = cartItems.find((x) => x.id === newItem.id);
 

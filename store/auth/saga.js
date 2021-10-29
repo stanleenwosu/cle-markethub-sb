@@ -1,7 +1,13 @@
 import { call, all, put, takeEvery } from 'redux-saga/effects';
 import { notification } from 'antd';
 
-import { actionTypes, login, loginSuccess, logOutSuccess } from './action';
+import {
+  actionTypes,
+  login,
+  loginSuccess,
+  logOutSuccess,
+  userSuccess,
+} from './action';
 import AuthRepository from '~/repositories/AuthRepository';
 import UserRepository from '~/repositories/UserRepository';
 
@@ -25,7 +31,9 @@ function* loginSaga(action) {
     const { data: user } = yield call(UserRepository.getUser, {
       id: auth.data.id,
     });
-    yield put(loginSuccess(user));
+    localStorage.setItem('token', auth.data.token);
+    yield put(loginSuccess(auth.data));
+    yield put(userSuccess(user));
     modalSuccess('success');
   } catch (err) {
     console.log('err: ', err);
