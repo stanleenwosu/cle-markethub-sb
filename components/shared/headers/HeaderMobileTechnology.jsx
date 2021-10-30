@@ -14,13 +14,13 @@ class HeaderMobileTechnology extends Component {
       <header className="header header--mobile technology">
         <div className="header__top">
           <div className="header__left">
-            <p>Welcome to Martfury Online Shopping Store !</p>
+            <p>Welcome to CLE Marketplace Online Shopping Store !</p>
           </div>
           <div className="header__right">
             <ul className="navigation__extra">
               <li>
                 <Link href="/vendor/become-a-vendor">
-                  <a>Sell on Martfury</a>
+                  <a>Sell on CLE Marketplace</a>
                 </Link>
               </li>
               <li>
@@ -44,7 +44,7 @@ class HeaderMobileTechnology extends Component {
                 <img
                   height="30"
                   src="/static/img/logo-white.png"
-                  alt="martfury"
+                  alt="CLE Marketplace"
                 />
               </a>
             </Link>

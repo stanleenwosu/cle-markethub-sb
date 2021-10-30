@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Modal } from 'antd';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import ProductDetailQuickView from '~/components/elements/detail/ProductDetailQuickView';
 import useEcomerce from '~/hooks/useEcomerce';
 
 const ModuleProductActions = ({ product, ecomerce }) => {
+  const auth = useSelector((state) => state.auth);
   const [isQuickView, setIsQuickView] = useState(false);
   const { addItem, addItemToCart } = useEcomerce();
 
@@ -46,16 +47,20 @@ const ModuleProductActions = ({ product, ecomerce }) => {
   };
   return (
     <ul className="ps-product__actions">
-      <li>
-        <a
-          href="#"
-          data-toggle="tooltip"
-          data-placement="top"
-          title="Add To Cart"
-          onClick={handleAddItemToCart}>
-          <i className="icon-bag2"></i>
-        </a>
-      </li>
+      {auth.isLoggedIn ? (
+        <li>
+          <a
+            href="#"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Add To Cart"
+            onClick={handleAddItemToCart}>
+            <i className="icon-bag2"></i>
+          </a>
+        </li>
+      ) : (
+        'Login to Add to Cart'
+      )}
       <li>
         <a
           href="#"
@@ -66,16 +71,19 @@ const ModuleProductActions = ({ product, ecomerce }) => {
           <i className="icon-eye"></i>
         </a>
       </li>
-      <li>
-        <a
-          href="#"
-          data-toggle="tooltip"
-          data-placement="top"
-          title="Add to wishlist"
-          onClick={handleAddItemToWishlist}>
-          <i className="icon-heart"></i>
-        </a>
-      </li>
+      {auth.isLoggedIn ? (
+        <li>
+          <a
+            href="#"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Add to wishlist"
+            onClick={handleAddItemToWishlist}>
+            <i className="icon-heart"></i>
+          </a>
+        </li>
+      ) : null}
+
       {/* <li>
                 <a
                     href="#"

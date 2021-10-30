@@ -31,9 +31,10 @@ function* loginSaga(action) {
     const { data: user } = yield call(UserRepository.getUser, {
       id: auth.data.id,
     });
-    // localStorage.setItem('token', auth.data.token);
+
     yield put(loginSuccess(auth.data));
-    yield put(userSuccess(user));
+    const fullUser = { ...user, ...auth.data };
+    yield put(userSuccess(fullUser));
     modalSuccess('success');
   } catch (err) {
     console.log('err: ', err);

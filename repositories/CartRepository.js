@@ -5,9 +5,57 @@ class CartRepository {
     this.callback = callback;
   }
 
-  async getUserCart(payload) {
-    const endPoint = `carts/${payload.userId}`;
+  async getUserCartId(payload) {
+    const endPoint = `${payload.userId}/cart`;
     const response = await Repository.get(`${basePostUrl}/${endPoint}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((e) => ({
+        error: JSON.stringify(e),
+      }));
+    return response;
+  }
+
+  async getUserCart(payload) {
+    const endPoint = `${payload.userId}/cart`;
+    const response = await Repository.get(`${basePostUrl}/${endPoint}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((e) => ({
+        error: JSON.stringify(e),
+      }));
+    return response;
+  }
+
+  async deleteCart(payload) {
+    const endPoint = `carts/${payload.cartId}/items`;
+    const response = await Repository.delete(`${basePostUrl}/${endPoint}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((e) => ({
+        error: JSON.stringify(e),
+      }));
+    return response;
+  }
+
+  async deleteItem(payload) {
+    const endPoint = `carts/${payload.cartId}/items/${payload.itemId}`;
+    const response = await Repository.delete(`${basePostUrl}/${endPoint}`)
+      .then(() => {
+        return response.data;
+      })
+      .catch((e) => ({
+        error: JSON.stringify(error),
+      }));
+    return response;
+  }
+
+  async editCart(payload) {
+    const endPoint = `carts/${payload.cartId}/items/${payload.itemId}`;
+    const response = await Repository.delete(`${basePostUrl}/${endPoint}`)
       .then(() => {
         return response.data;
       })

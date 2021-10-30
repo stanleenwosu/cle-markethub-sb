@@ -22,11 +22,11 @@ const UserInformation = () => {
       url: '/account/invoices',
       icon: 'icon-papers',
     },
-    {
-      text: 'Address',
-      url: '/account/addresses',
-      icon: 'icon-map-marker',
-    },
+    // {
+    //   text: 'Address',
+    //   url: '/account/addresses',
+    //   icon: 'icon-map-marker',
+    // },
     // {
     //   text: 'Recent Viewed Product',
     //   url: '/account/recent-viewed-product',

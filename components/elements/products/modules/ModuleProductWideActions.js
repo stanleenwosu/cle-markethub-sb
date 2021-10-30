@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { Modal } from 'antd';
 import useProduct from '~/hooks/useProduct';
 import useEcomerce from '~/hooks/useEcomerce';
@@ -7,6 +7,7 @@ import useEcomerce from '~/hooks/useEcomerce';
 const ModuleProductWideActions = ({ ecomerce, product }) => {
   const { price } = useProduct();
   const { addItem, addItemToCart } = useEcomerce();
+  const auth = useSelector((state) => state.auth);
 
   function handleAddItemToCart(e) {
     e.preventDefault();
@@ -43,9 +44,13 @@ const ModuleProductWideActions = ({ ecomerce, product }) => {
   return (
     <div className="ps-product__shopping">
       {price(product)}
-      <a className="ps-btn" href="#" onClick={(e) => handleAddItemToCart(e)}>
-        Add to cart
-      </a>
+      {auth.isLoggedIn ? (
+        <a className="ps-btn" href="#" onClick={(e) => handleAddItemToCart(e)}>
+          Add to cart
+        </a>
+      ) : (
+        'Login to Add to Cart'
+      )}
       <ul className="ps-product__actions">
         <li>
           <a href="#" onClick={(e) => handleAddItemToWishlist(e)}>

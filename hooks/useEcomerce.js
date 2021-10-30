@@ -3,11 +3,7 @@ import ProductRepository from '~/repositories/ProductRepositoryOld';
 import CartRepository from '~/repositories/CartRepository';
 import { useCookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
-import {
-  setCompareItems,
-  setWishlistTtems,
-  setCartItems,
-} from '~/store/ecomerce/action';
+import { getCartItems, deleteCartItem } from '~/store/ecomerce/action';
 
 export default function useEcomerce() {
   const dispatch = useDispatch();
@@ -19,6 +15,11 @@ export default function useEcomerce() {
     loading,
     cookies,
     products,
+    removeItemFromCart: async ({ itemId, cartId, userId }) => {
+      await dispatch(deleteCartItem({ itemId, cartId }));
+      await dispatch(getCartItems(userId));
+    },
+
     getProducts: async (payload, group = '') => {
       setLoading(true);
       if (payload && payload.length > 0) {
@@ -170,19 +171,6 @@ export default function useEcomerce() {
       } else {
         cartItems.push(newItem);
       }
-
-      // push to cookies
-      if (group === 'cart') {
-        setCookie('cart', cartItems, { path: '/' });
-      }
-    },
-
-    removeItemFromCart: (id, group = 'cart') => {
-      let cartItems = cookies.cart || [];
-      const index = cartItems.findIndex((x) => x.id === id);
-
-      // remove Item
-      cartItems.splice(index, 1);
 
       // push to cookies
       if (group === 'cart') {

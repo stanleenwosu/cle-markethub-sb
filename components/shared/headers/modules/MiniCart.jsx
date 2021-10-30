@@ -6,32 +6,43 @@ import useEcomerce from '~/hooks/useEcomerce';
 import { calculateAmount } from '~/utilities/ecomerce-helpers';
 import { useCookies } from 'react-cookie';
 import Cookies from 'js-cookie';
+import {
+  getCartItems,
+  deleteCartItem,
+} from '../../../../store/ecomerce/action';
 
-const MiniCart = ({ ecomerce }) => {
+const MiniCart = ({ ecomerce, auth, dispatch, ...rest }) => {
+  // console.log('🚀 ~ MiniCart ~ rest', rest);
   const { removeItem, removeItems, getProducts, removeItemFromCart } =
     useEcomerce();
 
-  function handleRemoveItem(e, id) {
-    console.log('🚀 ~ handleRemoveItem ~ e', id);
+  function handleRemoveItem(e, itemId, cartId) {
     e.preventDefault();
-    removeItemFromCart(id);
+    removeItemFromCart({ itemId, cartId, userId: auth.user.id });
+    // dispatch(deleteCartItem({ itemId, cartId }));
+    // dispatch(getCartItems(auth.user.id));
+    // removeItemFromCart(id);
   }
 
   const [cookie] = useCookies(['cart']);
+
+  useEffect(() => {
+    dispatch(getCartItems(auth.user.id));
+  }, [auth]);
 
   //   useEffect(() => {
   //     getCartItems();
   //   }, [ecomerce]);
 
   let cartItemsView;
-  if (cookie.cart && cookie.cart.length > 0) {
-    const amount = calculateAmount(cookie.cart);
-    const productItems = cookie.cart.map((item) => {
+  if (ecomerce.cartItems && ecomerce.cartItems.length > 0) {
+    const amount = calculateAmount(ecomerce.cartItems);
+    const productItems = ecomerce.cartItems.map((item) => {
       return (
         <ProductOnCart product={item} key={item.id}>
           <a
             className="ps-product__remove"
-            onClick={(e) => handleRemoveItem(e, item.id)}>
+            onClick={(e) => handleRemoveItem(e, item.id, item.cart_id)}>
             <i className="icon-cross"></i>
           </a>
         </ProductOnCart>
@@ -71,7 +82,7 @@ const MiniCart = ({ ecomerce }) => {
       <a className="header__extra" href="#">
         <i className="icon-bag2"></i>
         <span>
-          <i>{cookie.cart ? cookie.cart.length : 0}</i>
+          <i>{ecomerce.cartItems ? ecomerce.cartItems.length : 0}</i>
         </span>
       </a>
       {cartItemsView}
