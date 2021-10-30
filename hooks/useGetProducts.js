@@ -8,45 +8,36 @@ import ProductRepository from '~/repositories/ProductRepository';
 export default function useGetProducts() {
   const [loading, setLoading] = useState(false);
   const [productItems, setProductItems] = useState(null);
+  const [categories, setCategories] = useState(null);
   const [product, setProduct] = useState(null);
   return {
     loading,
     productItems,
     product,
+    categories,
     setProductItems: (payload) => {
       setProductItems(payload);
+    },
+    setCategories: (payload) => {
+      setCategories(payload);
     },
 
     setLoading: (payload) => {
       setLoading(payload);
     },
 
-    getProductsByCollection: async (payload) => {
+    getAllCategories: async () => {
       setLoading(true);
-      const responseData = await getProductsByCollectionHelper(payload);
-      if (responseData) {
-        setProductItems(responseData.items);
-        setTimeout(
-          function () {
-            setLoading(false);
-          }.bind(this),
-          250
-        );
-      }
+      const responseData = await ProductRepository.getCategories();
+      setCategories(responseData.data);
+      setLoading(false);
     },
 
-    getProductsByCategory: async (payload) => {
+    getProductsByCategory: async (id) => {
       setLoading(true);
-      const responseData = await getProductsByCategoriesHelper(payload);
-      if (responseData) {
-        setProductItems(responseData.items);
-        setTimeout(
-          function () {
-            setLoading(false);
-          }.bind(this),
-          250
-        );
-      }
+      const responseData = await ProductRepository.getCategoryProducts(id);
+      setProductItems(responseData.data);
+      setLoading(false);
     },
 
     getProducts: async (payload) => {

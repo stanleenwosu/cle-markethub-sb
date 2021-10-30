@@ -11,9 +11,7 @@ function reducer(state = initState, actions) {
     case actionTypes.LOGIN_SUCCESS:
       return {
         ...state,
-        ...{
-          isLoggedIn: true,
-        },
+        isLoggedIn: true,
         token: actions.payload.token,
       };
     case actionTypes.USER_SUCCESS:
@@ -24,7 +22,9 @@ function reducer(state = initState, actions) {
     case actionTypes.LOGOUT_SUCCESS:
       return {
         ...state,
-        ...{ isLoggedIn: false, user: {} },
+        token: '',
+        isLoggedIn: false,
+        user: {},
       };
     default:
       return state;

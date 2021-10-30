@@ -28,6 +28,31 @@ class ProductRepository {
       });
     return response;
   }
+
+  async getCategories() {
+    const endPoint = `product_categories`;
+    const response = await Repository.get(`${basePostUrl}/${endPoint}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response;
+  }
+
+  async getCategoryProducts(category_id) {
+    const params = { filter: true, category_id, limit: 10, offset: 0 };
+    const endPoint = `products?${serializeQuery(params)}`;
+    const response = await Repository.get(`${basePostUrl}/${endPoint}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response;
+  }
 }
 
 export default new ProductRepository();
