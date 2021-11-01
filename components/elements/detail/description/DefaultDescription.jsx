@@ -10,19 +10,19 @@ import PartialOffer from '~/components/elements/detail/description/PartialOffer'
 const { TabPane } = Tabs;
 
 const DefaultDescription = () => {
-    return (
-        <div className="ps-product__content ps-tab-root">
-            <Tabs defaultActiveKey="1">
-                <TabPane tab="Description" key="1">
-                    <PartialDescription />
-                </TabPane>
-                <TabPane tab="Specification" key="2">
-                    <PartialSpecification />
-                </TabPane>
-                <TabPane tab="Vendor" key="3">
-                    <PartialVendor />
-                </TabPane>
-                <TabPane tab="Reviews (1)" key="4">
+  return (
+    <div className="ps-product__content ps-tab-root">
+      <Tabs defaultActiveKey="1">
+        <TabPane tab="Description" key="1">
+          <PartialDescription />
+        </TabPane>
+        <TabPane tab="Specification" key="2">
+          <PartialSpecification />
+        </TabPane>
+        <TabPane tab="Vendor" key="3">
+          <PartialVendor />
+        </TabPane>
+        {/* <TabPane tab="Reviews (1)" key="4">
                     <PartialReview />
                 </TabPane>
                 <TabPane tab="Questions and Answers" key="5">
@@ -30,10 +30,10 @@ const DefaultDescription = () => {
                 </TabPane>
                 <TabPane tab="More Offers" key="6">
                     <PartialOffer />
-                </TabPane>
-            </Tabs>
-        </div>
-    );
+                </TabPane> */}
+      </Tabs>
+    </div>
+  );
 };
 
 export default DefaultDescription;

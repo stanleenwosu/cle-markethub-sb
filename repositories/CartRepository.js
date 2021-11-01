@@ -53,6 +53,22 @@ class CartRepository {
     return response;
   }
 
+  async addItem(payload) {
+    const endPoint = `carts/${payload.cartId}/items`;
+    const response = await Repository.put(`${basePostUrl}/${endPoint}`, {
+      product_id: payload.itemId,
+      cart_id: payload.cartId,
+      quantity: payload.quantity ? payload.quantity : 1,
+    })
+      .then(() => {
+        return response.data;
+      })
+      .catch((e) => ({
+        error: JSON.stringify(error),
+      }));
+    return response;
+  }
+
   async editCart(payload) {
     const endPoint = `carts/${payload.cartId}/items/${payload.itemId}`;
     const response = await Repository.delete(`${basePostUrl}/${endPoint}`)

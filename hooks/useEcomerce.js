@@ -3,7 +3,11 @@ import ProductRepository from '~/repositories/ProductRepositoryOld';
 import CartRepository from '~/repositories/CartRepository';
 import { useCookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
-import { getCartItems, deleteCartItem } from '~/store/ecomerce/action';
+import {
+  getCartItems,
+  deleteCartItem,
+  addCartItem,
+} from '~/store/ecomerce/action';
 
 export default function useEcomerce() {
   const dispatch = useDispatch();
@@ -17,6 +21,11 @@ export default function useEcomerce() {
     products,
     removeItemFromCart: async ({ itemId, cartId, userId }) => {
       await dispatch(deleteCartItem({ itemId, cartId }));
+      await dispatch(getCartItems(userId));
+    },
+
+    addItemToCart: async ({ itemId, cartId, quantity, userId }) => {
+      await dispatch(addCartItem({ itemId, cartId, quantity }));
       await dispatch(getCartItems(userId));
     },
 
@@ -160,23 +169,23 @@ export default function useEcomerce() {
       }
     },
 
-    addItemToCart: (newItem, group = 'cart') => {
-      let cartItems = cookies.cart || [];
-      const existItem = cartItems.find((x) => x.id === newItem.id);
+    // addItemToCart: (newItem, group = 'cart') => {
+    //   let cartItems = cookies.cart || [];
+    //   const existItem = cartItems.find((x) => x.id === newItem.id);
 
-      // if item exist to increase quantity else add to local cart
-      if (existItem) {
-        const index = cartItems.findIndex((item) => (item.id = existItem.id));
-        cartItems[index].quantity += existItem.quantity;
-      } else {
-        cartItems.push(newItem);
-      }
+    //   // if item exist to increase quantity else add to local cart
+    //   if (existItem) {
+    //     const index = cartItems.findIndex((item) => (item.id = existItem.id));
+    //     cartItems[index].quantity += existItem.quantity;
+    //   } else {
+    //     cartItems.push(newItem);
+    //   }
 
-      // push to cookies
-      if (group === 'cart') {
-        setCookie('cart', cartItems, { path: '/' });
-      }
-    },
+    //   // push to cookies
+    //   if (group === 'cart') {
+    //     setCookie('cart', cartItems, { path: '/' });
+    //   }
+    // },
 
     getCartItems: async (userId) => {
       setLoading(true);

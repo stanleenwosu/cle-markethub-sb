@@ -22,8 +22,8 @@ const ThumbnailDefault = ({ product, vertical = true }) => {
 
   useEffect(() => {
     let images = [];
-    if (product.images?.length > 0) {
-      product.images.map((item) => {
+    if (product.images && JSON.parse(product.images).length > 0) {
+      JSON.parse(product.images).map((item) => {
         images.push(`${baseUrl}${item.url}`);
       });
       setProductImages(images);

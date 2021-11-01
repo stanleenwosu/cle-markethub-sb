@@ -7,19 +7,21 @@ import useEcomerce from '~/hooks/useEcomerce';
 const ModuleDetailShoppingActions = ({
   ecomerce,
   product,
+  auth,
   extended = false,
 }) => {
   const [quantity, setQuantity] = useState(1);
   const Router = useRouter();
   const { addItem, addItemToCart } = useEcomerce();
-  function handleAddItemToCart(e) {
+
+  function handleAddItemToCart(e, itemId, cartId) {
     e.preventDefault();
-    addItemToCart({ quantity, ...product }, 'cart');
+    addItemToCart({ itemId, cartId, userId: auth.user.id });
   }
 
-  function handleBuynow(e) {
+  function handleBuynow(e, itemId, cartId) {
     e.preventDefault();
-    addItemToCart({ quantity, ...product }, 'cart');
+    addItemToCart({ itemId, cartId, userId: auth.user.id });
     setTimeout(function () {
       Router.push('/account/checkout');
     }, 1000);
@@ -62,7 +64,7 @@ const ModuleDetailShoppingActions = ({
   if (!extended) {
     return (
       <div className="ps-product__shopping">
-        <figure>
+        {/* <figure>
           <figcaption>Quantity</figcaption>
           <div className="form-group--number">
             <button className="up" onClick={(e) => handleIncreaseItemQty(e)}>
@@ -78,21 +80,24 @@ const ModuleDetailShoppingActions = ({
               disabled
             />
           </div>
-        </figure>
+        </figure> */}
         <a
           className="ps-btn ps-btn--black"
           href="#"
-          onClick={(e) => handleAddItemToCart(e)}>
+          onClick={(e) => handleAddItemToCart(e, product.id, item.cart_id)}>
           Add to cart
         </a>
-        <a className="ps-btn" href="#" onClick={(e) => handleBuynow(e)}>
+        <a
+          className="ps-btn"
+          href="#"
+          onClick={(e) => handleBuynow(e, product.id, item.cart_id)}>
           Buy Now
         </a>
-        <div className="ps-product__actions">
+        {/* <div className="ps-product__actions">
           <a href="#" onClick={(e) => handleAddItemToWishlist(e)}>
             <i className="icon-heart"></i>
           </a>
-        </div>
+        </div> */}
       </div>
     );
   } else {

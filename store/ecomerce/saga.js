@@ -16,6 +16,10 @@ function* getCartItems({ payload }) {
     const { data } = yield call(CartRepository.getUserCart, {
       userId: payload,
     });
+    // const { data: cartId } = yield call(CartRepository.getUserCartId, {
+    //   userId: payload,
+    // });
+    // console.log('🚀 ~ function*getCartItems ~ cartId', cartId);
     console.log('🚀 ~ function*getCartItems ~ data', data);
 
     yield put(setCartItemsSuccess(data));
@@ -30,9 +34,18 @@ function* deleteCartItem({ payload }) {
       cartId: payload.cartId,
       itemId: payload.itemId,
     });
-    console.log('🚀 ~ function*deleteCartItem ~ data', data);
+    // console.log('🚀 ~ function*deleteCartItem ~ data', data);
   } catch (error) {
     console.log('🚀 ~ function*deleteCartItem ~ error', error);
+  }
+}
+
+function* addCartItem({ payload }) {
+  try {
+    const { data } = yield call(CartRepository.addItem, payload);
+    console.log('🚀 ~ function*addCartItem ~ data', data);
+  } catch (error) {
+    console.log('🚀 ~ function*addCartItem ~ error', error);
   }
 }
 
@@ -56,6 +69,7 @@ export default function* rootSaga() {
   // new
   yield all([takeEvery(actionTypes.GET_CART_ITEMS, getCartItems)]);
   yield all([takeEvery(actionTypes.DELETE_CART_ITEM, deleteCartItem)]);
+  yield all([takeEvery(actionTypes.ADD_CART_ITEM, addCartItem)]);
   yield all([takeEvery(actionTypes.SET_WISHLIST_ITEMS, getWishlistItems)]);
   yield all([takeEvery(actionTypes.SET_COMPARE_ITEMS, getCompareItems)]);
 }

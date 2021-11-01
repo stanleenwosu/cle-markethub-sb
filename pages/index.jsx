@@ -58,6 +58,14 @@ const ShopDefaultPage = () => {
                     category={categories[1]}
                     title={categories[1].name}
                   />
+                  <ProductGroupByCarousel
+                    category={categories[2]}
+                    title={categories[2].name}
+                  />
+                  <ProductGroupByCarousel
+                    category={categories[3]}
+                    title={categories[3].name}
+                  />
                 </>
               ) : null}
 
