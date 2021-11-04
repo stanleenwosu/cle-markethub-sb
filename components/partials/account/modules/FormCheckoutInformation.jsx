@@ -3,31 +3,29 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { connect } from 'react-redux';
 import { Form, Input } from 'antd';
+import { saveDelivery } from '~/store/order/action';
 
 class FormCheckoutInformation extends Component {
   constructor(props) {
     super(props);
   }
 
-  handleLoginSubmit = () => {
+  handleSubmit = (e) => {
+    console.log('🚀 ~ FormCheckoutInformation ~ e', e);
+    const { apartment, name, ...form } = e;
+    console.log('🚀 ~ FormCheckoutInformation ~ this.props', this.props);
+    this.props.dispatch(saveDelivery(form));
     Router.push('/account/shipping');
   };
 
   render() {
-    console.log(`this.props form`, this.props);
     return (
-      <Form className="ps-form__billing-info" onFinish={this.handleLoginSubmit}>
+      <Form
+        className="ps-form__billing-info"
+        onFinish={this.handleSubmit.bind(this)}>
         <h3 className="ps-form__heading">Contact information</h3>
         <div className="form-group">
-          <Form.Item
-            name="name"
-            // rules={[
-            //   {
-            //     required: false,
-            //     message: 'Enter an email or mobile phone number!',
-            //   },
-            //         ]}
-          >
+          <Form.Item name="name">
             <Input
               className="form-control"
               type="text"
@@ -46,50 +44,12 @@ class FormCheckoutInformation extends Component {
           </div>
         </div>
         <h3 className="ps-form__heading">Shipping address</h3>
-        <div className="row">
-          <div className="col-sm-6">
-            <div className="form-group">
-              <Form.Item
-                name="firstName"
-                rules={[
-                  {
-                    required: false,
-                    message: 'Enter your first name!',
-                  },
-                ]}>
-                <Input
-                  className="form-control"
-                  type="text"
-                  placeholder="First Name"
-                />
-              </Form.Item>
-            </div>
-          </div>
-          <div className="col-sm-6">
-            <div className="form-group">
-              <Form.Item
-                name="lastName"
-                rules={[
-                  {
-                    required: false,
-                    message: 'Enter your last name!',
-                  },
-                ]}>
-                <Input
-                  className="form-control"
-                  type="text"
-                  placeholder="Last Name"
-                />
-              </Form.Item>
-            </div>
-          </div>
-        </div>
         <div className="form-group">
           <Form.Item
             name="address"
             rules={[
               {
-                required: false,
+                required: true,
                 message: 'Enter an address!',
               },
             ]}>
@@ -119,7 +79,7 @@ class FormCheckoutInformation extends Component {
                 name="city"
                 rules={[
                   {
-                    required: false,
+                    required: true,
                     message: 'Enter a city!',
                   },
                 ]}>
@@ -134,23 +94,23 @@ class FormCheckoutInformation extends Component {
           <div className="col-sm-6">
             <div className="form-group">
               <Form.Item
-                name="postalCode"
+                name="state"
                 rules={[
                   {
-                    required: false,
-                    message: 'Enter a postal oce!',
+                    required: true,
+                    message: 'Enter a state!',
                   },
                 ]}>
                 <Input
                   className="form-control"
-                  type="postalCode"
-                  placeholder="Postal Code"
+                  type="text"
+                  placeholder="State"
                 />
               </Form.Item>
             </div>
           </div>
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <div className="ps-checkbox">
             <input
               className="form-control"
@@ -161,9 +121,9 @@ class FormCheckoutInformation extends Component {
               Save this information for next time
             </label>
           </div>
-        </div>
+        </div> */}
         <div className="ps-form__submit">
-          <Link href="/account/cart">
+          <Link href="/account/shopping-cart">
             <a>
               <i className="icon-arrow-left mr-2"></i>
               Return to shopping cart

@@ -48,7 +48,6 @@ export default function useProduct() {
     thumbnailImage: (payload, height) => {
       if (payload) {
         if (payload.images && payload.images.length > 0) {
-          console.log('🚀 ~ useProduct ~ payload.images', payload.images);
           return (
             <>
               <LazyLoad>

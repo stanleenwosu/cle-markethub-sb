@@ -47,24 +47,26 @@ class Login extends Component {
   };
 
   handleCookies = () => {
-    this.props.allCookies.cart.forEach(async (element) => {
-      const data = await CartRepository.getUserCartId({
-        customerId: this.props.auth.user.customer_id,
+    if (this.props.Cookies.cart) {
+      this.props.allCookies.cart.forEach(async (element) => {
+        const data = await CartRepository.getUserCartId({
+          customerId: this.props.auth.user.customer_id,
+        });
+        this.props.dispatch(
+          addCartItem({
+            itemId: element.id,
+            cartId: data.data.id,
+            quantity: element.quantity,
+          })
+        );
       });
       this.props.dispatch(
-        addCartItem({
-          itemId: element.id,
-          cartId: data.data.id,
-          quantity: element.quantity,
+        getCartItems({
+          userId: this.props.auth.user.id,
+          customerId: this.props.auth.user.customer_id,
         })
       );
-    });
-    this.props.dispatch(
-      getCartItems({
-        userId: this.props.auth.user.id,
-        customerId: this.props.auth.user.customer_id,
-      })
-    );
+    }
   };
 
   render() {
