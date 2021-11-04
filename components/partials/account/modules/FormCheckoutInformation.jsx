@@ -32,6 +32,7 @@ class FormCheckoutInformation extends Component {
                             className="form-control"
                             type="text"
                             placeholder="Email or phone number"
+                            value={}
                         />
                     </Form.Item>
                 </div>

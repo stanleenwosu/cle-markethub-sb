@@ -13,21 +13,36 @@ import {
 
 const MiniCart = ({ ecomerce, auth, dispatch, ...rest }) => {
   // console.log('🚀 ~ MiniCart ~ rest', rest);
-  const { removeItem, removeItems, getProducts, removeItemFromCart } =
-    useEcomerce();
+  const { removeItemCartLocal, removeItemFromCart } = useEcomerce();
+  const [cookies] = useCookies(['cart']);
 
   function handleRemoveItem(e, itemId, cartId) {
     e.preventDefault();
-    removeItemFromCart({ itemId, cartId, userId: auth.user.id });
+    if (auth.isLoggedIn) {
+      removeItemFromCart({
+        itemId,
+        cartId,
+        userId: auth.user.id,
+        customerId: auth.user.customer_id,
+      });
+    } else {
+      removeItemCartLocal(itemId);
+    }
+
     // dispatch(deleteCartItem({ itemId, cartId }));
     // dispatch(getCartItems(auth.user.id));
     // removeItemFromCart(id);
   }
 
-  const [cookie] = useCookies(['cart']);
-
   useEffect(() => {
-    dispatch(getCartItems(auth.user.id));
+    if (auth.isLoggedIn) {
+      dispatch(
+        getCartItems({
+          userId: auth.user.id,
+          customerId: auth.user.customer_id,
+        })
+      );
+    }
   }, [auth]);
 
   //   useEffect(() => {
@@ -35,46 +50,92 @@ const MiniCart = ({ ecomerce, auth, dispatch, ...rest }) => {
   //   }, [ecomerce]);
 
   let cartItemsView;
-  if (ecomerce.cartItems && ecomerce.cartItems.length > 0) {
-    const amount = calculateAmount(ecomerce.cartItems);
-    const productItems = ecomerce.cartItems.map((item) => {
-      return (
-        <ProductOnCart product={item} key={item.id}>
-          <a
-            className="ps-product__remove"
-            onClick={(e) => handleRemoveItem(e, item.id, item.cart_id)}>
-            <i className="icon-cross"></i>
-          </a>
-        </ProductOnCart>
+  if (auth.isLoggedIn) {
+    // logged in
+    if (ecomerce.cartItems && ecomerce.cartItems.length > 0) {
+      const amount = calculateAmount(ecomerce.cartItems);
+      const productItems = ecomerce.cartItems.map((item) => {
+        return (
+          <ProductOnCart product={item} key={item.id}>
+            <a
+              className="ps-product__remove"
+              onClick={(e) => handleRemoveItem(e, item.id, item.cart_id)}>
+              <i className="icon-cross"></i>
+            </a>
+          </ProductOnCart>
+        );
+      });
+      cartItemsView = (
+        <div className="ps-cart__content">
+          <div className="ps-cart__items">{productItems}</div>
+          <div className="ps-cart__footer">
+            <h3>
+              Sub Total:
+              <strong>₦{amount ? amount : 0}</strong>
+            </h3>
+            <figure>
+              <Link href="/account/shopping-cart">
+                <a className="ps-btn">View Cart</a>
+              </Link>
+              <Link href="/account/checkout">
+                <a className="ps-btn">Checkout</a>
+              </Link>
+            </figure>
+          </div>
+        </div>
       );
-    });
-    cartItemsView = (
-      <div className="ps-cart__content">
-        <div className="ps-cart__items">{productItems}</div>
-        <div className="ps-cart__footer">
-          <h3>
-            Sub Total:
-            <strong>${amount ? amount : 0}</strong>
-          </h3>
-          <figure>
-            <Link href="/account/shopping-cart">
-              <a className="ps-btn">View Cart</a>
-            </Link>
-            <Link href="/account/checkout">
-              <a className="ps-btn">Checkout</a>
-            </Link>
-          </figure>
+    } else {
+      cartItemsView = (
+        <div className="ps-cart__content">
+          <div className="ps-cart__items">
+            <span>No products in cart</span>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   } else {
-    cartItemsView = (
-      <div className="ps-cart__content">
-        <div className="ps-cart__items">
-          <span>No products in cart</span>
+    // not logged in
+    if (cookies.cart && cookies.cart.length > 0) {
+      const amount = calculateAmount(cookies.cart);
+      const productItems = cookies.cart.map((item) => {
+        return (
+          <ProductOnCart product={item} key={item.id}>
+            <a
+              className="ps-product__remove"
+              onClick={(e) => handleRemoveItem(e, item.id, item.cart_id)}>
+              <i className="icon-cross"></i>
+            </a>
+          </ProductOnCart>
+        );
+      });
+      cartItemsView = (
+        <div className="ps-cart__content">
+          <div className="ps-cart__items">{productItems}</div>
+          <div className="ps-cart__footer">
+            <h3>
+              Sub Total:
+              <strong>₦{amount ? amount : 0}</strong>
+            </h3>
+            <figure>
+              <Link href="/account/shopping-cart">
+                <a className="ps-btn">View Cart</a>
+              </Link>
+              <Link href="/account/checkout">
+                <a className="ps-btn">Checkout</a>
+              </Link>
+            </figure>
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      cartItemsView = (
+        <div className="ps-cart__content">
+          <div className="ps-cart__items">
+            <span>No products in cart</span>
+          </div>
+        </div>
+      );
+    }
   }
 
   return (
@@ -82,7 +143,11 @@ const MiniCart = ({ ecomerce, auth, dispatch, ...rest }) => {
       <a className="header__extra" href="#">
         <i className="icon-bag2"></i>
         <span>
-          <i>{ecomerce.cartItems ? ecomerce.cartItems.length : 0}</i>
+          {auth.isLoggedIn ? (
+            <i>{ecomerce.cartItems ? ecomerce.cartItems.length : 0}</i>
+          ) : (
+            <i>{cookies.cart ? cookies.cart.length : 0}</i>
+          )}
         </span>
       </a>
       {cartItemsView}

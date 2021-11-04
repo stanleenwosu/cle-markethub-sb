@@ -7,11 +7,26 @@ import useEcomerce from '~/hooks/useEcomerce';
 const ModuleProductActions = ({ product, ecomerce }) => {
   const auth = useSelector((state) => state.auth);
   const [isQuickView, setIsQuickView] = useState(false);
-  const { addItem, addItemToCart } = useEcomerce();
+  const { addItem, addItemToCart, addItemToCartLocal } = useEcomerce();
 
   function handleAddItemToCart(e) {
     e.preventDefault();
-    addItemToCart({ quantity: 1, ...product }, 'cart');
+    if (auth.isLoggedIn) {
+      addItemToCart({
+        itemId: product.id,
+        cartId: ecomerce.cartId,
+        userId: auth.user.id,
+        customerId: auth.user.customer_id,
+      });
+    } else {
+      addItemToCartLocal({ ...product, quantity: 1 });
+    }
+    const modal = Modal.success({
+      centered: true,
+      title: 'Success!',
+      content: `This item has been added to your Cart`,
+    });
+    modal.update;
   }
 
   function handleAddItemToWishlist(e) {
@@ -25,17 +40,6 @@ const ModuleProductActions = ({ product, ecomerce }) => {
     modal.update;
   }
 
-  //   function handleAddItemToCompare(e) {
-  //     e.preventDefault();
-  //     addItem({ id: product.id }, ecomerce.compareItems, 'compare');
-  //     const modal = Modal.success({
-  //       centered: true,
-  //       title: 'Success!',
-  //       content: `This product has been added to your compare listing!`,
-  //     });
-  //     modal.update;
-  //   }
-
   const handleShowQuickView = (e) => {
     e.preventDefault();
     setIsQuickView(true);
@@ -47,20 +51,17 @@ const ModuleProductActions = ({ product, ecomerce }) => {
   };
   return (
     <ul className="ps-product__actions">
-      {auth.isLoggedIn ? (
-        <li>
-          <a
-            href="#"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Add To Cart"
-            onClick={handleAddItemToCart}>
-            <i className="icon-bag2"></i>
-          </a>
-        </li>
-      ) : (
-        'Login to Add to Cart'
-      )}
+      <li>
+        <a
+          href="#"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Add To Cart"
+          onClick={handleAddItemToCart}>
+          <i className="icon-bag2"></i>
+        </a>
+      </li>
+
       <li>
         <a
           href="#"
@@ -83,7 +84,6 @@ const ModuleProductActions = ({ product, ecomerce }) => {
           </a>
         </li>
       ) : null}
-
       {/* <li>
                 <a
                     href="#"

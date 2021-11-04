@@ -3,6 +3,7 @@ export const actionTypes = {
   GET_CART_ITEMS: 'GET_CART_ITEMS',
   DELETE_CART_ITEM: 'DELETE_CART_ITEM',
   ADD_CART_ITEM: 'ADD_CART_ITEM',
+  SET_CART_ID: 'SET_CART_ID',
 
   SET_WISHLIST_ITEMS: 'SET_WISHLIST_ITEMS',
   SET_WISHLIST_ITEMS_SUCCESS: 'SET_WISHLIST_ITEMS_SUCCESS',
@@ -25,6 +26,10 @@ export function deleteCartItem(payload) {
 
 export function addCartItem(payload) {
   return { type: actionTypes.ADD_CART_ITEM, payload };
+}
+
+export function setCartId(payload) {
+  return { type: actionTypes.SET_CART_ID, payload };
 }
 
 export function setWishlistTtems(payload) {

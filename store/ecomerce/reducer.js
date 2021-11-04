@@ -15,10 +15,14 @@ function reducer(state = initalState, action) {
         ...state,
         wishlistItems: action.payload,
       };
+    case actionTypes.SET_CART_ID:
+      return {
+        ...state,
+        cartId: action.payload,
+      };
     case actionTypes.SET_CART_ITEMS_SUCCESS:
       return {
         ...state,
-        cartId: action.payload.cartId,
         cartItems: [...action.payload],
       };
     case actionTypes.SET_COMPARE_ITEMS_SUCCESS:

@@ -12,16 +12,41 @@ const ModuleDetailShoppingActions = ({
 }) => {
   const [quantity, setQuantity] = useState(1);
   const Router = useRouter();
-  const { addItem, addItemToCart } = useEcomerce();
+  const { addItemToCart, addItemToCartLocal } = useEcomerce();
 
   function handleAddItemToCart(e, itemId, cartId) {
     e.preventDefault();
-    addItemToCart({ itemId, cartId, userId: auth.user.id });
+    if (auth.isLoggedIn) {
+      addItemToCart({
+        itemId: product.id,
+        cartId: ecomerce.cartId,
+        userId: auth.user.id,
+        customerId: auth.user.customer_id,
+        quantity,
+      });
+    } else {
+      addItemToCartLocal({ ...product, quantity });
+    }
+    const modal = Modal.success({
+      centered: true,
+      title: 'Success!',
+      content: `This item has been added to your Cart`,
+    });
+    modal.update;
   }
 
   function handleBuynow(e, itemId, cartId) {
     e.preventDefault();
-    addItemToCart({ itemId, cartId, userId: auth.user.id });
+    if (auth.isLoggedIn) {
+      addItemToCart({
+        itemId: product.id,
+        cartId: ecomerce.cartId,
+        userId: auth.user.id,
+        customerId: auth.user.customer_id,
+      });
+    } else {
+      addItemToCartLocal({ ...product, quantity: 1 });
+    }
     setTimeout(function () {
       Router.push('/account/checkout');
     }, 1000);
@@ -64,7 +89,7 @@ const ModuleDetailShoppingActions = ({
   if (!extended) {
     return (
       <div className="ps-product__shopping">
-        {/* <figure>
+        <figure>
           <figcaption>Quantity</figcaption>
           <div className="form-group--number">
             <button className="up" onClick={(e) => handleIncreaseItemQty(e)}>
@@ -80,17 +105,17 @@ const ModuleDetailShoppingActions = ({
               disabled
             />
           </div>
-        </figure> */}
+        </figure>
         <a
           className="ps-btn ps-btn--black"
           href="#"
-          onClick={(e) => handleAddItemToCart(e, product.id, item.cart_id)}>
+          onClick={(e) => handleAddItemToCart(e, product.id)}>
           Add to cart
         </a>
         <a
           className="ps-btn"
           href="#"
-          onClick={(e) => handleBuynow(e, product.id, item.cart_id)}>
+          onClick={(e) => handleBuynow(e, product.id)}>
           Buy Now
         </a>
         {/* <div className="ps-product__actions">

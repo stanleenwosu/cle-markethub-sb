@@ -15,19 +15,58 @@ export default function useEcomerce() {
   const [cartItemsOnCookie] = useState(null);
   const [cookies, setCookie] = useCookies(['cart']);
   const [products, setProducts] = useState(null);
+  // const [cart, setCart] = useState(null);
   return {
     loading,
     cookies,
     products,
-    removeItemFromCart: async ({ itemId, cartId, userId }) => {
+    removeItemFromCart: async ({ itemId, cartId, userId, customerId }) => {
       await dispatch(deleteCartItem({ itemId, cartId }));
-      await dispatch(getCartItems(userId));
+      await dispatch(getCartItems({ userId, customerId }));
     },
 
-    addItemToCart: async ({ itemId, cartId, quantity, userId }) => {
+    addItemToCart: async ({ itemId, cartId, quantity, userId, customerId }) => {
       await dispatch(addCartItem({ itemId, cartId, quantity }));
-      await dispatch(getCartItems(userId));
+      await dispatch(getCartItems({ userId, customerId }));
     },
+
+    addItemToCartLocal: (newItem, group = 'cart') => {
+      let cartItems = cookies.cart || [];
+      const existItem = cartItems.find((x) => x.id === newItem.id);
+
+      // if item exist to increase quantity else add to local cart
+      if (existItem) {
+        const index = cartItems.findIndex((item) => (item.id = existItem.id));
+        cartItems[index].quantity += existItem.quantity;
+      } else {
+        cartItems.push(newItem);
+      }
+
+      // push to cookies
+      if (group === 'cart') {
+        setCookie('cart', cartItems, { path: '/' });
+      }
+    },
+
+    removeItemCartLocal: (id) => {
+      let cartItems = cookies.cart;
+      const existItemIndex = cartItems.findIndex((x) => x.id === id);
+      cartItems.splice(existItemIndex, 1);
+      setCookie('cart', cartItems, { path: '/' });
+
+      // if (group === 'wishlist') {
+      //   setCookie('wishlist', currentItems, { path: '/' });
+      //   dispatch(setWishlistTtems(currentItems));
+      // }
+
+      // if (group === 'compare') {
+      //   setCookie('compare', currentItems, { path: '/' });
+      // }
+    },
+
+    // getCartItemsLocal: () => {
+    //   setCart(cookies.cart);
+    // },
 
     getProducts: async (payload, group = '') => {
       setLoading(true);
@@ -130,30 +169,6 @@ export default function useEcomerce() {
       return newItems;
     },
 
-    removeItem: (selectedItem, items, group) => {
-      let currentItems = items;
-      if (currentItems.length > 0) {
-        const index = currentItems.findIndex(
-          (item) => item.id === selectedItem.id
-        );
-        currentItems.splice(index, 1);
-      }
-      if (group === 'cart') {
-        setCookie('cart', currentItems, { path: '/' });
-
-        dispatch(setCartItems(currentItems));
-      }
-
-      if (group === 'wishlist') {
-        setCookie('wishlist', currentItems, { path: '/' });
-        dispatch(setWishlistTtems(currentItems));
-      }
-
-      if (group === 'compare') {
-        setCookie('compare', currentItems, { path: '/' });
-      }
-    },
-
     removeItems: (group) => {
       if (group === 'wishlist') {
         setCookie('wishlist', [], { path: '/' });
@@ -167,30 +182,6 @@ export default function useEcomerce() {
         setCookie('cart', [], { path: '/' });
         dispatch(setCartItems([]));
       }
-    },
-
-    // addItemToCart: (newItem, group = 'cart') => {
-    //   let cartItems = cookies.cart || [];
-    //   const existItem = cartItems.find((x) => x.id === newItem.id);
-
-    //   // if item exist to increase quantity else add to local cart
-    //   if (existItem) {
-    //     const index = cartItems.findIndex((item) => (item.id = existItem.id));
-    //     cartItems[index].quantity += existItem.quantity;
-    //   } else {
-    //     cartItems.push(newItem);
-    //   }
-
-    //   // push to cookies
-    //   if (group === 'cart') {
-    //     setCookie('cart', cartItems, { path: '/' });
-    //   }
-    // },
-
-    getCartItems: async (userId) => {
-      setLoading(true);
-      return cookies.cart;
-      setLoading(false);
     },
   };
 }

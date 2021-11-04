@@ -2,9 +2,18 @@ import React, { Component } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
 import { login } from '../../../store/auth/action';
+import {
+  getCartItems,
+  deleteCartItem,
+  addCartItem,
+} from '~/store/ecomerce/action';
 
 import { Form, Input, notification } from 'antd';
 import { connect } from 'react-redux';
+import { withCookies } from 'react-cookie';
+import CartRepository from '~/repositories/CartRepository';
+// import useEcomerce from '~/hooks/useEcomerce';
+// const { addItem, addItemToCart, addItemToCartLocal } = useEcomerce();
 
 class Login extends Component {
   constructor(props) {
@@ -13,7 +22,8 @@ class Login extends Component {
   }
 
   static getDerivedStateFromProps(props) {
-    if (props.isLoggedIn === true) {
+    // console.log('props.cookies :>> ', props.allCookies);
+    if (props.auth.isLoggedIn === true) {
       Router.push('/');
     }
     return false;
@@ -28,9 +38,33 @@ class Login extends Component {
     });
   }
 
-  handleLoginSubmit = (e) => {
-    this.props.dispatch(login(e));
+  handleLoginSubmit = async (e) => {
+    await this.props.dispatch(login(e));
+    setTimeout(() => {
+      this.handleCookies();
+    }, 5000);
     // Router.push('/');
+  };
+
+  handleCookies = () => {
+    this.props.allCookies.cart.forEach(async (element) => {
+      const data = await CartRepository.getUserCartId({
+        customerId: this.props.auth.user.customer_id,
+      });
+      this.props.dispatch(
+        addCartItem({
+          itemId: element.id,
+          cartId: data.data.id,
+          quantity: element.quantity,
+        })
+      );
+    });
+    this.props.dispatch(
+      getCartItems({
+        userId: this.props.auth.user.id,
+        customerId: this.props.auth.user.customer_id,
+      })
+    );
   };
 
   render() {
@@ -156,7 +190,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return state.auth;
+  return state;
 };
 
-export default connect(mapStateToProps)(Login);
+export default withCookies(connect(mapStateToProps)(Login));

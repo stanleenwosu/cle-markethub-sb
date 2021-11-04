@@ -4,65 +4,9 @@ import Router from 'next/router';
 import { Spin } from 'antd';
 import ProductRepository from '~/repositories/ProductRepositoryOld';
 import ProductSearchResult from '~/components/elements/products/ProductSearchResult';
+import useGetProducts from '~/hooks/useGetProducts';
 
-const exampleCategories = [
-  'All',
-  'Babies & Moms',
-  'Books & Office',
-  // 'Cars & Motocycles',
-  // 'Clothing & Apparel',
-  // ' Accessories',
-  // 'Bags',
-  // 'Kid’s Fashion',
-  // 'Mens',
-  // 'Shoes',
-  // 'Sunglasses',
-  // 'Womens',
-  // 'Computers & Technologies',
-  // 'Desktop PC',
-  // 'Laptop',
-  // 'Smartphones',
-  // 'Consumer Electrics',
-  // 'Air Conditioners',
-  // 'Accessories',
-  // 'Type Hanging Cell',
-  // 'Audios & Theaters',
-  // 'Headphone',
-  // 'Home Theater System',
-  // 'Speakers',
-  // 'Car Electronics',
-  // 'Audio & Video',
-  // 'Car Security',
-  // 'Radar Detector',
-  // 'Vehicle GPS',
-  // 'Office Electronics',
-  // 'Printers',
-  // 'Projectors',
-  // 'Scanners',
-  // 'Store & Business',
-  // 'Refrigerators',
-  // 'TV Televisions',
-  // '4K Ultra HD TVs',
-  // 'LED TVs',
-  // 'OLED TVs',
-  // 'Washing Machines',
-  // 'Type Drying Clothes',
-  // 'Type Horizontal',
-  // 'Type Vertical',
-  // 'Garden & Kitchen',
-  // 'Cookware',
-  // 'Decoration',
-  // 'Furniture',
-  // 'Garden Tools',
-  // 'Home Improvement',
-  // 'Powers And Hand Tools',
-  // 'Utensil & Gadget',
-  // 'Health & Beauty',
-  // 'Equipments',
-  // 'Hair Care',
-  // 'Perfumer',
-  // 'Wine Cabinets',
-];
+// const exampleCategories = ['All', 'Babies & Moms', 'Books & Office'];
 
 function useDebounce(value, delay) {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -87,6 +31,11 @@ const SearchHeader = () => {
   const [resultItems, setResultItems] = useState(null);
   const [loading, setLoading] = useState(false);
   const debouncedSearchTerm = useDebounce(keyword, 300);
+  const { categories, getAllCategories } = useGetProducts();
+
+  useEffect(() => {
+    getAllCategories();
+  }, []);
 
   function handleClearKeyword() {
     setKeyword('');
@@ -163,10 +112,10 @@ const SearchHeader = () => {
       </span>
     );
   }
-
-  selectOptionView = exampleCategories.map((option) => (
-    <option value={option} key={option}>
-      {option}
+  // console.log('categories :>> ', categories);
+  selectOptionView = categories?.map((option) => (
+    <option value={option.id} key={option.id}>
+      {option.name}
     </option>
   ));
 

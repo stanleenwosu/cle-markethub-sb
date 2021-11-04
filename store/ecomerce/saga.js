@@ -6,6 +6,7 @@ import {
   updateCartSuccess,
   updateCartError,
   setCartItemsSuccess,
+  setCartId,
   setWishlistTtemsSuccess,
   setCompareItemsSuccess,
 } from './action';
@@ -14,15 +15,15 @@ import {
 function* getCartItems({ payload }) {
   try {
     const { data } = yield call(CartRepository.getUserCart, {
-      userId: payload,
+      userId: payload.userId,
     });
-    // const { data: cartId } = yield call(CartRepository.getUserCartId, {
-    //   userId: payload,
-    // });
-    // console.log('🚀 ~ function*getCartItems ~ cartId', cartId);
-    console.log('🚀 ~ function*getCartItems ~ data', data);
-
+    const { data: cart } = yield call(CartRepository.getUserCartId, {
+      customerId: payload.customerId,
+    });
+    // console.log('🚀 ~ function*getCartItems ~ cart', cart);
+    // console.log('🚀 ~ function*getCartItems ~ data', data);
     yield put(setCartItemsSuccess(data));
+    yield put(setCartId(cart.id));
   } catch (err) {
     console.log(err);
   }

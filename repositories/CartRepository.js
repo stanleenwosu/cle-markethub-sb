@@ -6,7 +6,7 @@ class CartRepository {
   }
 
   async getUserCartId(payload) {
-    const endPoint = `${payload.userId}/cart`;
+    const endPoint = `carts/${payload.customerId}`;
     const response = await Repository.get(`${basePostUrl}/${endPoint}`)
       .then((response) => {
         return response.data;
@@ -55,7 +55,7 @@ class CartRepository {
 
   async addItem(payload) {
     const endPoint = `carts/${payload.cartId}/items`;
-    const response = await Repository.put(`${basePostUrl}/${endPoint}`, {
+    const response = await Repository.post(`${basePostUrl}/${endPoint}`, {
       product_id: payload.itemId,
       cart_id: payload.cartId,
       quantity: payload.quantity ? payload.quantity : 1,

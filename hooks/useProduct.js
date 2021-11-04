@@ -3,6 +3,7 @@ import LazyLoad from 'react-lazyload';
 import { baseUrl } from '~/repositories/Repository';
 import { formatCurrency } from '~/utilities/product-helper';
 import Link from 'next/link';
+import Product from '~/components/elements/products/Product';
 
 function getImageURL(source, size) {
   let image, imageURL;
@@ -44,16 +45,22 @@ function getImageURL(source, size) {
 
 export default function useProduct() {
   return {
-    thumbnailImage: (payload) => {
+    thumbnailImage: (payload, height) => {
       if (payload) {
-        if (payload.images) {
+        if (payload.images && payload.images.length > 0) {
+          console.log('🚀 ~ useProduct ~ payload.images', payload.images);
           return (
             <>
               <LazyLoad>
-                <img
-                  src="/static/img/prod-placeholder.gif"
-                  alt="cle-product-placeholder-available"
-                />
+                {!height ? (
+                  <img
+                    src={payload.images[0].url}
+                    alt="cle-product"
+                    height="200"
+                  />
+                ) : (
+                  <img src={payload.images[0].url} alt="cle-product" />
+                )}
               </LazyLoad>
             </>
           );

@@ -12,6 +12,14 @@ class Register extends Component {
     this.state = { email: '', password: '' };
   }
 
+  static getDerivedStateFromProps(props) {
+    // console.log('props.cookies :>> ', props.allCookies);
+    if (props.auth.isLoggedIn === true) {
+      Router.push('/');
+    }
+    return false;
+  }
+
   handleSubmit = (e) => {
     this.props.dispatch(register({ ...e }));
     Router.push('/account/login');
@@ -128,6 +136,6 @@ class Register extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return state.auth;
+  return state;
 };
 export default connect(mapStateToProps)(Register);
