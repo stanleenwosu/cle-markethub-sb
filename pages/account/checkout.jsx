@@ -29,7 +29,7 @@ const CheckoutPage = () => {
     // console.log('props.cookies :>> ', props.allCookies);
     console.log('🚀 ~ useEffect ~ auth.isLoggedIn', auth.isLoggedIn);
     if (auth.isLoggedIn === false) {
-      Router.push('/account/login');
+      Router.replace('/account/login');
     }
   }, []);
 

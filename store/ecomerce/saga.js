@@ -1,5 +1,6 @@
 import { call, all, put, takeEvery } from 'redux-saga/effects';
 import CartRepository from '~/repositories/CartRepository';
+import WishlistRepository from '~/repositories/WishlistRepository';
 import { actionTypes } from './action';
 
 import {
@@ -7,11 +8,12 @@ import {
   updateCartError,
   setCartItemsSuccess,
   setCartId,
-  setWishlistTtemsSuccess,
+  setWishlistItemsSuccess,
   setCompareItemsSuccess,
+  setWishlistId,
 } from './action';
 
-// new
+// CART
 function* getCartItems({ payload }) {
   try {
     const { data } = yield call(CartRepository.getUserCart, {
@@ -50,19 +52,45 @@ function* addCartItem({ payload }) {
   }
 }
 
+// WISHLIST
 function* getWishlistItems({ payload }) {
   try {
-    yield put(setWishlistTtemsSuccess(payload));
+    const { data: wishlist } = yield call(
+      WishlistRepository.getUserWishlistId,
+      {
+        customerId: payload.customerId,
+      }
+    );
+    const { data } = yield call(WishlistRepository.getUserWishlist, {
+      wishId: wishlist.id,
+    });
+    // console.log('🚀 ~ function*getCartItems ~ cart', cart);
+    // console.log('🚀 ~ function*getCartItems ~ data', data);
+    yield put(setWishlistId(wishlist.id));
+    yield put(setWishlistItemsSuccess(data));
   } catch (err) {
     console.log(err);
   }
 }
 
-function* getCompareItems({ payload }) {
+function* deleteWishlistItem({ payload }) {
   try {
-    yield put(setCompareItemsSuccess(payload));
-  } catch (err) {
-    console.log(err);
+    const { data } = yield call(WishlistRepository.deleteItem, {
+      cartId: payload.cartId,
+      itemId: payload.itemId,
+    });
+    // console.log('🚀 ~ function*deleteCartItem ~ data', data);
+  } catch (error) {
+    console.log('🚀 ~ function*deleteCartItem ~ error', error);
+  }
+}
+
+function* addWishlistItem({ payload }) {
+  try {
+    const { data } = yield call(WishlistRepository.addItem, payload);
+    console.log('🚀 ~ function*addCartItem ~ data', data);
+  } catch (error) {
+    console.log('🚀 ~ function*addCartItem ~ error', error);
   }
 }
 
@@ -71,6 +99,7 @@ export default function* rootSaga() {
   yield all([takeEvery(actionTypes.GET_CART_ITEMS, getCartItems)]);
   yield all([takeEvery(actionTypes.DELETE_CART_ITEM, deleteCartItem)]);
   yield all([takeEvery(actionTypes.ADD_CART_ITEM, addCartItem)]);
-  yield all([takeEvery(actionTypes.SET_WISHLIST_ITEMS, getWishlistItems)]);
-  yield all([takeEvery(actionTypes.SET_COMPARE_ITEMS, getCompareItems)]);
+  yield all([takeEvery(actionTypes.GET_WISHLIST_ITEMS, getWishlistItems)]);
+  yield all([takeEvery(actionTypes.DELETE_WISHLIST_ITEM, deleteWishlistItem)]);
+  yield all([takeEvery(actionTypes.ADD_WISHLIST_ITEM, addWishlistItem)]);
 }

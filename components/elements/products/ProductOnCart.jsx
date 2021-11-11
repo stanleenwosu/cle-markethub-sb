@@ -16,7 +16,7 @@ const ProductOnCart = ({ product, children }) => {
         {title(product)}
         <p>
           <small>
-            ${product.discount_price || product.price} x {product.quantity}
+            ₦{product.discount_price || product.price} x {product.quantity}
           </small>
         </p>{' '}
         {children}

@@ -47,7 +47,7 @@ class Login extends Component {
   };
 
   handleCookies = () => {
-    if (this.props.Cookies.cart) {
+    if (this.props.allCookies.cart) {
       this.props.allCookies.cart.forEach(async (element) => {
         const data = await CartRepository.getUserCartId({
           customerId: this.props.auth.user.customer_id,

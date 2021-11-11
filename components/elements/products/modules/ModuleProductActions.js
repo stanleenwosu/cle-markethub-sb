@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'antd';
 import { connect, useSelector } from 'react-redux';
 import ProductDetailQuickView from '~/components/elements/detail/ProductDetailQuickView';
 import useEcomerce from '~/hooks/useEcomerce';
+import { getCartItems, getWishlistItems } from '~/store/ecomerce/action';
 
-const ModuleProductActions = ({ product, ecomerce }) => {
+const ModuleProductActions = ({ product, ecomerce, dispatch }) => {
   const auth = useSelector((state) => state.auth);
   const [isQuickView, setIsQuickView] = useState(false);
-  const { addItem, addItemToCart, addItemToCartLocal } = useEcomerce();
+  const { addItem, addItemToCart, addItemToCartLocal, addItemToWishlist } =
+    useEcomerce();
 
   function handleAddItemToCart(e) {
     e.preventDefault();
@@ -31,11 +33,17 @@ const ModuleProductActions = ({ product, ecomerce }) => {
 
   function handleAddItemToWishlist(e) {
     e.preventDefault();
-    addItem({ id: product.id }, ecomerce.wishlistItems, 'wishlist');
+    addItemToWishlist({
+      itemId: product.id,
+      wishId: ecomerce.wishId,
+      userId: auth.user.id,
+      customerId: auth.user.customer_id,
+    });
+
     const modal = Modal.success({
       centered: true,
       title: 'Success!',
-      content: `This item has been added to your wishlist`,
+      content: `This item has been added to your Wishlist`,
     });
     modal.update;
   }

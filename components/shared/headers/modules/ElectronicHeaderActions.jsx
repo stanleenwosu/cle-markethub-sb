@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 
 import MiniCart from './MiniCart';
 import AccountQuickLinks from './AccountQuickLinks';
+import { getCartItems, getWishlistItems } from '~/store/ecomerce/action';
 
-const ElectronicHeaderActions = ({ auth, ecomerce }) => {
+const ElectronicHeaderActions = ({ auth, ecomerce, dispatch }) => {
+  useEffect(() => {
+    dispatch(
+      getWishlistItems({
+        userId: auth.user.id,
+        customerId: auth.user.customer_id,
+      })
+    );
+  }, []);
+
   return (
     <div className="header__actions">
       {auth.isLoggedIn && Boolean(auth.isLoggedIn) === true ? (

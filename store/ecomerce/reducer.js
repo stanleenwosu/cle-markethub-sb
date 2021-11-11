@@ -2,18 +2,23 @@ import { actionTypes } from './action';
 
 export const initalState = {
   wishlistItems: [],
-  compareItems: [],
   cartItems: [],
   cartId: '',
+  wishId: '',
 };
 
 function reducer(state = initalState, action) {
   switch (action.type) {
     // new
+    case actionTypes.SET_WISHLIST_ID:
+      return {
+        ...state,
+        wishId: action.payload,
+      };
     case actionTypes.SET_WISHLIST_ITEMS_SUCCESS:
       return {
         ...state,
-        wishlistItems: action.payload,
+        wishlistItems: [...action.payload],
       };
     case actionTypes.SET_CART_ID:
       return {
@@ -24,11 +29,6 @@ function reducer(state = initalState, action) {
       return {
         ...state,
         cartItems: [...action.payload],
-      };
-    case actionTypes.SET_COMPARE_ITEMS_SUCCESS:
-      return {
-        ...state,
-        compareItems: action.payload,
       };
     default:
       return state;

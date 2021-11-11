@@ -7,6 +7,9 @@ import {
   getCartItems,
   deleteCartItem,
   addCartItem,
+  getWishlistItems,
+  deleteWishlistItem,
+  addWishlistItem,
 } from '~/store/ecomerce/action';
 
 export default function useEcomerce() {
@@ -25,13 +28,30 @@ export default function useEcomerce() {
       await dispatch(getCartItems({ userId, customerId }));
     },
 
-    addItemToCart: async ({ itemId, cartId, quantity, userId, customerId }) => {
-      await dispatch(addCartItem({ itemId, cartId, quantity }));
+    addItemToCart: async ({ itemId, wishId, quantity, userId, customerId }) => {
+      await dispatch(addCartItem({ itemId, wishId, quantity }));
       await dispatch(getCartItems({ userId, customerId }));
     },
 
-    addItemToCartLocal: (newItem, group = 'cart') => {
+    removeItemFromWishlist: async ({ itemId, wishId, userId, customerId }) => {
+      await dispatch(deleteWishlistItem({ itemId, wishId }));
+      await dispatch(getWishlistItems({ userId, customerId }));
+    },
+
+    addItemToWishlist: async ({
+      itemId,
+      wishId,
+      quantity,
+      userId,
+      customerId,
+    }) => {
+      await dispatch(addWishlistItem({ itemId, wishId, quantity }));
+      await dispatch(getWishlistItems({ userId, customerId }));
+    },
+
+    addItemToCartLocal: (newItem) => {
       let cartItems = cookies.cart || [];
+      // console.log('🚀 ~ useEcomerce ~ cookies.cart', cookies.cart);
       const existItem = cartItems.find((x) => x.id === newItem.id);
 
       // if item exist to increase quantity else add to local cart
@@ -39,13 +59,15 @@ export default function useEcomerce() {
         const index = cartItems.findIndex((item) => (item.id = existItem.id));
         cartItems[index].quantity += existItem.quantity;
       } else {
-        cartItems.push(newItem);
+        // cartItems.push(newItem);
+        cartItems.splice(cartItems.length, 0, newItem);
       }
+      // console.log('🚀 ~ useEcomerce ~ cartItems', cartItems);
 
       // push to cookies
-      if (group === 'cart') {
-        setCookie('cart', cartItems, { path: '/' });
-      }
+      // if (group === 'cart') {
+      setCookie('cart', cartItems, { path: '/' });
+      // }
     },
 
     removeItemCartLocal: (id) => {

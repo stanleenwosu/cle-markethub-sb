@@ -8,8 +8,9 @@ import useEcomerce from '~/hooks/useEcomerce';
 import ModuleEcomerceCartItems from '~/components/ecomerce/modules/ModuleEcomerceCartItems';
 import Link from 'next/link';
 import ModuleCartSummary from '~/components/ecomerce/modules/ModuleCartSummary';
+import { useCookies } from 'react-cookie';
 
-const ShoppingCartScreen = ({ ecomerce }) => {
+const ShoppingCartScreen = ({ ecomerce, auth }) => {
   const breadCrumb = [
     {
       text: 'Home',
@@ -19,10 +20,11 @@ const ShoppingCartScreen = ({ ecomerce }) => {
       text: 'Shopping Cart',
     },
   ];
+  const [cookies] = useCookies(['cart']);
 
   // View
   let contentView;
-  if (ecomerce.cartItems) {
+  if (auth.isLoggedIn) {
     if (ecomerce.cartItems.length > 0) {
       contentView = (
         <>
@@ -87,6 +89,69 @@ const ShoppingCartScreen = ({ ecomerce }) => {
       );
     }
   } else {
+    if (cookies.cart.length > 0) {
+      contentView = (
+        <>
+          <div className="ps-section__content">
+            <ModuleEcomerceCartItems cartItems={cookies.cart} />
+            <div className="ps-section__cart-actions">
+              <Link href="/shop">
+                <a className="ps-btn">Back to Shop</a>
+              </Link>
+            </div>
+          </div>
+          <div className="ps-section__footer">
+            <div className="row justify-space-between">
+              <div className="col-xl-8 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                {/* <div className="row">
+                  <div className="col-lg-6">
+                    <figure>
+                      <figcaption>Coupon Discount</figcaption>
+                      <div className="form-group">
+                        <input
+                          className="form-control"
+                          type="text"
+                          placeholder="Enter coupon here..."
+                        />
+                      </div>
+                      <div className="form-group">
+                        <button className="ps-btn ps-btn--outline">
+                          Apply
+                        </button>
+                      </div>
+                    </figure>
+                  </div>
+                </div> */}
+              </div>
+              <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                <ModuleCartSummary source={cookies.cart} />
+                <Link href="/account/checkout">
+                  <a className="ps-btn ps-btn--fullwidth">
+                    Proceed to checkout
+                  </a>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </>
+      );
+    } else {
+      contentView = (
+        <>
+          <div className="ps-section__content">
+            <div className="alert alert-info">
+              <p className="mb-0">Your cart is currently empty.</p>
+            </div>
+
+            <div className="ps-section__cart-actions">
+              <Link href="/">
+                <a className="ps-btn">Back to Shop</a>
+              </Link>
+            </div>
+          </div>
+        </>
+      );
+    }
   }
 
   return (

@@ -5,7 +5,6 @@ import ProductOnCart from '~/components/elements/products/ProductOnCart';
 import useEcomerce from '~/hooks/useEcomerce';
 import { calculateAmount } from '~/utilities/ecomerce-helpers';
 import { useCookies } from 'react-cookie';
-import Cookies from 'js-cookie';
 import {
   getCartItems,
   deleteCartItem,

@@ -4,12 +4,22 @@ import useEcomerce from '~/hooks/useEcomerce';
 import { Result } from 'antd';
 import ProductCart from '~/components/elements/products/ProductCart';
 
-const ModuleEcomerceCartItems = ({ ecomerce, cartItems }) => {
-  const { increaseQty, decreaseQty, removeItem } = useEcomerce();
+const ModuleEcomerceCartItems = ({ ecomerce, cartItems, auth }) => {
+  const { increaseQty, decreaseQty, removeItemCartLocal, removeItemFromCart } =
+    useEcomerce();
 
-  function handleRemoveItem(e, productId) {
+  function handleRemoveItem(e, itemId, cartId) {
     e.preventDefault();
-    removeItem({ id: productId }, ecomerce.cartItems, 'cart');
+    if (auth.isLoggedIn) {
+      removeItemFromCart({
+        itemId,
+        cartId,
+        userId: auth.user.id,
+        customerId: auth.user.customer_id,
+      });
+    } else {
+      removeItemCartLocal(itemId);
+    }
   }
 
   function handleIncreaseItemQty(e, productId) {
@@ -35,7 +45,7 @@ const ModuleEcomerceCartItems = ({ ecomerce, cartItems }) => {
         </td>
         <td data-label="quantity">
           <div className="form-group--number">
-            <button
+            {/* <button
               className="up"
               onClick={(e) => handleIncreaseItemQty(e, item.id)}>
               +
@@ -44,7 +54,7 @@ const ModuleEcomerceCartItems = ({ ecomerce, cartItems }) => {
               className="down"
               onClick={(e) => handleDecreaseItemQty(e, item.id)}>
               -
-            </button>
+            </button> */}
             <input
               className="form-control"
               type="text"
@@ -57,7 +67,9 @@ const ModuleEcomerceCartItems = ({ ecomerce, cartItems }) => {
           <strong>₦{(item.price * item.quantity).toFixed(2)}</strong>
         </td>
         <td>
-          <a href="#" onClick={(e) => handleRemoveItem(e, item.id)}>
+          <a
+            href="#"
+            onClick={(e) => handleRemoveItem(e, item.id, item.cart_id)}>
             <i className="icon-cross"></i>
           </a>
         </td>
