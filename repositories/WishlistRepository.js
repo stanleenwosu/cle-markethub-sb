@@ -57,7 +57,7 @@ class WishlistRepository {
   }
 
   async deleteItem(payload) {
-    const endPoint = `wishlist/${payload.cartId}/items/${payload.itemId}`;
+    const endPoint = `wishlists/${payload.wishId}/items/${payload.itemId}`;
     const response = await Repository.delete(`${basePostUrl}/${endPoint}`)
       .then(() => {
         return response.data;
@@ -69,7 +69,7 @@ class WishlistRepository {
   }
 
   async addItem(payload) {
-    const endPoint = `wishlists/${payload.cartId}/items`;
+    const endPoint = `wishlists/${payload.wishId}/items`;
     const response = await Repository.post(`${basePostUrl}/${endPoint}`, {
       product_id: payload.itemId,
       wish_id: payload.wishId,

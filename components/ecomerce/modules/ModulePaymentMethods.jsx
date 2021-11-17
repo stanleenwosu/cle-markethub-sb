@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { Radio } from 'antd';
+import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import { Form, Input, Modal } from 'antd';
 import { PaystackConsumer } from 'react-paystack';
 import { useSelector } from 'react-redux';
 import { calculateAmount } from '~/utilities/ecomerce-helpers';
 
-const ModulePaymentMethods = () => {
+const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
   let amount;
   const Router = useRouter();
   const [method, setMethod] = useState(1);
-  const auth = useSelector((state) => state.auth);
-  const ecomerce = useSelector((state) => state.ecomerce);
+  // const auth = useSelector((state) => state.auth);
+  // const ecomerce = useSelector((state) => state.ecomerce);
+  const store = require('store');
+  const delivery = store.get('delivery');
 
   amount = calculateAmount(ecomerce.cartItems);
 
@@ -32,8 +35,29 @@ const ModulePaymentMethods = () => {
   }
 
   // you can call this function anything
-  const handleSuccess = (reference) => {
+  const handleSuccess = async (reference) => {
     // Implementation for whatever you want to do with reference and after success call.
+    await dispatch({
+      type: 'CREATE_ORDER',
+      payload: { cartId: ecomerce.cartId, customerId: auth.user.customer_id },
+    });
+    await dispatch({
+      type: 'CREATE_DELIVERY',
+      payload: {
+        orderId: order.order.id,
+        customerId: auth.user.customer_id,
+        ...delivery,
+      },
+    });
+    await dispatch({
+      type: 'CREATE_PAYSTACK',
+      payload: {
+        orderId: order.order.id,
+        customerId: auth.user.customer_id,
+        status: reference.status,
+        detail: {},
+      },
+    });
     console.log(reference);
   };
 
@@ -105,4 +129,4 @@ const ModulePaymentMethods = () => {
   );
 };
 
-export default ModulePaymentMethods;
+export default connect((state) => state)(ModulePaymentMethods);

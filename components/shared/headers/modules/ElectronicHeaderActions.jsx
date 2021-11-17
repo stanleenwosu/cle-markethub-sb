@@ -9,13 +9,16 @@ import { getWishlistItems } from '~/store/ecomerce/action';
 const ElectronicHeaderActions = ({ auth, ecomerce, dispatch }) => {
   // console.log('🚀 ~ ElectronicHeaderActions ~ auth', auth);
   useEffect(() => {
-    dispatch(
-      getWishlistItems({
-        userId: auth.user.id,
-        customerId: auth.user.customer_id,
-      })
-    );
-  }, []);
+    console.log(`auth`, auth);
+    if (auth.user.customer_id) {
+      dispatch(
+        getWishlistItems({
+          userId: auth.user.id,
+          customerId: auth.user.customer_id,
+        })
+      );
+    }
+  }, [auth]);
 
   return (
     <div className="header__actions">

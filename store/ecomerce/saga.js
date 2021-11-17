@@ -74,7 +74,7 @@ function* getWishlistItems({ payload }) {
 function* deleteWishlistItem({ payload }) {
   try {
     const { data } = yield call(WishlistRepository.deleteItem, {
-      cartId: payload.cartId,
+      wishId: payload.wishId,
       itemId: payload.itemId,
     });
     // console.log('🚀 ~ function*deleteCartItem ~ data', data);

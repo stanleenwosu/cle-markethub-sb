@@ -7,7 +7,7 @@ import { getWishlistItems } from '~/store/ecomerce/action';
 
 const Wishlist = ({ ecomerce, dispatch, auth }) => {
   const { addItemToCart, loading } = useEcomerce();
-  const { addItem, removeItem } = useEcomerce();
+  const { addItem, removeItemFromWishlist } = useEcomerce();
 
   function handleAddItemToCart(e, product) {
     e.preventDefault();
@@ -27,17 +27,24 @@ const Wishlist = ({ ecomerce, dispatch, auth }) => {
 
   function handleRemoveWishlistItem(e, product) {
     e.preventDefault();
-    removeItem(product, ecomerce.wishlistItems, 'wishlist');
+    removeItemFromWishlist({
+      itemId: product.id,
+      wishId: ecomerce.wishId,
+      userId: auth.user.id,
+      customerId: auth.user.customer_id,
+    });
   }
 
   useEffect(() => {
-    dispatch(
-      getWishlistItems({
-        userId: auth.user.id,
-        customerId: auth.user.customer_id,
-      })
-    );
-  }, []);
+    if (auth.user.customer_id) {
+      dispatch(
+        getWishlistItems({
+          userId: auth.user.id,
+          customerId: auth.user.customer_id,
+        })
+      );
+    }
+  }, [auth]);
 
   // views
   let wishlistItemsView;

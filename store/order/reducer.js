@@ -10,7 +10,12 @@ function reducer(state = initialState, action) {
     case actionTypes.SAVE_DELIVERY_SUCCESS:
       return {
         ...state,
-        ...{ delivery: { ...action.payload } },
+        delivery: { ...action.payload },
+      };
+    case actionTypes.SAVE_ORDER_SUCCESS:
+      return {
+        ...state,
+        order: { ...action.payload },
       };
     default:
       return state;

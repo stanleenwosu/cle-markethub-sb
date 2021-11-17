@@ -3,6 +3,7 @@ export const actionTypes = {
   CREATE_DELIVERY: 'CREATE_DELIVERY',
   SAVE_DELIVERY: 'SAVE_DELIVERY',
   SAVE_DELIVERY_SUCCESS: 'SAVE_DELIVERY_SUCCESS',
+  SAVE_ORDER_SUCCESS: 'SAVE_ORDER_SUCCESS',
 };
 
 export function createOrder(payload) {
@@ -18,4 +19,7 @@ export function saveDelivery(payload) {
 }
 export function saveDeliverySuccess(payload) {
   return { type: actionTypes.SAVE_DELIVERY_SUCCESS, payload };
+}
+export function saveOrderSuccess(payload) {
+  return { type: actionTypes.SAVE_ORDER_SUCCESS, payload };
 }

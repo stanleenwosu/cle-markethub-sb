@@ -3,7 +3,10 @@ import Link from 'next/link';
 import { connect } from 'react-redux';
 import ModulePaymentOrderSummary from '~/components/partials/account/modules/ModulePaymentOrderSummary';
 
-const Shipping = ({ auth, order }) => {
+const Shipping = ({ auth }) => {
+  const store = require('store');
+  const order = store.get('delivery');
+
   return (
     <div className="ps-checkout ps-section--shopping">
       <div className="container">
@@ -24,7 +27,7 @@ const Shipping = ({ auth, order }) => {
                   </figure>
                   <figure>
                     <small>Ship to</small>
-                    <p>{`${order.delivery.address}, ${order.delivery.city},${order.delivery.state}`}</p>
+                    <p>{`${order?.address}, ${order?.city},${order?.state}`}</p>
                     <Link href="/account/checkout">
                       <a>Change</a>
                     </Link>

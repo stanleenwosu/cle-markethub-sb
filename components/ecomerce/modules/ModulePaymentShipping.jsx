@@ -4,7 +4,9 @@ import { useSelector } from 'react-redux';
 
 const ModulePaymentShipping = () => {
   const state = useSelector((state) => state);
-  console.log('🚀 ~ ModulePaymentShipping ~ state', state);
+
+  const store = require('store');
+  const order = store.get('delivery');
   return (
     <>
       <div className="ps-block__panel">
@@ -14,7 +16,7 @@ const ModulePaymentShipping = () => {
         </figure>
         <figure>
           <small>Ship to</small>
-          <p>{`${state.order.delivery.address}, ${state.order.delivery.city},${state.order.delivery.state}`}</p>
+          <p>{`${order?.address}, ${order?.city},${order?.state}`}</p>
           <Link href="/account/checkout">
             <a>Change</a>
           </Link>

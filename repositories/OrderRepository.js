@@ -19,6 +19,38 @@ class AuthRepository {
       });
     return response;
   }
+
+  async createDelivery({ orderId, customerId, ...rest }) {
+    const endPoint = `${orderId}/delivery`;
+    const response = await Repository.post(`${basePostUrl}/${endPoint}`, {
+      customer_id: customerId,
+      ...rest,
+    })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response;
+  }
+
+  async createPaystack({ orderId, customerId, status, amount }) {
+    const endPoint = `orders/${orderId}/payments/card`;
+    const response = await Repository.post(`${basePostUrl}/${endPoint}`, {
+      customer_id: customerId,
+      amount,
+      status,
+      detail,
+    })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response;
+  }
 }
 
 export default new AuthRepository();
