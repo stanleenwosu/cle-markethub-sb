@@ -4,9 +4,10 @@ import Link from 'next/link';
 
 import MiniCart from './MiniCart';
 import AccountQuickLinks from './AccountQuickLinks';
-import { getCartItems, getWishlistItems } from '~/store/ecomerce/action';
+import { getWishlistItems } from '~/store/ecomerce/action';
 
 const ElectronicHeaderActions = ({ auth, ecomerce, dispatch }) => {
+  // console.log('🚀 ~ ElectronicHeaderActions ~ auth', auth);
   useEffect(() => {
     dispatch(
       getWishlistItems({

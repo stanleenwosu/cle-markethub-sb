@@ -14,6 +14,7 @@ const ModuleProductActions = ({ product, ecomerce, dispatch }) => {
   function handleAddItemToCart(e) {
     e.preventDefault();
     if (auth.isLoggedIn) {
+      console.log(`ecommerce`, ecomerce);
       addItemToCart({
         itemId: product.id,
         cartId: ecomerce.cartId,

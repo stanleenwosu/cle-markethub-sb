@@ -61,12 +61,10 @@ function* getWishlistItems({ payload }) {
         customerId: payload.customerId,
       }
     );
+    yield put(setWishlistId(wishlist.id));
     const { data } = yield call(WishlistRepository.getUserWishlist, {
       wishId: wishlist.id,
     });
-    // console.log('🚀 ~ function*getCartItems ~ cart', cart);
-    // console.log('🚀 ~ function*getCartItems ~ data', data);
-    yield put(setWishlistId(wishlist.id));
     yield put(setWishlistItemsSuccess(data));
   } catch (err) {
     console.log(err);

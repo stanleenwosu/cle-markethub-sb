@@ -11,9 +11,9 @@ class FormCheckoutInformation extends Component {
   }
 
   handleSubmit = (e) => {
-    console.log('🚀 ~ FormCheckoutInformation ~ e', e);
+    // console.log('🚀 ~ FormCheckoutInformation ~ e', e);
     const { apartment, name, ...form } = e;
-    console.log('🚀 ~ FormCheckoutInformation ~ this.props', this.props);
+    // console.log('🚀 ~ FormCheckoutInformation ~ this.props', this.props);
     this.props.dispatch(saveDelivery(form));
     Router.push('/account/shipping');
   };

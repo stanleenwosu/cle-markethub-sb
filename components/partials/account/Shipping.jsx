@@ -24,7 +24,7 @@ const Shipping = ({ auth, order }) => {
                   </figure>
                   <figure>
                     <small>Ship to</small>
-                    <p>{order.delivery.address}</p>
+                    <p>{`${order.delivery.address}, ${order.delivery.city},${order.delivery.state}`}</p>
                     <Link href="/account/checkout">
                       <a>Change</a>
                     </Link>

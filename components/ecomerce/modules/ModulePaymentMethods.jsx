@@ -2,10 +2,25 @@ import React, { useState } from 'react';
 import { Radio } from 'antd';
 import { useRouter } from 'next/router';
 import { Form, Input, Modal } from 'antd';
+import { PaystackConsumer } from 'react-paystack';
+import { useSelector } from 'react-redux';
+import { calculateAmount } from '~/utilities/ecomerce-helpers';
 
 const ModulePaymentMethods = () => {
+  let amount;
   const Router = useRouter();
   const [method, setMethod] = useState(1);
+  const auth = useSelector((state) => state.auth);
+  const ecomerce = useSelector((state) => state.ecomerce);
+
+  amount = calculateAmount(ecomerce.cartItems);
+
+  const config = {
+    reference: new Date().getTime().toString(),
+    email: auth.user.email,
+    amount: amount * 100,
+    publicKey: 'pk_test_907c693333478cc0246adbdf28e13d343d1cf18b',
+  };
 
   function handleChangeMethod(e) {
     setMethod(e.target.value); //e.target.value
@@ -15,6 +30,25 @@ const ModulePaymentMethods = () => {
     e.preventDefault();
     Router.push('/account/payment-success');
   }
+
+  // you can call this function anything
+  const handleSuccess = (reference) => {
+    // Implementation for whatever you want to do with reference and after success call.
+    console.log(reference);
+  };
+
+  // you can call this function anything
+  const handleClose = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
+    console.log('closed');
+  };
+
+  const componentProps = {
+    ...config,
+    text: 'Paystack Button Implementation',
+    onSuccess: (reference) => handleSuccess(reference),
+    onClose: handleClose,
+  };
 
   return (
     <>
@@ -28,41 +62,15 @@ const ModulePaymentMethods = () => {
         </div>
         <div className="ps-block__content">
           {method === 1 ? (
-            <div className="ps-block__tab">
-              <div className="form-group">
-                <label>Card Number</label>
-                <input type="text" className="form-control" />
-              </div>
-              <div className="form-group">
-                <label>Card Holders</label>
-                <input type="text" className="form-control" />
-              </div>
-              <div className="row">
-                <div className="col-sm-4 col-4">
-                  <div className="form-group">
-                    <label>Expiration Date (MM/YY)</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="01/21"
-                    />
-                  </div>
-                </div>
-                <div className=" col-sm-4 col-4">
-                  <div className="form-group">
-                    <label>CVV</label>
-                    <input type="text" className="form-control" />
-                  </div>
-                </div>
-              </div>
-              <div className="form-group">
+            <PaystackConsumer {...componentProps}>
+              {({ initializePayment }) => (
                 <button
                   className="ps-btn ps-btn--fullwidth"
-                  onClick={(e) => handleSubmit(e)}>
-                  Submit
+                  onClick={() => initializePayment(handleSuccess, handleClose)}>
+                  Pay using Paystack
                 </button>
-              </div>
-            </div>
+              )}
+            </PaystackConsumer>
           ) : (
             <div className="ps-block__tab">
               <Form className="ps-form--account" onFinish={handleSubmit}>

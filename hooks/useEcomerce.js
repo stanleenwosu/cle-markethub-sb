@@ -28,8 +28,8 @@ export default function useEcomerce() {
       await dispatch(getCartItems({ userId, customerId }));
     },
 
-    addItemToCart: async ({ itemId, wishId, quantity, userId, customerId }) => {
-      await dispatch(addCartItem({ itemId, wishId, quantity }));
+    addItemToCart: async ({ itemId, cartId, quantity, userId, customerId }) => {
+      await dispatch(addCartItem({ itemId, cartId, quantity }));
       await dispatch(getCartItems({ userId, customerId }));
     },
 

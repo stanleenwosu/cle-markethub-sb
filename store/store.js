@@ -94,7 +94,11 @@ const makeStore = wrapMakeStore(() => {
         nextReduxCookieMiddleware({
           secure: false,
           compress: false,
-          subtrees: [{ subtree: 'auth' }],
+          subtrees: [
+            { subtree: 'auth' },
+            { subtree: 'ecomerce' },
+            { subtree: 'order' },
+          ],
         })
       )
     )
