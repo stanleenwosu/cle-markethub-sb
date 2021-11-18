@@ -114,7 +114,7 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
                     rules={[
                       {
                         required: true,
-                        message: 'Please input your tenure!',
+                        message: 'Number of repayment months',
                       },
                     ]}>
                     <Input
