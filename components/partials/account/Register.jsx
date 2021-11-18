@@ -21,7 +21,7 @@ class Register extends Component {
   }
 
   handleSubmit = (e) => {
-    this.props.dispatch(register({ ...e }));
+    this.props.dispatch(register({ account_type: 'customer', ...e }));
     Router.push('/account/login');
 
     // e.preventDefault();
