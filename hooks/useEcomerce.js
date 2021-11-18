@@ -24,18 +24,30 @@ export default function useEcomerce() {
     cookies,
     products,
     removeItemFromCart: async ({ itemId, cartId, userId, customerId }) => {
+      setLoading(true);
       await dispatch(deleteCartItem({ itemId, cartId }));
-      await dispatch(getCartItems({ userId, customerId }));
+      setTimeout(() => {
+        await dispatch(getCartItems({ userId, customerId }));
+      }, 1500);
+      setLoading(false);
     },
 
     addItemToCart: async ({ itemId, cartId, quantity, userId, customerId }) => {
+      setLoading(true);
       await dispatch(addCartItem({ itemId, cartId, quantity }));
-      await dispatch(getCartItems({ userId, customerId }));
+      setTimeout(() => {
+        await dispatch(getCartItems({ userId, customerId }));
+      }, 1500);
+      setLoading(false);
     },
 
     removeItemFromWishlist: async ({ itemId, wishId, userId, customerId }) => {
+      setLoading(true);
       await dispatch(deleteWishlistItem({ itemId, wishId }));
-      await dispatch(getWishlistItems({ userId, customerId }));
+      setTimeout(() => {
+        await dispatch(getWishlistItems({ userId, customerId }));
+      }, 1500);
+      setLoading(false);
     },
 
     addItemToWishlist: async ({
@@ -45,8 +57,12 @@ export default function useEcomerce() {
       userId,
       customerId,
     }) => {
+      setLoading(true);
       await dispatch(addWishlistItem({ itemId, wishId, quantity }));
-      await dispatch(getWishlistItems({ userId, customerId }));
+      setTimeout(() => {
+        await dispatch(getWishlistItems({ userId, customerId }));
+      }, 1500);
+      setLoading(false);
     },
 
     addItemToCartLocal: (newItem) => {

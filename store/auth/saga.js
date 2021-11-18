@@ -54,7 +54,7 @@ function* registerSaga(action) {
       message: 'Registration Success',
       description: 'Your account has been registered successfully! Log in',
     });
-  } catch (err) {
+  } catch (err) {,
     // console.log('err: ', err.response);
     notification.warning({
       message: 'Error!',
