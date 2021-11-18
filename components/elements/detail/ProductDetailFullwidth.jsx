@@ -9,22 +9,22 @@ import ModuleDetailActionsMobile from '~/components/elements/detail/modules/Modu
 import ModuleDetailTopInformation from '~/components/elements/detail/modules/ModuleDetailTopInformation';
 
 const ProductDetailFullwidth = ({ product }) => {
-    return (
-        <div className="ps-product--detail ps-product--fullwidth">
-            <div className="ps-product__header">
-                <ThumbnailDefault product={product} />
-                <div className="ps-product__info">
-                    <ModuleDetailTopInformation product={product} />
-                    <ModuleProductDetailDescription product={product} />
-                    <ModuleDetailShoppingActions product={product} />
-                    <ModuleProductDetailSpecification />
-                    <ModuleProductDetailSharing />
-                    <ModuleDetailActionsMobile />
-                </div>
-            </div>
-            <DefaultDescription />
+  return (
+    <div className="ps-product--detail ps-product--fullwidth">
+      <div className="ps-product__header">
+        <ThumbnailDefault product={product} />
+        <div className="ps-product__info">
+          <ModuleDetailTopInformation product={product} />
+          <ModuleProductDetailDescription product={product} />
+          <ModuleDetailShoppingActions product={product} />
+          <ModuleProductDetailSpecification product={product} />
+          <ModuleProductDetailSharing />
+          <ModuleDetailActionsMobile />
         </div>
-    );
+      </div>
+      <DefaultDescription product={product} />
+    </div>
+  );
 };
 
 export default ProductDetailFullwidth;

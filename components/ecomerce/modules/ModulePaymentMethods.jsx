@@ -6,6 +6,7 @@ import { Form, Input, Modal } from 'antd';
 import { PaystackConsumer } from 'react-paystack';
 import { useSelector } from 'react-redux';
 import { calculateAmount } from '~/utilities/ecomerce-helpers';
+import CartRepository from '~/repositories/CartRepository';
 
 const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
   let amount;
@@ -21,7 +22,7 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
   const config = {
     reference: new Date().getTime().toString(),
     email: auth.user.email,
-    amount: amount * 100,
+    amount: (parseInt(amount) + 2000) * 100,
     publicKey: 'pk_test_907c693333478cc0246adbdf28e13d343d1cf18b',
   };
 
@@ -29,42 +30,47 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
     setMethod(e.target.value); //e.target.value
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit(e) {
+    // e.preventDefault();
+    await dispatch({
+      type: 'CREATE_ORDER_COOP',
+      payload: {
+        cartId: ecomerce.cartId,
+        customerId: auth.user.customer_id,
+        delivery,
+        tenure: e.tenure,
+        amount: (config.amount / 100).toString(),
+      },
+    });
+    await clearCart();
     Router.push('/account/payment-success');
   }
 
   // you can call this function anything
   const handleSuccess = async (reference) => {
-    // Implementation for whatever you want to do with reference and after success call.
     await dispatch({
-      type: 'CREATE_ORDER',
-      payload: { cartId: ecomerce.cartId, customerId: auth.user.customer_id },
-    });
-    await dispatch({
-      type: 'CREATE_DELIVERY',
+      type: 'CREATE_ORDER_PAYSTACK',
       payload: {
-        orderId: order.order.id,
+        cartId: ecomerce.cartId,
         customerId: auth.user.customer_id,
-        ...delivery,
-      },
-    });
-    await dispatch({
-      type: 'CREATE_PAYSTACK',
-      payload: {
-        orderId: order.order.id,
-        customerId: auth.user.customer_id,
+        delivery,
         status: reference.status,
         detail: {},
+        amount: (config.amount / 100).toString(),
       },
     });
-    console.log(reference);
+    await clearCart();
+    Router.push('/account/payment-success');
   };
 
   // you can call this function anything
   const handleClose = () => {
     // implementation for  whatever you want to do when the Paystack dialog closed.
     console.log('closed');
+  };
+
+  const clearCart = async () => {
+    await CartRepository.deleteCart({ cartId: ecomerce.cartId });
   };
 
   const componentProps = {
@@ -86,18 +92,22 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
         </div>
         <div className="ps-block__content">
           {method === 1 ? (
-            <PaystackConsumer {...componentProps}>
-              {({ initializePayment }) => (
-                <button
-                  className="ps-btn ps-btn--fullwidth"
-                  onClick={() => initializePayment(handleSuccess, handleClose)}>
-                  Pay using Paystack
-                </button>
-              )}
-            </PaystackConsumer>
+            Boolean(ecomerce.cartId) ? (
+              <PaystackConsumer {...componentProps}>
+                {({ initializePayment }) => (
+                  <button
+                    className="ps-btn ps-btn--fullwidth"
+                    onClick={() =>
+                      initializePayment(handleSuccess, handleClose)
+                    }>
+                    Pay using Paystack
+                  </button>
+                )}
+              </PaystackConsumer>
+            ) : null
           ) : (
-            <div className="ps-block__tab">
-              <Form className="ps-form--account" onFinish={handleSubmit}>
+            <div className="ps-block__content">
+              <Form className="" onFinish={handleSubmit}>
                 <div className="form-group">
                   <Form.Item
                     name="tenure"

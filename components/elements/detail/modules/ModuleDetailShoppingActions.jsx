@@ -12,7 +12,8 @@ const ModuleDetailShoppingActions = ({
 }) => {
   const [quantity, setQuantity] = useState(1);
   const Router = useRouter();
-  const { addItemToCart, addItemToCartLocal } = useEcomerce();
+  const { addItem, addItemToCart, addItemToCartLocal, addItemToWishlist } =
+    useEcomerce();
 
   function handleAddItemToCart(e, itemId, cartId) {
     e.preventDefault();
@@ -52,25 +53,31 @@ const ModuleDetailShoppingActions = ({
     }, 1000);
   }
 
-  const handleAddItemToCompare = (e) => {
-    e.preventDefault();
-    e.preventDefault();
-    addItem({ id: product.id }, ecomerce.compareItems, 'compare');
-    const modal = Modal.success({
-      centered: true,
-      title: 'Success!',
-      content: `This product has been added to compare listing!`,
-    });
-    modal.update;
-  };
+  // const handleAddItemToCompare = (e) => {
+  //   e.preventDefault();
+  //   e.preventDefault();
+  //   addItem({ id: product.id }, ecomerce.compareItems, 'compare');
+  //   const modal = Modal.success({
+  //     centered: true,
+  //     title: 'Success!',
+  //     content: `This product has been added to compare listing!`,
+  //   });
+  //   modal.update;
+  // };
 
   const handleAddItemToWishlist = (e) => {
     e.preventDefault();
-    addItem({ id: product.id }, ecomerce.wishlistItems, 'wishlist');
+    addItemToWishlist({
+      itemId: product.id,
+      wishId: ecomerce.wishId,
+      userId: auth.user.id,
+      customerId: auth.user.customer_id,
+    });
+
     const modal = Modal.success({
       centered: true,
       title: 'Success!',
-      content: `This item has been added to your wishlist`,
+      content: `This item has been added to your Wishlist`,
     });
     modal.update;
   };
@@ -119,11 +126,11 @@ const ModuleDetailShoppingActions = ({
           onClick={(e) => handleBuynow(e, product.id)}>
           Buy Now
         </a>
-        {/* <div className="ps-product__actions">
+        <div className="ps-product__actions">
           <a href="#" onClick={(e) => handleAddItemToWishlist(e)}>
             <i className="icon-heart"></i>
           </a>
-        </div> */}
+        </div>
       </div>
     );
   } else {

@@ -17,6 +17,18 @@ class ProductRepository {
     return response;
   }
 
+  async searchProducts(params) {
+    const endPoint = `search/products?${serializeQuery(params)}`;
+    const response = await Repository.get(`${basePostUrl}/${endPoint}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response;
+  }
+
   async getProductsById(id) {
     const endPoint = `products/${id}`;
     const response = await Repository.get(`${basePostUrl}/${endPoint}`)

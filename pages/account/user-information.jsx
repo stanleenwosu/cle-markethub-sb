@@ -21,7 +21,7 @@ const UserInformationPage = () => {
   ];
 
   return (
-    <PageContainer footer={<FooterDefault />} title="User Information">
+    <PageContainer title="User Information">
       <div className="ps-page--my-account">
         <BreadCrumb breacrumb={breadCrumb} />
         <UserInformation />

@@ -23,17 +23,6 @@ class HeaderMobileTechnology extends Component {
                   <a>Sell on CLE Marketplace</a>
                 </Link>
               </li>
-              <li>
-                <Link href="/account/order-tracking">
-                  <a>Tract your order</a>
-                </Link>
-              </li>
-              <li>
-                <CurrencyDropdown />
-              </li>
-              <li>
-                <LanguageSwicher />
-              </li>
             </ul>
           </div>
         </div>

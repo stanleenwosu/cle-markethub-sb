@@ -3,7 +3,6 @@ import { Modal } from 'antd';
 import { connect, useSelector } from 'react-redux';
 import ProductDetailQuickView from '~/components/elements/detail/ProductDetailQuickView';
 import useEcomerce from '~/hooks/useEcomerce';
-import { getCartItems, getWishlistItems } from '~/store/ecomerce/action';
 
 const ModuleProductActions = ({ product, ecomerce, dispatch }) => {
   const auth = useSelector((state) => state.auth);

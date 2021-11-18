@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
 import { Spin } from 'antd';
-import ProductRepository from '~/repositories/ProductRepositoryOld';
+import ProductRepository from '~/repositories/ProductRepository';
 import ProductSearchResult from '~/components/elements/products/ProductSearchResult';
 import useGetProducts from '~/hooks/useGetProducts';
 
@@ -45,7 +45,7 @@ const SearchHeader = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // Router.push(`/search?keyword=${keyword}`);
+    Router.push(`/search?keyword=${keyword}`);
   }
 
   useEffect(() => {
@@ -53,13 +53,14 @@ const SearchHeader = () => {
       setLoading(true);
       if (keyword) {
         const queries = {
-          _limit: 5,
-          title_contains: keyword,
+          offset: 0,
+          limit: 5,
+          searchString: keyword,
         };
-        const products = ProductRepository.getRecords(queries);
+        const products = ProductRepository.searchProducts(queries);
         products.then((result) => {
           setLoading(false);
-          setResultItems(result);
+          setResultItems(result.data);
           setIsSearch(true);
         });
       } else {

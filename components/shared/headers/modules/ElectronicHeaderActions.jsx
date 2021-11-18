@@ -9,7 +9,6 @@ import { getWishlistItems } from '~/store/ecomerce/action';
 const ElectronicHeaderActions = ({ auth, ecomerce, dispatch }) => {
   // console.log('🚀 ~ ElectronicHeaderActions ~ auth', auth);
   useEffect(() => {
-    console.log(`auth`, auth);
     if (auth.user.customer_id) {
       dispatch(
         getWishlistItems({

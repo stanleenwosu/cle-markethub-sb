@@ -12,13 +12,66 @@ function* saveDeliverySaga({ payload }) {
   }
 }
 
-function* createOrderSaga({ payload }) {
+function* createOrderPaystackSaga({ payload }) {
   try {
     const orderData = yield call(OrderRepository.createOrder, {
       cartId: payload.cartId,
       customerId: payload.customerId,
     });
-    yield put({ type: 'SAVE_ORDER_SUCCESS', payload: orderData.data });
+
+    yield all([
+      put({ type: 'SAVE_ORDER_SUCCESS', payload: orderData.data }),
+      put({
+        type: 'CREATE_DELIVERY',
+        payload: {
+          orderId: orderData.data.id,
+          customerId: payload.customerId,
+          ...payload.delivery,
+        },
+      }),
+      put({
+        type: 'CREATE_PAYSTACK',
+        payload: {
+          orderId: orderData.data.id,
+          customerId: payload.customerId,
+          status: payload.status,
+          detail: payload.detail,
+          amount: payload.amount,
+        },
+      }),
+    ]);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function* createOrderCoopSaga({ payload }) {
+  try {
+    const orderData = yield call(OrderRepository.createOrder, {
+      cartId: payload.cartId,
+      customerId: payload.customerId,
+    });
+
+    yield all([
+      put({ type: 'SAVE_ORDER_SUCCESS', payload: orderData.data }),
+      put({
+        type: 'CREATE_DELIVERY',
+        payload: {
+          orderId: orderData.data.id,
+          customerId: payload.customerId,
+          ...payload.delivery,
+        },
+      }),
+      put({
+        type: 'CREATE_COOP',
+        payload: {
+          orderId: orderData.data.id,
+          customerId: payload.customerId,
+          tenure: payload.tenure,
+          amount: payload.amount,
+        },
+      }),
+    ]);
   } catch (err) {
     console.error(err);
   }
@@ -42,9 +95,20 @@ function* createPaystackSaga({ payload }) {
   }
 }
 
+function* createCoopSaga({ payload }) {
+  try {
+    const data = yield call(OrderRepository.createCoop, payload);
+    // yield put({ type: 'SAVE_ORDER_SUCCESS', payload: data });
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 export default function* rootSaga() {
-  yield all([takeEvery(actionTypes.SAVE_DELIVERY, saveDeliverySaga)]);
-  yield all([takeEvery(actionTypes.CREATE_ORDER, createOrderSaga)]);
-  yield all([takeEvery('CREATE_DELIVERY', createDeliverySaga)]);
-  yield all([takeEvery('CREATE_PAYSTACK', createPaystackSaga)]);
+  yield takeEvery(actionTypes.SAVE_DELIVERY, saveDeliverySaga);
+  yield takeEvery('CREATE_ORDER_PAYSTACK', createOrderPaystackSaga);
+  yield takeEvery('CREATE_ORDER_COOP', createOrderCoopSaga);
+  yield takeEvery('CREATE_DELIVERY', createDeliverySaga);
+  yield takeEvery('CREATE_PAYSTACK', createPaystackSaga);
+  yield takeEvery('CREATE_COOP', createCoopSaga);
 }

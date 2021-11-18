@@ -89,7 +89,7 @@ const ShoppingCartScreen = ({ ecomerce, auth }) => {
       );
     }
   } else {
-    if (cookies.cart.length > 0) {
+    if (cookies.cart?.length > 0) {
       contentView = (
         <>
           <div className="ps-section__content">
@@ -156,7 +156,7 @@ const ShoppingCartScreen = ({ ecomerce, auth }) => {
 
   return (
     <>
-      <PageContainer footer={<FooterDefault />} title="Shopping Cart">
+      <PageContainer title="Shopping Cart">
         <div className="ps-page--simple">
           <BreadCrumb breacrumb={breadCrumb} />
           <div className="ps-section--shopping ps-shopping-cart">

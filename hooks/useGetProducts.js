@@ -54,13 +54,16 @@ export default function useGetProducts() {
       if (responseData) {
         setProductItems(responseData.data);
         setLoading(false);
+      }
+    },
 
-        // setTimeout(
-        //   function () {
-        //     setLoading(false);
-        //   }.bind(this),
-        //   250
-        // );
+    searchProducts: async (payload) => {
+      setLoading(true);
+      let responseData;
+      responseData = await ProductRepository.searchProducts(payload);
+      if (responseData) {
+        setProductItems(responseData.data);
+        setLoading(false);
       }
     },
 

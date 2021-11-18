@@ -113,13 +113,13 @@ const ShopItems = ({ columns = 4, pageSize = 12 }) => {
 
   return (
     <div className="ps-shopping">
-      <div className="ps-shopping__header">
-        <p>
+      <div className="ps-shopping__header d-flex justify-content-end">
+        {/* <p>
           <strong className="mr-2">{total}</strong>
           Products found
-        </p>
-        <div className="ps-shopping__actions">
-          <ModuleShopSortBy />
+        </p> */}
+        <div className="ps-shopping__actions ">
+          {/* <ModuleShopSortBy /> */}
           <div className="ps-shopping__view">
             <p>View</p>
             <ul className="ps-tab-list">

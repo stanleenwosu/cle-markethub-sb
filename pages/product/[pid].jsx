@@ -12,6 +12,7 @@ import HeaderDefault from '~/components/shared/headers/HeaderDefault';
 import PageContainer from '~/components/layouts/PageContainer';
 import Newletters from '~/components/partials/commons/Newletters';
 import HeaderMobileProduct from '~/components/shared/header-mobile/HeaderMobileProduct';
+import ProductGroupByCarousel from '~/components/partials/product/ProductGroupByCarousel';
 
 const ProductDefaultPage = () => {
   const router = useRouter();
@@ -87,8 +88,11 @@ const ProductDefaultPage = () => {
             </div>
           </div>
 
-          <CustomerBought layout="fullwidth" collectionSlug="deal-of-the-day" />
-          <RelatedProduct collectionSlug="shop-recommend-items" />
+          {/* <CustomerBought layout="fullwidth" collectionSlug="deal-of-the-day" /> */}
+          <ProductGroupByCarousel
+            category={{ id: product?.category_id }}
+            title="Related Products"
+          />
         </div>
       </div>
       <Newletters />

@@ -5,6 +5,30 @@ class AuthRepository {
     this.callback = callback;
   }
 
+  async getOrders(customerId, params) {
+    const endPoint = `${customerId}/orders?${serializeQuery(params)}`;
+    const response = await Repository.get(`${basePostUrl}/${endPoint}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response;
+  }
+
+  async getPayments(customerId, params) {
+    const endPoint = `${customerId}/payments?${serializeQuery(params)}`;
+    const response = await Repository.get(`${basePostUrl}/${endPoint}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response;
+  }
+
   async createOrder({ customerId, cartId }) {
     const endPoint = `${customerId}/orders`;
     const response = await Repository.post(`${basePostUrl}/${endPoint}`, {
@@ -21,7 +45,7 @@ class AuthRepository {
   }
 
   async createDelivery({ orderId, customerId, ...rest }) {
-    const endPoint = `${orderId}/delivery`;
+    const endPoint = `orders/${orderId}/delivery`;
     const response = await Repository.post(`${basePostUrl}/${endPoint}`, {
       customer_id: customerId,
       ...rest,
@@ -35,13 +59,29 @@ class AuthRepository {
     return response;
   }
 
-  async createPaystack({ orderId, customerId, status, amount }) {
+  async createPaystack({ orderId, customerId, status, amount, detail }) {
     const endPoint = `orders/${orderId}/payments/card`;
     const response = await Repository.post(`${basePostUrl}/${endPoint}`, {
       customer_id: customerId,
       amount,
       status,
       detail,
+    })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response;
+  }
+
+  async createCoop({ orderId, customerId, amount, tenure }) {
+    const endPoint = `orders/${orderId}/payments/coop`;
+    const response = await Repository.post(`${basePostUrl}/${endPoint}`, {
+      customer_id: customerId,
+      amount,
+      tenure,
     })
       .then((response) => {
         return response.data;

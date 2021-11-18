@@ -6,40 +6,58 @@ import useEcomerce from '~/hooks/useEcomerce';
 
 const ModuleProductWideActions = ({ ecomerce, product }) => {
   const { price } = useProduct();
-  const { addItem, addItemToCart } = useEcomerce();
+  const { addItem, addItemToCart, addItemToCartLocal, addItemToWishlist } =
+    useEcomerce();
   const auth = useSelector((state) => state.auth);
 
   function handleAddItemToCart(e) {
     e.preventDefault();
-    addItemToCart({ quantity: 1, ...product }, 'cart');
-    Modal.success({
+    if (auth.isLoggedIn) {
+      console.log(`ecommerce`, ecomerce);
+      addItemToCart({
+        itemId: product.id,
+        cartId: ecomerce.cartId,
+        userId: auth.user.id,
+        customerId: auth.user.customer_id,
+      });
+    } else {
+      addItemToCartLocal({ ...product, quantity: 1 });
+    }
+    const modal = Modal.success({
       centered: true,
       title: 'Success!',
-      content: `${product.name} has been added to your cart`,
+      content: `This item has been added to your Cart`,
     });
+    modal.update;
   }
 
   function handleAddItemToWishlist(e) {
     e.preventDefault();
-    addItem({ id: product.id }, ecomerce.wishlistItems, 'wishlist');
+    addItemToWishlist({
+      itemId: product.id,
+      wishId: ecomerce.wishId,
+      userId: auth.user.id,
+      customerId: auth.user.customer_id,
+    });
+
     const modal = Modal.success({
       centered: true,
       title: 'Success!',
-      content: `This item has been added to your wishlist`,
+      content: `This item has been added to your Wishlist`,
     });
     modal.update;
   }
 
-  function handleAddItemToCompare(e) {
-    e.preventDefault();
-    addItem({ id: product.id }, ecomerce.compareItems, 'compare');
-    const modal = Modal.success({
-      centered: true,
-      title: 'Success!',
-      content: `This product has been added to your compare listing!`,
-    });
-    modal.update;
-  }
+  // function handleAddItemToCompare(e) {
+  //   e.preventDefault();
+  //   addItem({ id: product.id }, ecomerce.compareItems, 'compare');
+  //   const modal = Modal.success({
+  //     centered: true,
+  //     title: 'Success!',
+  //     content: `This product has been added to your compare listing!`,
+  //   });
+  //   modal.update;
+  // }
 
   return (
     <div className="ps-product__shopping">

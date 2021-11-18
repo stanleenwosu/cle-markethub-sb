@@ -15,7 +15,7 @@ const ShopBanner = () => {
     prevArrow: <PrevArrow />,
   };
   return (
-    <div className="ps-shop-banner">
+    <div className="mb-5">
       <Slider {...carouselSetting} fade={true} className="ps-carousel">
         <img src="/static/img/mine/slide-1.png" alt="CLE" />
         <img src="/static/img/mine/slide-2.png" alt="CLE" />
