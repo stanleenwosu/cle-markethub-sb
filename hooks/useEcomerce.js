@@ -27,7 +27,7 @@ export default function useEcomerce() {
       setLoading(true);
       await dispatch(deleteCartItem({ itemId, cartId }));
       setTimeout(() => {
-        await dispatch(getCartItems({ userId, customerId }));
+        dispatch(getCartItems({ userId, customerId }));
       }, 1500);
       setLoading(false);
     },
@@ -36,7 +36,7 @@ export default function useEcomerce() {
       setLoading(true);
       await dispatch(addCartItem({ itemId, cartId, quantity }));
       setTimeout(() => {
-        await dispatch(getCartItems({ userId, customerId }));
+        dispatch(getCartItems({ userId, customerId }));
       }, 1500);
       setLoading(false);
     },
@@ -45,7 +45,7 @@ export default function useEcomerce() {
       setLoading(true);
       await dispatch(deleteWishlistItem({ itemId, wishId }));
       setTimeout(() => {
-        await dispatch(getWishlistItems({ userId, customerId }));
+        dispatch(getWishlistItems({ userId, customerId }));
       }, 1500);
       setLoading(false);
     },
@@ -60,7 +60,7 @@ export default function useEcomerce() {
       setLoading(true);
       await dispatch(addWishlistItem({ itemId, wishId, quantity }));
       setTimeout(() => {
-        await dispatch(getWishlistItems({ userId, customerId }));
+        dispatch(getWishlistItems({ userId, customerId }));
       }, 1500);
       setLoading(false);
     },
