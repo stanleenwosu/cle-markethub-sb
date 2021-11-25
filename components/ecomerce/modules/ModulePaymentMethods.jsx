@@ -35,7 +35,7 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
   const flutterwaveConfig = {
     public_key: 'FLWPUBK_TEST-08240e1db88c3643639804ae35bbbcba-X',
     tx_ref: Date.now(),
-    amount: (parseInt(amount) + 0) * 100,
+    amount: parseInt(amount) + 0,
     currency: 'NGN',
     payment_options: 'card,mobilemoney,ussd',
     customer: {

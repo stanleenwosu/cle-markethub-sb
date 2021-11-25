@@ -54,6 +54,7 @@ export default function useProduct() {
                 {!height ? (
                   <img
                     src={payload.images[0].url}
+                    style={{ objectFit: 'cover' }}
                     alt="cle-product"
                     height="200"
                   />
