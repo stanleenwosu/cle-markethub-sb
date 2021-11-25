@@ -62,7 +62,7 @@ const UserInformation = () => {
                   <img src="/static/img/users/3.jpg" />
                   <figure>
                     <figcaption>Hello</figcaption>
-                    <p>{user.email}</p>
+                    <p>{user.firstname}</p>
                   </figure>
                 </div>
                 <div className="ps-widget__content">

@@ -76,6 +76,10 @@ const SearchHeader = () => {
     }
   }, [debouncedSearchTerm]);
 
+  const handleCategoryChange = (e) => {
+    console.log('🚀 ~ SearchHeader ~ e', e);
+  };
+
   // Views
   let productItemsView,
     clearTextView,
@@ -127,7 +131,13 @@ const SearchHeader = () => {
       action="/"
       onSubmit={handleSubmit}>
       <div className="ps-form__categories">
-        <select className="form-control">{selectOptionView}</select>
+        <select
+          className="form-control"
+          // value={categories[0].id}
+          // onChange={handleCategoryChange}
+        >
+          {selectOptionView}
+        </select>
       </div>
       <div className="ps-form__input">
         <input

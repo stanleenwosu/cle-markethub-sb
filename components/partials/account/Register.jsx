@@ -9,7 +9,14 @@ import { connect } from 'react-redux';
 class Register extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '' };
+    this.state = {
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
+      phone: '',
+      confirmPassword: '',
+    };
   }
 
   static getDerivedStateFromProps(props) {
@@ -21,7 +28,8 @@ class Register extends Component {
   }
 
   handleSubmit = (e) => {
-    this.props.dispatch(register({ account_type: 'customer', ...e }));
+    const { confirm, ...rest } = e;
+    this.props.dispatch(register({ account_type: 'customer', ...rest }));
     Router.push('/account/login');
 
     // e.preventDefault();
@@ -55,9 +63,51 @@ class Register extends Component {
                 </Link>
               </li>
             </ul>
-            <div className="ps-tab active" id="register">
+            <div className="ps-tab active pb-5" id="register">
               <div className="ps-form__content">
                 <h5>Register An Account</h5>
+                <div className="form-group">
+                  <Form.Item
+                    name="firstname"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input your first name',
+                      },
+                    ]}>
+                    <Input
+                      className="form-control"
+                      type="text"
+                      placeholder="First Name"
+                      value={this.state.firstname}
+                      onChange={(e) =>
+                        this.setState({ firstname: e.target.value })
+                      }
+                    />
+                  </Form.Item>
+                </div>
+
+                <div className="form-group">
+                  <Form.Item
+                    name="lastname"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input your last name',
+                      },
+                    ]}>
+                    <Input
+                      className="form-control"
+                      type="text"
+                      placeholder="Last Name"
+                      value={this.state.lastname}
+                      onChange={(e) =>
+                        this.setState({ lastname: e.target.value })
+                      }
+                    />
+                  </Form.Item>
+                </div>
+
                 <div className="form-group">
                   <Form.Item
                     name="email"
@@ -76,6 +126,26 @@ class Register extends Component {
                     />
                   </Form.Item>
                 </div>
+
+                <div className="form-group">
+                  <Form.Item
+                    name="phone"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input your phone number!',
+                      },
+                    ]}>
+                    <Input
+                      className="form-control"
+                      type="tel"
+                      placeholder="Phone number"
+                      value={this.state.phone}
+                      onChange={(e) => this.setState({ phone: e.target.value })}
+                    />
+                  </Form.Item>
+                </div>
+
                 <div className="form-group form-forgot">
                   <Form.Item
                     name="password"
@@ -85,9 +155,9 @@ class Register extends Component {
                         message: 'Please input your password!',
                       },
                     ]}>
-                    <Input
+                    <Input.Password
                       className="form-control"
-                      value={this.state.email}
+                      value={this.state.password}
                       onChange={(e) =>
                         this.setState({ password: e.target.value })
                       }
@@ -96,13 +166,50 @@ class Register extends Component {
                     />
                   </Form.Item>
                 </div>
+
+                <div className="form-group form-forgot">
+                  <Form.Item
+                    name="confirm"
+                    dependencies={['password']}
+                    hasFeedback
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please confirm your password!',
+                      },
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (!value || getFieldValue('password') === value) {
+                            return Promise.resolve();
+                          }
+
+                          return Promise.reject(
+                            new Error(
+                              'The two passwords that you entered do not match!'
+                            )
+                          );
+                        },
+                      }),
+                    ]}>
+                    <Input.Password
+                      className="form-control"
+                      value={this.state.confirmPassword}
+                      onChange={(e) =>
+                        this.setState({ confirmPassword: e.target.value })
+                      }
+                      type="password"
+                      placeholder="Confirm Password"
+                    />
+                  </Form.Item>
+                </div>
+
                 <div className="form-group submit">
                   <button type="submit" className="ps-btn ps-btn--fullwidth">
                     Register
                   </button>
                 </div>
               </div>
-              <div className="ps-form__footer">
+              {/* <div className="ps-form__footer">
                 <p>Connect with:</p>
                 <ul className="ps-list--social">
                   <li>
@@ -126,7 +233,7 @@ class Register extends Component {
                     </a>
                   </li>
                 </ul>
-              </div>
+              </div> */}
             </div>
           </Form>
         </div>

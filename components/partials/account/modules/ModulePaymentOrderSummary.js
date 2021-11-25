@@ -31,7 +31,7 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
       <figure>
         <figcaption>
           <strong>Shipping Fee</strong>
-          <small>₦2000.00</small>
+          <small>Free</small>
         </figcaption>
       </figure>
     );
@@ -39,7 +39,7 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
       <figure className="ps-block__total">
         <h3>
           Total
-          <strong>₦{parseInt(amount) + 2000}.00</strong>
+          <strong>₦{parseInt(amount) + 0}.00</strong>
         </h3>
       </figure>
     );

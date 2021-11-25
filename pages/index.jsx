@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import BreadCrumb from '~/components/elements/BreadCrumb';
 import ShopItems from '~/components/partials/shop/ShopItems';
 import ProductGroupByCarousel from '~/components/partials/product/ProductGroupByCarousel';
@@ -12,14 +12,24 @@ import PageContainer from '~/components/layouts/PageContainer';
 import Newletters from '~/components/partials/commons/Newletters';
 import SiteFeatures from '~/components/partials/homepage/autopart/SiteFeatures';
 import useGetProducts from '~/hooks/useGetProducts';
+import ProductOnCart from '~/components/elements/products/ProductOnCart';
+import { connect } from 'react-redux';
+import { Modal } from 'antd';
+import Router, { useRouter } from 'next/router';
 
-const ShopDefaultPage = () => {
+const ShopDefaultPage = ({ ecomerce }) => {
   // await ProductRepository.getCategories()
   const { categories, getAllCategories, loading } = useGetProducts();
-  // console.log('🚀 ~ ShopDefaultPage ~ categories', categories);
+  const [isModalVisible, setIsModalVisible] = useState(true);
+  const { query } = useRouter();
 
   useEffect(() => {
     getAllCategories();
+    if (query.qcrt && ecomerce.cartItems.length !== 0) {
+      setIsModalVisible(true);
+    } else {
+      setIsModalVisible(false);
+    }
   }, []);
 
   const breadCrumb = [
@@ -31,6 +41,22 @@ const ShopDefaultPage = () => {
       text: 'Shop',
     },
   ];
+
+  const handleOk = () => {
+    Router.push('account/checkout');
+  };
+
+  const productItems = ecomerce.cartItems.map((item) => {
+    return (
+      <ProductOnCart product={item} key={item.id}>
+        {/* <a
+          className="ps-product__remove"
+          onClick={(e) => handleRemoveItem(e, item.id, item.cart_id)}>
+          <i className="icon-cross"></i>
+        </a> */}
+      </ProductOnCart>
+    );
+  });
 
   return (
     <PageContainer title="Shop">
@@ -72,10 +98,22 @@ const ShopDefaultPage = () => {
               <ShopItems columns={6} pageSize={18} />
             </div>
           </div>
+
+          <Modal
+            title="You have items in your cart"
+            visible={isModalVisible}
+            okText="Check Out"
+            onOk={handleOk}
+            cancelText="Continue Shopping"
+            onCancel={() => setIsModalVisible(false)}
+            okButtonProps={{ size: 'large' }}
+            cancelButtonProps={{ size: 'large' }}>
+            {productItems}
+          </Modal>
         </div>
       </div>
       <Newletters />
     </PageContainer>
   );
 };
-export default ShopDefaultPage;
+export default connect((state) => state)(ShopDefaultPage);

@@ -6,7 +6,7 @@ class AuthRepository {
   }
 
   async getOrders(customerId, params) {
-    const endPoint = `${customerId}/orders?${serializeQuery(params)}`;
+    const endPoint = `customers/${customerId}/orders?${serializeQuery(params)}`;
     const response = await Repository.get(`${basePostUrl}/${endPoint}`)
       .then((response) => {
         return response.data;
@@ -30,7 +30,7 @@ class AuthRepository {
   }
 
   async createOrder({ customerId, cartId }) {
-    const endPoint = `${customerId}/orders`;
+    const endPoint = `customers/${customerId}/orders`;
     const response = await Repository.post(`${basePostUrl}/${endPoint}`, {
       cart_id: cartId,
       customer_id: customerId,

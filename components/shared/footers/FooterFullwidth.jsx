@@ -6,7 +6,7 @@ import FooterCopyright from './modules/FooterCopyright';
 const FooterFullwidth = () => (
   <footer className="ps-footer">
     <div className="ps-container">
-      {/* <FooterWidgets /> */}
+      <FooterWidgets />
       {/* <FooterLinks /> */}
       <FooterCopyright />
     </div>

@@ -15,9 +15,9 @@ const ProductDetailQuickView = ({ product }) => (
         <ModuleDetailTopInformation product={product} />
         <ModuleProductDetailDescription product={product} />
         <ModuleDetailShoppingActions product={product} extended={true} />
-        <ModuleProductDetailSpecification />
-        <ModuleProductDetailSharing />
-        <ModuleDetailActionsMobile />
+        {/* <ModuleProductDetailSpecification product={product} /> */}
+        <ModuleProductDetailSharing product={product} />
+        <ModuleDetailActionsMobile product={product} />
       </div>
     </div>
   </div>

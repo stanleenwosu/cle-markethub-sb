@@ -5,7 +5,7 @@ const ModuleProductDetailDescription = ({ product }) => (
   <div className="ps-product__desc">
     <p>
       Sold By:
-      <Link href="/shop">
+      <Link href={`/vendor/${encodeURIComponent(product.shop_id)}`}>
         <a>
           <strong> {product.shop_name}</strong>
         </a>

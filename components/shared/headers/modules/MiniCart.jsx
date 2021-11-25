@@ -14,7 +14,7 @@ const MiniCart = ({ ecomerce, auth, dispatch, ...rest }) => {
   // console.log('🚀 ~ MiniCart ~ rest', rest);
   const { removeItemCartLocal, removeItemFromCart, loading } = useEcomerce();
   const [cookies] = useCookies(['cart']);
-  console.log('🚀 ~ MiniCart ~ loading', loading);
+  // console.log('🚀 ~ MiniCart ~ loading', loading);
 
   function handleRemoveItem(e, itemId, cartId) {
     e.preventDefault();

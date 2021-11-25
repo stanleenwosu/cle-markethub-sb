@@ -26,6 +26,7 @@ const FormChangeUserInformation = () => {
                 className="form-control"
                 type="text"
                 placeholder="First name"
+                value={user.firstname}
               />
             </div>
           </div>
@@ -35,6 +36,7 @@ const FormChangeUserInformation = () => {
                 className="form-control"
                 type="text"
                 placeholder="Last name"
+                value={user.lastname}
               />
             </div>
           </div>
@@ -45,6 +47,7 @@ const FormChangeUserInformation = () => {
                 className="form-control"
                 type="text"
                 placeholder="Phone Number"
+                value={user.phone}
               />
             </div>
           </div>
@@ -54,6 +57,7 @@ const FormChangeUserInformation = () => {
                 className="form-control"
                 type="text"
                 placeholder="Email Address"
+                disabled
                 value={user.email}
               />
             </div>

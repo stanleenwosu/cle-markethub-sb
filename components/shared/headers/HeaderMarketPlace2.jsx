@@ -22,40 +22,6 @@ const HeaderMarketPlace2 = ({ isReady = true }) => {
     searchHeader = <SearchHeader />;
   }
 
-  const menuMarket2 = [
-    {
-      text: 'All Categories',
-      url: '/shop',
-    },
-    {
-      text: 'Today Deals',
-      url: '/shop',
-    },
-    {
-      text: 'Electronics',
-      url: '/shop',
-    },
-    {
-      text: 'Clothing',
-      url: '/shop',
-    },
-    {
-      text: 'Computers',
-      url: '/shop',
-    },
-    {
-      text: 'Furnitures',
-      url: '/shop',
-    },
-    {
-      text: 'Mom & baby',
-      url: '/shop',
-    },
-    {
-      text: 'Book & More',
-      url: '/shop',
-    },
-  ];
   return (
     <header
       className="header header--standard header--market-place-2"

@@ -37,7 +37,7 @@ const Shipping = ({ auth }) => {
                 <div className="ps-block__panel">
                   <figure>
                     <small>International Shipping</small>
-                    <strong>₦2000.00</strong>
+                    <strong>Free</strong>
                   </figure>
                 </div>
                 <div className="ps-block__footer">

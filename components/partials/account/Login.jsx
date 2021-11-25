@@ -8,10 +8,12 @@ import {
   addCartItem,
 } from '~/store/ecomerce/action';
 
-import { Form, Input, notification } from 'antd';
+import { Form, Input, Modal, notification } from 'antd';
 import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import CartRepository from '~/repositories/CartRepository';
+import MiniCart from '~/components/shared/headers/modules/MiniCart';
+import ProductOnCart from '~/components/elements/products/ProductOnCart';
 // import useEcomerce from '~/hooks/useEcomerce';
 // const { addItem, addItemToCart, addItemToCartLocal } = useEcomerce();
 
@@ -38,12 +40,16 @@ class Login extends Component {
     });
   }
 
-  handleLoginSubmit = async (e) => {
-    await this.props.dispatch(login(e));
-    setTimeout(() => {
-      this.handleCookies();
-    }, 5000);
-    // Router.push('/');
+  handleLoginSubmit = (e) => {
+    this.props.dispatch(login(e));
+    // this.props.dispatch(
+    //   getCartItems({
+    //     userId: this.props.auth.user.id,
+    //     customerId: this.props.auth.user.customer_id,
+    //   })
+    // );
+    this.handleCookies();
+    Router.push('/?qcrt=1');
   };
 
   handleCookies = () => {
@@ -88,7 +94,7 @@ class Login extends Component {
                 </Link>
               </li>
             </ul>
-            <div className="ps-tab active" id="sign-in">
+            <div className="ps-tab active pb-5" id="sign-in">
               <div className="ps-form__content">
                 <h5>Log In Your Account</h5>
                 <div className="form-group">
@@ -146,7 +152,7 @@ class Login extends Component {
                   </button>
                 </div>
               </div>
-              <div className="ps-form__footer">
+              {/* <div className="ps-form__footer">
                 <p>Connect with:</p>
                 <ul className="ps-list--social">
                   <li>
@@ -182,7 +188,7 @@ class Login extends Component {
                     </a>
                   </li>
                 </ul>
-              </div>
+              </div> */}
             </div>
           </Form>
         </div>

@@ -11,7 +11,7 @@ const ModuleProductDetailSpecification = ({ product }) => (
         </p> */}
     <p className="categories">
       <strong> Categories:</strong>
-      <Link href="/shop">
+      <Link href="#">
         <a>{product.category_name}</a>
       </Link>
     </p>

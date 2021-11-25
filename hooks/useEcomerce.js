@@ -23,45 +23,39 @@ export default function useEcomerce() {
     loading,
     cookies,
     products,
-    removeItemFromCart: async ({ itemId, cartId, userId, customerId }) => {
+    removeItemFromCart: ({ itemId, cartId, userId, customerId }) => {
       setLoading(true);
-      await dispatch(deleteCartItem({ itemId, cartId }));
-      setTimeout(() => {
-        dispatch(getCartItems({ userId, customerId }));
-      }, 1500);
+      dispatch(deleteCartItem({ itemId, cartId }));
+      // setTimeout(() => {
+      dispatch(getCartItems({ userId, customerId }));
+      // }, 1500);
       setLoading(false);
     },
 
-    addItemToCart: async ({ itemId, cartId, quantity, userId, customerId }) => {
+    addItemToCart: ({ itemId, cartId, quantity, userId, customerId }) => {
       setLoading(true);
-      await dispatch(addCartItem({ itemId, cartId, quantity }));
-      setTimeout(() => {
-        dispatch(getCartItems({ userId, customerId }));
-      }, 1500);
+      dispatch(addCartItem({ itemId, cartId, quantity }));
+      // setTimeout(() => {
+      dispatch(getCartItems({ userId, customerId }));
+      // }, 1500);
       setLoading(false);
     },
 
-    removeItemFromWishlist: async ({ itemId, wishId, userId, customerId }) => {
+    removeItemFromWishlist: ({ itemId, wishId, userId, customerId }) => {
       setLoading(true);
-      await dispatch(deleteWishlistItem({ itemId, wishId }));
-      setTimeout(() => {
-        dispatch(getWishlistItems({ userId, customerId }));
-      }, 1500);
+      dispatch(deleteWishlistItem({ itemId, wishId }));
+      // setTimeout(() => {
+      dispatch(getWishlistItems({ userId, customerId }));
+      // }, 1500);
       setLoading(false);
     },
 
-    addItemToWishlist: async ({
-      itemId,
-      wishId,
-      quantity,
-      userId,
-      customerId,
-    }) => {
+    addItemToWishlist: ({ itemId, wishId, quantity, userId, customerId }) => {
       setLoading(true);
-      await dispatch(addWishlistItem({ itemId, wishId, quantity }));
-      setTimeout(() => {
-        dispatch(getWishlistItems({ userId, customerId }));
-      }, 1500);
+      dispatch(addWishlistItem({ itemId, wishId, quantity }));
+      // setTimeout(() => {
+      dispatch(getWishlistItems({ userId, customerId }));
+      // }, 1500);
       setLoading(false);
     },
 

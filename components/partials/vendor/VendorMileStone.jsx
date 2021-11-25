@@ -12,15 +12,11 @@ const VendorMileStone = () => (
       <div className="ps-section__content">
         <div className="ps-block--vendor-milestone">
           <div className="ps-block__left">
-            <h4>Register and list your products</h4>
+            <h4>Register</h4>
             <ul>
               <li>
-                Register your business for free and create a product catalogue.
-                Get free training on how to run your online business
-              </li>
-              <li>
-                Our CLE Marketplace Advisors will help you at every step and
-                fully assist you in taking your business online
+                Fill the registration form, submit the required documents; Bank
+                Details and Business Registration Documents.
               </li>
             </ul>
           </div>
@@ -36,15 +32,11 @@ const VendorMileStone = () => (
         </div>
         <div className="ps-block--vendor-milestone reverse">
           <div className="ps-block__left">
-            <h4>Receive orders and sell your product</h4>
+            <h4>Complete training</h4>
             <ul>
               <li>
-                Register your business for free and create a product catalogue.
-                Get free training on how to run your online business
-              </li>
-              <li>
-                Our CLE Marketplace Advisors will help you at every step and
-                fully assist you in taking your business online
+                Complete the dedicated new seller training; Activate your seller
+                merchant account to start selling and manage you shop
               </li>
             </ul>
           </div>
@@ -60,15 +52,11 @@ const VendorMileStone = () => (
         </div>
         <div className="ps-block--vendor-milestone">
           <div className="ps-block__left">
-            <h4>Package and ship with ease</h4>
+            <h4>List Products</h4>
             <ul>
               <li>
-                Register your business for free and create a product catalogue.
-                Get free training on how to run your online business
-              </li>
-              <li>
-                Our CLE Marketplace Advisors will help you at every step and
-                fully assist you in taking your business online
+                List your products and sell; upload your best-selling products
+                and start selling.
               </li>
             </ul>
           </div>
@@ -84,15 +72,11 @@ const VendorMileStone = () => (
         </div>
         <div className="ps-block--vendor-milestone reverse">
           <div className="ps-block__left">
-            <h4>Package and ship with ease</h4>
+            <h4>Promote with ease</h4>
             <ul>
               <li>
-                Register your business for free and create a product catalogue.
-                Get free training on how to run your online business
-              </li>
-              <li>
-                Our CLE Marketplace Advisors will help you at every step and
-                fully assist you in taking your business online
+                Promote your products to Millions of customers and increase
+                sales daily.
               </li>
             </ul>
           </div>
