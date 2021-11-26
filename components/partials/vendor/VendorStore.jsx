@@ -16,8 +16,14 @@ const fetcher = (shopName) =>
     .then((res) => res.data.data);
 
 const VendorStore = ({ store }) => {
-  const { data: products, error } = useSWR(store.unique_name, fetcher);
+  const {
+    data: products,
+    error,
+    isValidating,
+  } = useSWR(store.unique_name, fetcher);
   console.log('🚀 ~ VendorStore ~ products', products);
+
+  if (!products) return <div>loading...</div>;
   return (
     <div className="ps-vendor-store">
       <div className="container">

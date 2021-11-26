@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import useProduct from '~/hooks/useProduct';
+import { formatCurrency } from '~/utils/helpers.ts';
 
 const ProductOnCart = ({ product, children }) => {
   const { thumbnailImage, title } = useProduct();
@@ -8,7 +9,7 @@ const ProductOnCart = ({ product, children }) => {
   return (
     <div className="ps-product--cart-mobile">
       <div className="ps-product__thumbnail">
-        <Link href="/product/[pid]" as={`/product/${product.id}`}>
+        <Link href="/product/[pid]" as={`/product/${product.product_id}`}>
           <a>{thumbnailImage(product, true)}</a>
         </Link>
       </div>
@@ -16,7 +17,9 @@ const ProductOnCart = ({ product, children }) => {
         {title(product)}
         <p>
           <small>
-            ₦{product.discount_price || product.price} x {product.quantity}
+            {formatCurrency(
+              (product.discount_price || product.price) * product.quantity
+            )}
           </small>
         </p>{' '}
         {children}

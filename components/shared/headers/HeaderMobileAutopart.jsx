@@ -19,7 +19,7 @@ class HeaderMobileAutopart extends Component {
           <div className="header__right">
             <ul className="navigation__extra">
               <li>
-                <Link href="/vendor/become-a-vendor">
+                <Link href="/vendor/sell-cle">
                   <a>Sell on CLE Marketplace</a>
                 </Link>
               </li>

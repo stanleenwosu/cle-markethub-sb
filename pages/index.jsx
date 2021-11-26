@@ -27,10 +27,12 @@ const ShopDefaultPage = ({ ecomerce }) => {
     getAllCategories();
     if (query.qcrt && ecomerce.cartItems.length !== 0) {
       setIsModalVisible(true);
-    } else {
-      setIsModalVisible(false);
+      Router.replace('/', {}, { shallow: true });
     }
-  }, []);
+    // else {
+    // setIsModalVisible(false);
+    // }
+  }, [ecomerce.cartItems]);
 
   const breadCrumb = [
     {

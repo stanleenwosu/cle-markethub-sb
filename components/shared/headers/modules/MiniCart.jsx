@@ -9,6 +9,7 @@ import {
   getCartItems,
   deleteCartItem,
 } from '../../../../store/ecomerce/action';
+import { formatCurrency } from '~/utils/helpers.ts';
 
 const MiniCart = ({ ecomerce, auth, dispatch, ...rest }) => {
   // console.log('🚀 ~ MiniCart ~ rest', rest);
@@ -71,7 +72,7 @@ const MiniCart = ({ ecomerce, auth, dispatch, ...rest }) => {
           <div className="ps-cart__footer">
             <h3>
               Sub Total:
-              <strong>₦{amount ? amount : 0}</strong>
+              <strong>{formatCurrency(amount ? amount : 0)}</strong>
             </h3>
             <figure>
               <Link href="/account/shopping-cart">

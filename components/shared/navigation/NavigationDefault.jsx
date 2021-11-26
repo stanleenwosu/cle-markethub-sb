@@ -33,7 +33,7 @@ class NavigationDefault extends Component {
             <Menu source={menuData.menuPrimary.menu_1} className="menu" />
             <ul className="navigation__extra">
               <li>
-                <Link href="/vendor/become-a-vendor">
+                <Link href="/vendor/sell-cle">
                   <a>Sell on CLE Marketplace</a>
                 </Link>
               </li>

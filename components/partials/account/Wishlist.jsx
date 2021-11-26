@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import useEcomerce from '~/hooks/useEcomerce';
 import ProductCart from '~/components/elements/products/ProductCart';
 import { getWishlistItems } from '~/store/ecomerce/action';
+import { formatCurrency } from '~/utils/helpers.ts';
 
 const Wishlist = ({ ecomerce, dispatch, auth }) => {
   const { addItemToCart, loading } = useEcomerce();
@@ -75,7 +76,7 @@ const Wishlist = ({ ecomerce, dispatch, auth }) => {
                   <ProductCart product={product} />
                 </td>
                 <td className="price">
-                  ₦{product.discount_price || product.price}
+                  {formatCurrency(product.discount_price || product.price)}
                 </td>
                 {/* <td>{product.shop}</td> */}
                 <td>

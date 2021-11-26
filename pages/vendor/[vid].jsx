@@ -7,12 +7,6 @@ import PageContainer from '~/components/layouts/PageContainer';
 import { baseStoreUrl } from '~/repositories/Repository.js';
 
 const VendorStorePage = ({ store, products }) => {
-  useEffect(() => {
-    effect;
-    return () => {
-      cleanup;
-    };
-  }, []);
   const breadCrumb = [
     {
       text: 'Home',

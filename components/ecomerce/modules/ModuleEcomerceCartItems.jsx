@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import useEcomerce from '~/hooks/useEcomerce';
 import { Result } from 'antd';
 import ProductCart from '~/components/elements/products/ProductCart';
+import { formatCurrency } from '~/utils/helpers.ts';
 
 const ModuleEcomerceCartItems = ({ ecomerce, cartItems, auth }) => {
   const { increaseQty, decreaseQty, removeItemCartLocal, removeItemFromCart } =
@@ -41,7 +42,7 @@ const ModuleEcomerceCartItems = ({ ecomerce, cartItems, auth }) => {
           <ProductCart product={item} />
         </td>
         <td data-label="price" className="price">
-          ₦{item.price}
+          {formatCurrency(item.discount_price || item.price)}
         </td>
         <td data-label="quantity">
           <div className="form-group--number">
@@ -64,7 +65,9 @@ const ModuleEcomerceCartItems = ({ ecomerce, cartItems, auth }) => {
           </div>
         </td>
         <td data-label="total">
-          <strong>₦{(item.price * item.quantity).toFixed(2)}</strong>
+          <strong>
+            {formatCurrency(item.discount_price || item.price * item.quantity)}
+          </strong>
         </td>
         <td>
           <a

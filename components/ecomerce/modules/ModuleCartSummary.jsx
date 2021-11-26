@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { calculateAmount } from '~/utilities/ecomerce-helpers';
+import { formatCurrency } from '~/utils/helpers.ts';
 
 const ModuleCartSummary = ({ source }) => {
   // View
@@ -9,13 +10,15 @@ const ModuleCartSummary = ({ source }) => {
     amount = calculateAmount(source);
     productItemsView = source.map((item) => (
       <li key={item.id}>
-        <span className="ps-block__estimate">
-          <Link href="/product/[pid]" as={`/product/${item.id}`}>
-            <a className="ps-product__title">
-              {item.name}
-              <br /> x {item.quantity}
+        <span className="ps-block__estimate d-flex justify-content-between">
+          <Link href="/product/[pid]" as={`/product/${item.product_id}`}>
+            <a className="ps-product__title text-primary">
+              {item.name} x {item.quantity}
             </a>
           </Link>
+          <p>
+            {formatCurrency(item.discount_price || item.price * item.quantity)}
+          </p>
         </span>
       </li>
     ));
@@ -26,13 +29,13 @@ const ModuleCartSummary = ({ source }) => {
       <div className="ps-block--shopping-total">
         <div className="ps-block__header">
           <p>
-            Subtotal <span> ₦{amount}</span>
+            Subtotal <span> {formatCurrency(amount)}</span>
           </p>
         </div>
         <div className="ps-block__content">
           <ul className="ps-block__product">{productItemsView}</ul>
           <h3>
-            Total <span>₦{amount}</span>
+            Total <span>{formatCurrency(amount)}</span>
           </h3>
         </div>
       </div>

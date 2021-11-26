@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { connect } from 'react-redux';
 import useEcomerce from '~/hooks/useEcomerce';
+import { formatCurrency } from '~/utils/helpers.ts';
 import { calculateAmount } from '~/utilities/ecomerce-helpers';
 
 const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
@@ -19,7 +20,11 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
             {item.name}
             <span>x{item.quantity}</span>
           </strong>
-          <small>₦{item.quantity * (item.discount_price || item.price)}</small>
+          <small>
+            {formatCurrency(
+              (item.discount_price || item.price) * item.quantity
+            )}
+          </small>
         </a>
       </Link>
     ));
@@ -39,7 +44,7 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
       <figure className="ps-block__total">
         <h3>
           Total
-          <strong>₦{parseInt(amount) + 0}.00</strong>
+          <strong>{formatCurrency(amount)}</strong>
         </h3>
       </figure>
     );
@@ -48,7 +53,7 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
       <figure className="ps-block__total">
         <h3>
           Total
-          <strong>₦{parseInt(amount)}.00</strong>
+          <strong>{formatCurrency(amount)}</strong>
         </h3>
       </figure>
     );
@@ -66,7 +71,7 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
         <figure>
           <figcaption>
             <strong>Subtotal</strong>
-            <small>₦{amount}</small>
+            <small>{formatCurrency(amount)}</small>
           </figcaption>
         </figure>
         {shippingView}
