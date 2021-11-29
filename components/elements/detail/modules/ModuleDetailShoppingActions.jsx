@@ -74,12 +74,12 @@ const ModuleDetailShoppingActions = ({
       customerId: auth.user.customer_id,
     });
 
-    const modal = Modal.success({
-      centered: true,
-      title: 'Success!',
-      content: `This item has been added to your Wishlist`,
-    });
-    modal.update;
+    // const modal = Modal.success({
+    //   centered: true,
+    //   title: 'Success!',
+    //   content: `This item has been added to your Wishlist`,
+    // });
+    // modal.update;
   };
 
   function handleIncreaseItemQty(e) {

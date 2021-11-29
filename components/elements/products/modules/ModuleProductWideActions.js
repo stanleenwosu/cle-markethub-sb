@@ -23,12 +23,12 @@ const ModuleProductWideActions = ({ ecomerce, product }) => {
     } else {
       addItemToCartLocal({ ...product, quantity: 1 });
     }
-    const modal = Modal.success({
-      centered: true,
-      title: 'Success!',
-      content: `This item has been added to your Cart`,
-    });
-    modal.update;
+    // const modal = Modal.success({
+    //   centered: true,
+    //   title: 'Success!',
+    //   content: `This item has been added to your Cart`,
+    // });
+    // modal.update;
   }
 
   function handleAddItemToWishlist(e) {
@@ -40,12 +40,12 @@ const ModuleProductWideActions = ({ ecomerce, product }) => {
       customerId: auth.user.customer_id,
     });
 
-    const modal = Modal.success({
-      centered: true,
-      title: 'Success!',
-      content: `This item has been added to your Wishlist`,
-    });
-    modal.update;
+    // const modal = Modal.success({
+    //   centered: true,
+    //   title: 'Success!',
+    //   content: `This item has been added to your Wishlist`,
+    // });
+    // modal.update;
   }
 
   // function handleAddItemToCompare(e) {

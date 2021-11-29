@@ -32,23 +32,13 @@ const PageContainer = ({
     titleView = process.env.title + ' | ' + process.env.titleDescription;
   }
 
-  // useEffect(() => {
-  //   const script = document.createElement('script');
-
-  //   script.src = 'https://use.typekit.net/foobar.js';
-  //   script.async = true;
-
-  //   document.body.appendChild(script);
-
-  //   return () => {
-  //     document.body.removeChild(script);
-  //   };
-  // }, []);
-
   return (
     <>
       <Head>
         <title>{titleView}</title>
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/nprogress@0.2.0/nprogress.css"></link>
       </Head>
       {header}
       {children}

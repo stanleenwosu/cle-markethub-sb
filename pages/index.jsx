@@ -17,15 +17,18 @@ import { connect } from 'react-redux';
 import { Modal } from 'antd';
 import Router, { useRouter } from 'next/router';
 
-const ShopDefaultPage = ({ ecomerce }) => {
+const ShopDefaultPage = ({ ecomerce, auth }) => {
   // await ProductRepository.getCategories()
   const { categories, getAllCategories, loading } = useGetProducts();
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const { query } = useRouter();
 
   useEffect(() => {
     getAllCategories();
-    if (query.qcrt && ecomerce.cartItems.length !== 0) {
+  }, []);
+
+  useEffect(() => {
+    if (auth.isLoggedIn && query.qcrt && ecomerce.cartItems.length !== 0) {
       setIsModalVisible(true);
       Router.replace('/', {}, { shallow: true });
     }

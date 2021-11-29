@@ -18,12 +18,6 @@ const ModuleDetailActionsMobile = ({ ecomerce, product }) => {
     } else {
       addItemToCartLocal({ ...product, quantity: 1 });
     }
-    const modal = Modal.success({
-      centered: true,
-      title: 'Success!',
-      content: `This item has been added to your Cart`,
-    });
-    modal.update;
   };
 
   const handleAddItemToWishlist = (e) => {
@@ -34,13 +28,6 @@ const ModuleDetailActionsMobile = ({ ecomerce, product }) => {
       userId: auth.user.id,
       customerId: auth.user.customer_id,
     });
-
-    const modal = Modal.success({
-      centered: true,
-      title: 'Success!',
-      content: `This item has been added to your Wishlist`,
-    });
-    modal.update;
   };
 
   return (

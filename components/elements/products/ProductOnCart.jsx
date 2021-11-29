@@ -14,7 +14,7 @@ const ProductOnCart = ({ product, children }) => {
         </Link>
       </div>
       <div className="ps-product__content">
-        {title(product)}
+        {title(product)} x {product.quantity}
         <p>
           <small>
             {formatCurrency(

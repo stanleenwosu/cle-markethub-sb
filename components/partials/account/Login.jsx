@@ -26,7 +26,7 @@ class Login extends Component {
   static getDerivedStateFromProps(props) {
     // console.log('props.cookies :>> ', props.allCookies);
     if (props.auth.isLoggedIn === true) {
-      Router.push('/');
+      Router.push('/?qcrt=1');
     }
     return false;
   }
@@ -42,14 +42,8 @@ class Login extends Component {
 
   handleLoginSubmit = (e) => {
     this.props.dispatch(login(e));
-    // this.props.dispatch(
-    //   getCartItems({
-    //     userId: this.props.auth.user.id,
-    //     customerId: this.props.auth.user.customer_id,
-    //   })
-    // );
-    this.handleCookies();
-    Router.push('/?qcrt=1');
+    // this.handleCookies();
+    // Router.push('/?qcrt=1');
   };
 
   handleCookies = () => {

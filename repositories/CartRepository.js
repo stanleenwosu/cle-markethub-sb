@@ -48,7 +48,7 @@ class CartRepository {
         return response.data;
       })
       .catch((e) => ({
-        error: JSON.stringify(error),
+        error: JSON.stringify(e),
       }));
     return response;
   }
@@ -64,7 +64,7 @@ class CartRepository {
         return response.data;
       })
       .catch((e) => ({
-        error: JSON.stringify(error),
+        error: JSON.stringify(e),
       }));
     return response;
   }
@@ -76,7 +76,7 @@ class CartRepository {
         return response.data;
       })
       .catch((e) => ({
-        error: JSON.stringify(error),
+        error: JSON.stringify(e),
       }));
     return response;
   }
@@ -91,7 +91,7 @@ class CartRepository {
         return response.data;
       })
       .catch((e) => ({
-        error: JSON.stringify(error),
+        error: JSON.stringify(e),
       }));
     return response;
   }
@@ -103,7 +103,7 @@ class CartRepository {
         return response.data;
       })
       .catch((e) => ({
-        error: JSON.stringify(error),
+        error: JSON.stringify(e),
       }));
     return response;
   }
@@ -115,7 +115,7 @@ class CartRepository {
         return response.data;
       })
       .catch((e) => ({
-        error: JSON.stringify(error),
+        error: JSON.stringify(e),
       }));
     return response;
   }

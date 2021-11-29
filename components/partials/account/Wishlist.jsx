@@ -18,12 +18,12 @@ const Wishlist = ({ ecomerce, dispatch, auth }) => {
       userId: auth.user.id,
       customerId: auth.user.customer_id,
     });
-    const modal = Modal.success({
-      centered: true,
-      title: 'Success!',
-      content: `This item has been added to your Cart`,
-    });
-    modal.update;
+    // const modal = Modal.success({
+    //   centered: true,
+    //   title: 'Success!',
+    //   content: `This item has been added to your Cart`,
+    // });
+    // modal.update;
   }
 
   function handleRemoveWishlistItem(e, product) {

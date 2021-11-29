@@ -51,7 +51,7 @@ class WishlistRepository {
         return response.data;
       })
       .catch((e) => ({
-        error: JSON.stringify(error),
+        error: JSON.stringify(e),
       }));
     return response;
   }
@@ -63,7 +63,7 @@ class WishlistRepository {
         return response.data;
       })
       .catch((e) => ({
-        error: JSON.stringify(error),
+        error: JSON.stringify(e),
       }));
     return response;
   }
@@ -79,7 +79,7 @@ class WishlistRepository {
         return response.data;
       })
       .catch((e) => ({
-        error: JSON.stringify(error),
+        error: JSON.stringify(e),
       }));
     return response;
   }
@@ -91,7 +91,7 @@ class WishlistRepository {
         return response.data;
       })
       .catch((e) => ({
-        error: JSON.stringify(error),
+        error: JSON.stringify(e),
       }));
     return response;
   }
@@ -103,7 +103,7 @@ class WishlistRepository {
         return response.data;
       })
       .catch((e) => ({
-        error: JSON.stringify(error),
+        error: JSON.stringify(e),
       }));
     return response;
   }
@@ -115,7 +115,7 @@ class WishlistRepository {
         return response.data;
       })
       .catch((e) => ({
-        error: JSON.stringify(error),
+        error: JSON.stringify(e),
       }));
     return response;
   }

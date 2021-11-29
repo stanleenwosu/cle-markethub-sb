@@ -25,36 +25,38 @@ export default function useEcomerce() {
     products,
     removeItemFromCart: ({ itemId, cartId, userId, customerId }) => {
       setLoading(true);
-      dispatch(deleteCartItem({ itemId, cartId }));
+      dispatch(deleteCartItem({ itemId, cartId, userId, customerId }));
       // setTimeout(() => {
-      dispatch(getCartItems({ userId, customerId }));
+      // dispatch(getCartItems({ userId, customerId }));
       // }, 1500);
       setLoading(false);
     },
 
     addItemToCart: ({ itemId, cartId, quantity, userId, customerId }) => {
       setLoading(true);
-      dispatch(addCartItem({ itemId, cartId, quantity }));
+      dispatch(addCartItem({ itemId, cartId, quantity, userId, customerId }));
       // setTimeout(() => {
-      dispatch(getCartItems({ userId, customerId }));
+      // dispatch(getCartItems({ userId, customerId }));
       // }, 1500);
       setLoading(false);
     },
 
     removeItemFromWishlist: ({ itemId, wishId, userId, customerId }) => {
       setLoading(true);
-      dispatch(deleteWishlistItem({ itemId, wishId }));
+      dispatch(deleteWishlistItem({ itemId, wishId, userId, customerId }));
       // setTimeout(() => {
-      dispatch(getWishlistItems({ userId, customerId }));
+      // dispatch(getWishlistItems({ userId, customerId }));
       // }, 1500);
       setLoading(false);
     },
 
     addItemToWishlist: ({ itemId, wishId, quantity, userId, customerId }) => {
       setLoading(true);
-      dispatch(addWishlistItem({ itemId, wishId, quantity }));
+      dispatch(
+        addWishlistItem({ itemId, wishId, quantity, userId, customerId })
+      );
       // setTimeout(() => {
-      dispatch(getWishlistItems({ userId, customerId }));
+      // dispatch(getWishlistItems({ userId, customerId }));
       // }, 1500);
       setLoading(false);
     },

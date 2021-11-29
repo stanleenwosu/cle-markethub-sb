@@ -1,4 +1,4 @@
-import { call, all, put, takeEvery } from 'redux-saga/effects';
+import { call, all, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import OrderRepository from '~/repositories/OrderRepository';
 import { actionTypes, saveDeliverySuccess, saveOrderSuccess } from './action';
 
@@ -105,10 +105,11 @@ function* createCoopSaga({ payload }) {
 }
 
 export default function* rootSaga() {
-  yield takeEvery(actionTypes.SAVE_DELIVERY, saveDeliverySaga);
-  yield takeEvery('CREATE_ORDER_PAYSTACK', createOrderPaystackSaga);
-  yield takeEvery('CREATE_ORDER_COOP', createOrderCoopSaga);
-  yield takeEvery('CREATE_DELIVERY', createDeliverySaga);
-  yield takeEvery('CREATE_PAYSTACK', createPaystackSaga);
-  yield takeEvery('CREATE_COOP', createCoopSaga);
+  yield takeLatest(actionTypes.SAVE_DELIVERY, saveDeliverySaga);
+  yield takeLatest('CREATE_ORDER_PAYSTACK', createOrderPaystackSaga);
+  yield takeLatest('CREATE_ORDER_COOP', createOrderCoopSaga);
+  yield takeLatest('CREATE_DELIVERY', createDeliverySaga);
+  yield takeLatest('CREATE_PAYSTACK', createPaystackSaga);
+  yield takeLatest('CREATE_COOP', createCoopSaga);
+  // yield takeLatest('TEST', testSaga);
 }
