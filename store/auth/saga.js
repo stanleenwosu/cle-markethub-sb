@@ -27,12 +27,12 @@ const modalWarning = (type) => {
   });
 };
 
-const isServer = typeof window === 'undefined';
+// const isServer = typeof window === 'undefined';
 
-let cookiesCart;
-if (!isServer) {
-  cookiesCart = JSON.parse(Cookies.get('cart'));
-}
+// let cookiesCart;
+// if (!isServer) {
+//   cookiesCart = JSON.parse(Cookies.get('cart'));
+// }
 
 function* handleCart(action) {
   if (cookiesCart) {
