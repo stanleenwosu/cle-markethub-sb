@@ -5,14 +5,14 @@ import WidgetProductSameBrands from '~/components/shared/widgets/WidgetProductSa
 import WidgetShopAds from '~/components/shared/widgets/WidgetShopAds';
 
 const ProductWidgets = () => {
-    return (
-        <section>
-            <WidgetProductFeatures />
-            <WidgetSaleOnSite />
-            <WidgetShopAds />
-            <WidgetProductSameBrands collectionSlug="shop-same-brand" />
-        </section>
-    );
+  return (
+    <section>
+      <WidgetProductFeatures />
+      <WidgetSaleOnSite />
+      <WidgetShopAds />
+      {/* <WidgetProductSameBrands collectionSlug="shop-same-brand" /> */}
+    </section>
+  );
 };
 
 export default ProductWidgets;

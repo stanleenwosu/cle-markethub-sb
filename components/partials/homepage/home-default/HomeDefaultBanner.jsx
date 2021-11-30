@@ -4,9 +4,9 @@ import NextArrow from '~/components/elements/carousel/NextArrow';
 import PrevArrow from '~/components/elements/carousel/PrevArrow';
 import Link from 'next/link';
 import MediaRepository from '~/repositories/MediaRepository';
-import { baseUrl } from '~/repositories/Repository';
-import { getItemBySlug } from '~/utilities/product-helper';
-import Promotion from '~/components/elements/media/Promotion';
+// import { baseUrl } from '~/repositories/Repository';
+// import { getItemBySlug } from '~/utilities/product-helper';
+import { Button } from 'antd';
 
 const HomeDefaultBanner = () => {
   const [bannerItems, setBannerItems] = useState(null);
@@ -92,12 +92,11 @@ const HomeDefaultBanner = () => {
                   One stop platform for online shopping and cooperative
                   management
                 </h3>
-                <button className="ps-btn">Launching Soon</button>
+                <Link href="/shop">
+                  <button className="ps-btn mt-3">Open Shop</button>
+                </Link>
               </div>
             </div>
-            {/* <Link href="/shop">
-              <a className="ps-banner-item--default bg--cover" />
-            </Link> */}
           </div>
         </div>
         <div className="ps-section__right">

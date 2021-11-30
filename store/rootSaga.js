@@ -3,7 +3,8 @@ import SettingSaga from './setting/saga';
 import AuthSaga from './auth/saga';
 import App from './app/saga';
 import Ecomerce from './ecomerce/saga';
+import Order from './order/saga';
 
 export default function* rootSaga() {
-    yield all([AuthSaga(), SettingSaga(), AuthSaga(), App(), Ecomerce()]);
+  yield all([AuthSaga(), SettingSaga(), App(), Ecomerce(), Order()]);
 }

@@ -8,22 +8,19 @@ import ModuleProductDetailSharing from '~/components/elements/detail/modules/Mod
 import ModuleDetailActionsMobile from '~/components/elements/detail/modules/ModuleDetailActionsMobile';
 
 const ProductDetailQuickView = ({ product }) => (
-    <div className="ps-product--detail ps-product--quickview">
-        <div className="ps-product__header">
-            <ThumbnailDefault product={product} vertical={false} />
-            <div className="ps-product__info">
-                <ModuleDetailTopInformation product={product} />
-                <ModuleProductDetailDescription product={product} />
-                <ModuleDetailShoppingActions
-                    product={product}
-                    extended={true}
-                />
-                <ModuleProductDetailSpecification />
-                <ModuleProductDetailSharing />
-                <ModuleDetailActionsMobile />
-            </div>
-        </div>
+  <div className="ps-product--detail ps-product--quickview">
+    <div className="ps-product__header">
+      <ThumbnailDefault product={product} vertical={false} />
+      <div className="ps-product__info">
+        <ModuleDetailTopInformation product={product} />
+        <ModuleProductDetailDescription product={product} />
+        <ModuleDetailShoppingActions product={product} extended={true} />
+        {/* <ModuleProductDetailSpecification product={product} /> */}
+        <ModuleProductDetailSharing product={product} />
+        <ModuleDetailActionsMobile product={product} />
+      </div>
     </div>
+  </div>
 );
 
 export default ProductDetailQuickView;

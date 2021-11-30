@@ -6,26 +6,26 @@ import Newletters from '~/components/partials/commons/Newletters';
 import PageContainer from '~/components/layouts/PageContainer';
 
 const InvoiceDetailPage = () => {
-    const breadCrumb = [
-        {
-            text: 'Home',
-            url: '/',
-        },
-        {
-            text: 'Invoice Detail',
-        },
-    ];
-    return (
-        <>
-            <PageContainer footer={<FooterDefault />} title="Invoice detail">
-                <div className="ps-page--my-account">
-                    <BreadCrumb breacrumb={breadCrumb} />
-                    <InvoiceDetail />
-                </div>
-                <Newletters layout="container" />
-            </PageContainer>
-        </>
-    );
+  const breadCrumb = [
+    {
+      text: 'Home',
+      url: '/',
+    },
+    {
+      text: 'Invoice Detail',
+    },
+  ];
+  return (
+    <>
+      <PageContainer title="Invoice detail">
+        <div className="ps-page--my-account">
+          <BreadCrumb breacrumb={breadCrumb} />
+          <InvoiceDetail />
+        </div>
+        <Newletters layout="container" />
+      </PageContainer>
+    </>
+  );
 };
 
 export default InvoiceDetailPage;

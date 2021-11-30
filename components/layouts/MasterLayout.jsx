@@ -29,9 +29,9 @@ const MasterLayout = ({ children }) => {
     }
   }
 
-  useEffect(() => {
-    initEcomerceValues();
-  }, []);
+  // useEffect(() => {
+  //   initEcomerceValues();
+  // }, []);
 
   return (
     <>

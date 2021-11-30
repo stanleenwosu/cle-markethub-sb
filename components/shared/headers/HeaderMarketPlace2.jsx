@@ -8,47 +8,20 @@ import ElectronicHeaderActions from '~/components/shared/headers/modules/Electro
 import Menu from '~/components/elements/menu/Menu';
 import { stickyHeader } from '~/utilities/common-helpers';
 
-const HeaderMarketPlace2 = () => {
+const HeaderMarketPlace2 = ({ isReady = true }) => {
   useEffect(() => {
     if (process.browser) {
       window.addEventListener('scroll', stickyHeader);
     }
   }, []);
 
-  const menuMarket2 = [
-    {
-      text: 'All Categories',
-      url: '/shop',
-    },
-    {
-      text: 'Today Deals',
-      url: '/shop',
-    },
-    {
-      text: 'Electronics',
-      url: '/shop',
-    },
-    {
-      text: 'Clothing',
-      url: '/shop',
-    },
-    {
-      text: 'Computers',
-      url: '/shop',
-    },
-    {
-      text: 'Furnitures',
-      url: '/shop',
-    },
-    {
-      text: 'Mom & baby',
-      url: '/shop',
-    },
-    {
-      text: 'Book & More',
-      url: '/shop',
-    },
-  ];
+  let headerActions, searchHeader;
+
+  if (isReady) {
+    headerActions = <ElectronicHeaderActions />;
+    searchHeader = <SearchHeader />;
+  }
+
   return (
     <header
       className="header header--standard header--market-place-2"
@@ -102,7 +75,7 @@ const HeaderMarketPlace2 = () => {
             </div> */}
           </div>
           <div className="header__content-center">
-            <SearchHeader />
+            {searchHeader}
             {/* <p>
               <Link href="/shop">
                 <a>iphone x</a>
@@ -127,9 +100,7 @@ const HeaderMarketPlace2 = () => {
               </Link>
             </p> */}
           </div>
-          {/* <div className="header__content-right">
-            <ElectronicHeaderActions />
-          </div> */}
+          <div className="header__content-right">{headerActions}</div>
         </div>
       </div>
       {/* <nav className="navigation">

@@ -11,31 +11,31 @@ import PageContainer from '~/components/layouts/PageContainer';
 import Newsletters from '~/components/partials/commons/Newletters';
 
 const BecomeAVendorPage = () => {
-    const breadCrumb = [
-        {
-            text: 'Home',
-            url: '/',
-        },
-        {
-            text: 'Become a Vendor',
-        },
-    ];
+  const breadCrumb = [
+    {
+      text: 'Home',
+      url: '/',
+    },
+    {
+      text: 'Become a Vendor',
+    },
+  ];
 
-    return (
-        <PageContainer footer={<FooterDefault />} title="Become a vendor">
-            <div className="ps-page--single">
-                <BreadCrumb breacrumb={breadCrumb} />
-                <VendorBanner />
-                <VendorAbout />
-                <VendorMileStone />
-                <VendorBestFees />
-                <VendorTestimonials />
-                <VendorFaqs />
-                <VendorBanner />
-            </div>
-            <Newsletters layout="container" />
-        </PageContainer>
-    );
+  return (
+    <PageContainer footer={<FooterDefault />} title="Become a vendor">
+      <div className="ps-page--single">
+        <BreadCrumb breacrumb={breadCrumb} />
+        <VendorBanner />
+        {/* <VendorAbout /> */}
+        <VendorMileStone />
+        {/* <VendorBestFees /> */}
+        {/* <VendorTestimonials /> */}
+        {/* <VendorFaqs /> */}
+        <VendorBanner />
+      </div>
+      <Newsletters layout="container" />
+    </PageContainer>
+  );
 };
 
 export default BecomeAVendorPage;

@@ -3,6 +3,7 @@ import LazyLoad from 'react-lazyload';
 import { baseUrl } from '~/repositories/Repository';
 import { formatCurrency } from '~/utilities/product-helper';
 import Link from 'next/link';
+import Product from '~/components/elements/products/Product';
 
 function getImageURL(source, size) {
   let image, imageURL;
@@ -44,29 +45,42 @@ function getImageURL(source, size) {
 
 export default function useProduct() {
   return {
-    thumbnailImage: (payload) => {
+    thumbnailImage: (payload, height) => {
       if (payload) {
-        if (payload.thumbnail) {
+        if (payload.images && payload.images.length > 0) {
           return (
             <>
               <LazyLoad>
-                <img
-                  src={getImageURL(payload.thumbnail)}
-                  alt={getImageURL(payload.thumbnail)}
-                />
+                {!height ? (
+                  <img
+                    src={payload.images[0].url}
+                    style={{ objectFit: 'cover' }}
+                    alt="cle-product"
+                    height="200"
+                  />
+                ) : (
+                  <img src={payload.images[0].url} alt="cle-product" />
+                )}
               </LazyLoad>
             </>
+          );
+        } else {
+          return (
+            <img
+              src="/static/img/prod-placeholder.gif"
+              alt="cle-product-placeholder"
+            />
           );
         }
       }
     },
     price: (payload) => {
       let view;
-      if (payload.sale_price) {
+      if (payload.discount_price) {
         view = (
           <p className="ps-product__price sale">
             <span>₦</span>
-            {formatCurrency(payload.sale_price)}
+            {formatCurrency(payload.discount_price)}
             <del className="ml-2">
               <span>₦</span>
               {formatCurrency(payload.price)}
@@ -156,9 +170,9 @@ export default function useProduct() {
     },
     title: (payload) => {
       let view = (
-        <Link href="/product/[pid]" as={`/product/${payload.id}`}>
-          <a className="ps-product__title">{payload.title}</a>
-        </Link>
+        // <Link href="/product/[pid]" as={`/product/${payload.id}`}>
+        <a className="ps-product__title">{payload.name}</a>
+        // </Link>
       );
       return view;
     },

@@ -1,171 +1,70 @@
-import Repository, { baseUrl, serializeQuery } from './Repository';
+import Repository, { basePostUrl, serializeQuery } from './Repository';
 
 class ProductRepository {
-    async getRecords(params) {
-        const reponse = await Repository.get(
-            `${baseUrl}/products?${serializeQuery(params)}`
-        )
-            .then((response) => {
-                return response.data;
-            })
-            .catch((error) => ({ error: JSON.stringify(error) }));
-        return reponse;
-    }
+  constructor(callback) {
+    this.callback = callback;
+  }
 
-    async getProducts(params) {
-        const reponse = await Repository.get(
-            `${baseUrl}/products?${serializeQuery(params)}`
-        )
-            .then((response) => {
-                if (response.data && response.data.length > 0) {
-                    return response.data;
-                } else {
-                    return null;
-                }
-            })
+  async getProducts(params) {
+    const endPoint = `products?${serializeQuery(params)}`;
+    const response = await Repository.get(`${basePostUrl}/${endPoint}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response;
+  }
 
-            .catch((error) => {
-                console.log(JSON.stringify(error));
-                return null;
-            });
-        return reponse;
-    }
+  async searchProducts(params) {
+    const endPoint = `search/products?${serializeQuery(params)}`;
+    const response = await Repository.get(`${basePostUrl}/${endPoint}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response;
+  }
 
-    async getBrands() {
-        const reponse = await Repository.get(`${baseUrl}/brands`)
-            .then((response) => {
-                return response.data;
-            })
-            .catch((error) => ({ error: JSON.stringify(error) }));
-        return reponse;
-    }
+  async getProductsById(id) {
+    const endPoint = `products/${id}`;
+    const response = await Repository.get(`${basePostUrl}/${endPoint}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response;
+  }
 
-    async getProductCategories() {
-        const reponse = await Repository.get(`${baseUrl}/product-categories`)
-            .then((response) => {
-                return response.data;
-            })
-            .catch((error) => ({ error: JSON.stringify(error) }));
-        return reponse;
-    }
+  async getCategories() {
+    const endPoint = `product_categories`;
+    const response = await Repository.get(`${basePostUrl}/${endPoint}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response;
+  }
 
-    async getTotalRecords() {
-        const reponse = await Repository.get(`${baseUrl}/products/count`)
-            .then((response) => {
-                return response.data;
-            })
-            .catch((error) => ({ error: JSON.stringify(error) }));
-        return reponse;
-    }
-
-    async getProductsById(payload) {
-        const reponse = await Repository.get(`${baseUrl}/products/${payload}`)
-            .then((response) => {
-                return response.data;
-            })
-            .catch((error) => ({ error: JSON.stringify(error) }));
-        return reponse;
-    }
-
-    async getProductsByCategory(payload) {
-        const reponse = await Repository.get(
-            `${baseUrl}/product-categories?slug=${payload}`
-        )
-            .then((response) => {
-                if (response.data) {
-                    if (response.data.length > 0) {
-                        return response.data[0];
-                    }
-                } else {
-                    return null;
-                }
-            })
-            .catch(() => {
-                return null;
-            });
-        return reponse;
-    }
-
-    async getProductsByBrand(payload) {
-        const reponse = await Repository.get(
-            `${baseUrl}/brands?slug=${payload}`
-        )
-            .then((response) => {
-                if (response.data) {
-                    if (response.data.length > 0) {
-                        return response.data[0];
-                    }
-                } else {
-                    return null;
-                }
-            })
-            .catch(() => {
-                return null;
-            });
-        return reponse;
-    }
-
-    async getProductsByBrands(payload) {
-        let query = '';
-        payload.forEach((item) => {
-            if (query === '') {
-                query = `id_in=${item}`;
-            } else {
-                query = query + `&id_in=${item}`;
-            }
-        });
-        const reponse = await Repository.get(`${baseUrl}/brands?${query}`)
-            .then((response) => {
-                return response.data;
-            })
-            .catch((error) => ({ error: JSON.stringify(error) }));
-        return reponse;
-    }
-
-    async getProductsByBrands(payload) {
-        let query = '';
-        payload.forEach((item) => {
-            if (query === '') {
-                query = `id_in=${item}`;
-            } else {
-                query = query + `&id_in=${item}`;
-            }
-        });
-        const reponse = await Repository.get(`${baseUrl}/brands?${query}`)
-            .then((response) => {
-                return response.data;
-            })
-            .catch((error) => ({ error: JSON.stringify(error) }));
-        return reponse;
-    }
-
-    async getProductsByPriceRange(payload) {
-        const reponse = await Repository.get(
-            `${baseUrl}/products?${serializeQuery(payload)}`
-        )
-            .then((response) => {
-                return response.data;
-            })
-            .catch((error) => ({ error: JSON.stringify(error) }));
-        return reponse;
-    }
-
-    async getProductsByIds(payload) {
-        const endPoint = `${baseUrl}/products?${payload}`;
-        const reponse = await Repository.get(endPoint)
-            .then((response) => {
-                if (response.data && response.data.length > 0) {
-                    return response.data;
-                } else {
-                    return null;
-                }
-            })
-            .catch((error) => {
-                console.log(JSON.stringify(error));
-                return null;
-            });
-        return reponse;
-    }
+  async getCategoryProducts(category_id) {
+    const params = { filter: true, category_id, limit: 10, offset: 0 };
+    const endPoint = `products?${serializeQuery(params)}`;
+    const response = await Repository.get(`${basePostUrl}/${endPoint}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response;
+  }
 }
 
 export default new ProductRepository();

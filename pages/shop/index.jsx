@@ -12,46 +12,46 @@ import PageContainer from '~/components/layouts/PageContainer';
 import Newletters from '~/components/partials/commons/Newletters';
 
 const ShopDefaultPage = () => {
-    const breadCrumb = [
-        {
-            text: 'Home',
-            url: '/',
-        },
-        {
-            text: 'Shop Default',
-        },
-    ];
+  const breadCrumb = [
+    {
+      text: 'Home',
+      url: '/',
+    },
+    {
+      text: 'Shop',
+    },
+  ];
 
-    return (
-        <PageContainer title="Shop">
-            <div className="ps-page--shop">
-                <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
-                <div className="ps-container">
-                    <ShopBanner />
-                    <ShopBrands />
-                    <ShopCategories />
-                    <div className="ps-layout--shop">
-                        <div className="ps-layout__left">
-                            <WidgetShopCategories />
+  return (
+    <PageContainer title="Shop">
+      <div className="ps-page--shop">
+        <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
+        <div className="ps-container">
+          <ShopBanner />
+          {/* <ShopBrands />
+                    <ShopCategories /> */}
+          <div className="ps-layout--shop">
+            {/* <div className="ps-layout__left">
+              <WidgetShopCategories />
                             <WidgetShopBrands />
                             <WidgetShopFilterByPriceRange />
-                        </div>
-                        <div className="ps-layout__right">
-                            <ProductGroupByCarousel
+            </div> */}
+            <div className="">
+              {/* <ProductGroupByCarousel
                                 collectionSlug="shop-best-seller-items"
                                 title="Best Sale Items"
                             />
                             <ProductGroupByCarousel
                                 collectionSlug="shop-recommend-items"
                                 title="Recommended Items"
-                            />
-                            <ShopItems columns={6} pageSize={18} />
-                        </div>
-                    </div>
-                </div>
+                            /> */}
+              <ShopItems columns={6} pageSize={18} />
             </div>
-            <Newletters />
-        </PageContainer>
-    );
+          </div>
+        </div>
+      </div>
+      <Newletters />
+    </PageContainer>
+  );
 };
 export default ShopDefaultPage;

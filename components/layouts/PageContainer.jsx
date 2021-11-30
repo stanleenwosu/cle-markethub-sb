@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 // import HeaderDefault from '~/components/shared/headers/HeaderDefault';
 import HeaderDefault from '~/components/shared/headers/HeaderMarketPlace2';
 import HeaderMobile from '~/components/shared/headers/HeaderMobileTechnology';
 import FooterFullwidth from '~/components/shared/footers/FooterFullwidth';
+import Script from 'next/script';
 
 const initHeaders = (
   <>
@@ -35,10 +36,26 @@ const PageContainer = ({
     <>
       <Head>
         <title>{titleView}</title>
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/nprogress@0.2.0/nprogress.css"></link>
       </Head>
       {header}
       {children}
       {footer}
+      <Script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: `
+          window.__be = window.__be || {};
+    window.__be.id = "619dda7101350500076d4a55";
+    (function() {
+        var be = document.createElement('script'); be.type = 'text/javascript'; be.async = true;
+        be.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.chatbot.com/widget/plugin.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(be, s);
+    })()
+  `,
+        }}></Script>
     </>
   );
 };
