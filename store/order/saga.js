@@ -1,5 +1,6 @@
 import { call, all, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import OrderRepository from '~/repositories/OrderRepository';
+import CartRepository from '~/repositories/CartRepository';
 import { actionTypes, saveDeliverySuccess, saveOrderSuccess } from './action';
 
 function* saveDeliverySaga({ payload }) {
@@ -18,28 +19,26 @@ function* createOrderPaystackSaga({ payload }) {
       cartId: payload.cartId,
       customerId: payload.customerId,
     });
-
-    yield all([
-      put({ type: 'SAVE_ORDER_SUCCESS', payload: orderData.data }),
-      put({
-        type: 'CREATE_DELIVERY',
-        payload: {
-          orderId: orderData.data.id,
-          customerId: payload.customerId,
-          ...payload.delivery,
-        },
-      }),
-      put({
-        type: 'CREATE_PAYSTACK',
-        payload: {
-          orderId: orderData.data.id,
-          customerId: payload.customerId,
-          status: payload.status,
-          detail: payload.detail,
-          amount: payload.amount,
-        },
-      }),
-    ]);
+    yield put({ type: 'SAVE_ORDER_SUCCESS', payload: orderData.data });
+    yield call(createDeliverySaga, {
+      payload: {
+        orderId: orderData.data.id,
+        customerId: payload.customerId,
+        ...payload.delivery,
+      },
+    });
+    yield call(createPaystackSaga, {
+      payload: {
+        orderId: orderData.data.id,
+        customerId: payload.customerId,
+        status: payload.status,
+        detail: payload.detail,
+        amount: payload.amount,
+      },
+    });
+    yield call(CartRepository.deleteCart, {
+      cartId: payload.cartId,
+    });
   } catch (err) {
     console.error(err);
   }
@@ -51,27 +50,25 @@ function* createOrderCoopSaga({ payload }) {
       cartId: payload.cartId,
       customerId: payload.customerId,
     });
-
-    yield all([
-      put({ type: 'SAVE_ORDER_SUCCESS', payload: orderData.data }),
-      put({
-        type: 'CREATE_DELIVERY',
-        payload: {
-          orderId: orderData.data.id,
-          customerId: payload.customerId,
-          ...payload.delivery,
-        },
-      }),
-      put({
-        type: 'CREATE_COOP',
-        payload: {
-          orderId: orderData.data.id,
-          customerId: payload.customerId,
-          tenure: payload.tenure,
-          amount: payload.amount,
-        },
-      }),
-    ]);
+    yield put({ type: 'SAVE_ORDER_SUCCESS', payload: orderData.data });
+    yield call(createDeliverySaga, {
+      payload: {
+        orderId: orderData.data.id,
+        customerId: payload.customerId,
+        ...payload.delivery,
+      },
+    });
+    yield call(createCoopSaga, {
+      payload: {
+        orderId: orderData.data.id,
+        customerId: payload.customerId,
+        tenure: payload.tenure,
+        amount: payload.amount,
+      },
+    });
+    /* yield call(CartRepository.deleteCart, {
+      cartId: payload.cartId,
+    }); */
   } catch (err) {
     console.error(err);
   }
@@ -97,7 +94,10 @@ function* createPaystackSaga({ payload }) {
 
 function* createCoopSaga({ payload }) {
   try {
-    const data = yield call(OrderRepository.createCoop, payload);
+    const data = yield call(OrderRepository.getCoop, payload);
+    console.log('🚀 ~ function*createCoopSaga ~ data', data);
+    const data2 = yield call(OrderRepository.createCoop, payload);
+    console.log('🚀 ~ function*createCoopSaga ~ data2', data2);
     // yield put({ type: 'SAVE_ORDER_SUCCESS', payload: data });
   } catch (err) {
     console.error(err);

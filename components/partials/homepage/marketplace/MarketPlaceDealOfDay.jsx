@@ -8,64 +8,70 @@ import { getProductsByCollectionHelper } from '~/utilities/strapi-fetch-data-hel
 import { carouselStandard } from '~/utilities/carousel-helpers';
 import CountDownSimple from '~/components/elements/CountDownSimple';
 import useGetProducts from '~/hooks/useGetProducts';
+import Product from '~/components/elements/products/Product';
+import moment from 'moment';
 
 const MarketPlaceDealOfDay = ({ collectionSlug }) => {
-    const { productItems, loading, getProductsByCollection } = useGetProducts();
+  const { productItems, loading, getPromoProducts } = useGetProducts();
 
-    useEffect(() => {
-        getProductsByCollection(collectionSlug);
-    }, [collectionSlug]);
+  //   console.log(`moment`, moment().endOf('day').format('MM DD YYYY, h:mm a'));
 
-    // Views
-    let productItemsView;
-    if (!loading) {
-        if (productItems && productItems.length > 0) {
-            const slideItems = productItems.map((item) => (
-                <ProductDealOfDay product={item} key={item.id} />
-            ));
-            productItemsView = (
-                <Slider {...carouselStandard} className="ps-carousel outside">
-                    {slideItems}
-                </Slider>
-            );
-        } else {
-            productItemsView = <p>No product(s) found.</p>;
-        }
+  useEffect(() => {
+    getPromoProducts(collectionSlug);
+  }, [collectionSlug]);
+
+  // Views
+  let productItemsView;
+  if (!loading) {
+    if (productItems && productItems.length > 0) {
+      const slideItems = productItems.map((item) => (
+        <Product product={item} key={item.id} />
+      ));
+      productItemsView = (
+        <Slider {...carouselStandard} className="ps-carousel outside">
+          {slideItems}
+        </Slider>
+      );
     } else {
-        const skeletons = generateTempArray(6).map((item) => (
-            <div className="col-xl-2 col-lg-3 col-sm-3 col-6" key={item}>
-                <SkeletonProduct />
-            </div>
-        ));
-        productItemsView = <div className="row">{skeletons}</div>;
+      productItemsView = <p>No product(s) found.</p>;
     }
+  } else {
+    const skeletons = generateTempArray(6).map((item) => (
+      <div className="col-xl-2 col-lg-3 col-sm-3 col-6" key={item}>
+        <SkeletonProduct />
+      </div>
+    ));
+    productItemsView = <div className="row">{skeletons}</div>;
+  }
 
-    return (
-        <div className="ps-deal-of-day">
-            <div className="ps-container">
-                <div className="ps-section__header">
-                    <div className="ps-block--countdown-deal">
-                        <div className="ps-block__left">
-                            <h3>Deal of the day</h3>
-                        </div>
-                        <div className="ps-block__right">
-                            <figure>
-                                <figcaption>End in:</figcaption>
-                                <CountDownSimple
-                                    timeTillDate="12 31 2021, 6:00 am"
-                                    timeFormat="MM DD YYYY, h:mm a"
-                                />
-                            </figure>
-                        </div>
-                    </div>
-                    <Link href="/shop">
-                        <a>View all</a>
-                    </Link>
-                </div>
-                <div className="ps-section__content">{productItemsView}</div>
+  return (
+    <div className="ps-deal-of-day my-5">
+      <div className="ps-container">
+        <div className="ps-section__header">
+          <div className="ps-block--countdown-deal">
+            <div className="ps-block__left">
+              <h3>Deals</h3>
             </div>
+            <div className="ps-block__right">
+              <figure>
+                <figcaption>End in:</figcaption>
+                <CountDownSimple
+                  timeTillDate={moment()
+                    .endOf('day')
+                    .format('MM DD YYYY, h:mm a')}
+                  timeFormat="MM DD YYYY, h:mm a"
+                />
+              </figure>
+            </div>
+          </div>
+          {/* <Link href="/shop">
+            <a>View all</a>
+          </Link> */}
         </div>
-    );
+        <div className="ps-section__content">{productItemsView}</div>
+      </div>
+    </div>
+  );
 };
 
 export default MarketPlaceDealOfDay;

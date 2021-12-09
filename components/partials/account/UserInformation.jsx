@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 import FormChangeUserInformation from '~/components/shared/FormChangeUserInformation';
-import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import { logOut } from '~/store/auth/action';
+import { useDispatch, useSelector } from 'react-redux';
 
 const UserInformation = () => {
   const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  const Router = useRouter();
   const accountLinks = [
     {
       text: 'Account Information',
@@ -38,6 +42,12 @@ const UserInformation = () => {
       icon: 'icon-heart',
     },
   ];
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logOut());
+    Router.push('/');
+  };
 
   //Views
   const accountLinkView = accountLinks.map((item) => (
@@ -80,12 +90,10 @@ const UserInformation = () => {
                       </li>
                     ))}
                     <li>
-                      <Link href="/account/my-account">
-                        <a>
-                          <i className="icon-power-switch"></i>
-                          Logout
-                        </a>
-                      </Link>
+                      <a onClick={(e) => handleLogout(e)}>
+                        <i className="icon-power-switch"></i>
+                        Logout
+                      </a>
                     </li>
                   </ul>
                 </div>

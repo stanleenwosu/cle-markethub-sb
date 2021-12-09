@@ -97,7 +97,7 @@ const makeStore = wrapMakeStore(() => {
           subtrees: [
             { subtree: 'auth' },
             { subtree: 'ecomerce' },
-            { subtree: 'order' },
+            // { subtree: 'order' },
           ],
         })
       )

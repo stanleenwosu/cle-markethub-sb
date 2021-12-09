@@ -69,7 +69,7 @@ export default function useEcomerce() {
       // if item exist to increase quantity else add to local cart
       if (existItem) {
         const index = cartItems.findIndex((item) => (item.id = existItem.id));
-        cartItems[index].quantity += existItem.quantity;
+        cartItems[index].quantity = existItem.quantity + 1;
       } else {
         // cartItems.push(newItem);
         cartItems.splice(cartItems.length, 0, newItem);
@@ -97,6 +97,28 @@ export default function useEcomerce() {
       //   setCookie('compare', currentItems, { path: '/' });
       // }
     },
+
+    decreaseCartItemQtyLocal: (newItem) => {
+      let cartItems = cookies.cart || [];
+      // console.log('🚀 ~ useEcomerce ~ cookies.cart', cookies.cart);
+      const existItem = cartItems.find((x) => x.id === newItem.id);
+
+      // if item exist to increase quantity else add to local cart
+      if (existItem) {
+        const index = cartItems.findIndex((item) => (item.id = existItem.id));
+        cartItems[index].quantity = existItem.quantity - 1;
+      } else {
+        // cartItems.push(newItem);
+        cartItems.splice(cartItems.length, 0, newItem);
+      }
+      // console.log('🚀 ~ useEcomerce ~ cartItems', cartItems);
+
+      // push to cookies
+      // if (group === 'cart') {
+      setCookie('cart', cartItems, { path: '/' });
+    },
+
+    decreaseCartItemQty: () => {},
 
     // getCartItemsLocal: () => {
     //   setCart(cookies.cart);

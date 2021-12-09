@@ -44,6 +44,20 @@ class AuthRepository {
     return response;
   }
 
+  async updateOrder({ customerId, orderId, status }) {
+    const endPoint = `customers/${customerId}/orders/${orderId}`;
+    const response = await Repository.put(`${basePostUrl}/${endPoint}`, {
+      status,
+    })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        throw error;
+      });
+    return response;
+  }
+
   async createDelivery({ orderId, customerId, ...rest }) {
     const endPoint = `orders/${orderId}/delivery`;
     const response = await Repository.post(`${basePostUrl}/${endPoint}`, {
@@ -78,18 +92,26 @@ class AuthRepository {
 
   async createCoop({ orderId, customerId, amount, tenure }) {
     const endPoint = `orders/${orderId}/payments/coop`;
-    const response = await Repository.post(`${basePostUrl}/${endPoint}`, {
-      customer_id: customerId,
-      amount,
-      tenure,
-    })
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => {
-        throw error;
+    try {
+      const response = await Repository.post(`${basePostUrl}/${endPoint}`, {
+        customer_id: customerId,
+        amount,
+        tenure,
       });
-    return response;
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getCoop({ orderId, customerId, amount, tenure }) {
+    const endPoint = `orders/${orderId}/payments/coop`;
+    try {
+      const response = await Repository.get(`${basePostUrl}/${endPoint}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

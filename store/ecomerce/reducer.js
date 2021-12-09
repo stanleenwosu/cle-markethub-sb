@@ -5,6 +5,7 @@ export const initalState = {
   cartItems: [],
   cartId: '',
   wishId: '',
+  coupon: {},
 };
 
 function reducer(state = initalState, action) {
@@ -29,6 +30,16 @@ function reducer(state = initalState, action) {
       return {
         ...state,
         cartItems: [...action.payload],
+      };
+    case actionTypes.SET_COUPON:
+      return {
+        ...state,
+        coupon: { ...action.payload },
+      };
+    case actionTypes.CLEAR_COUPON:
+      return {
+        ...state,
+        coupon: {},
       };
     default:
       return state;

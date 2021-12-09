@@ -3,11 +3,13 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import { logOut } from '~/store/auth/action';
 import MiniCart from './MiniCart';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
+import router from 'next/router';
 
 const AccountQuickLinks = (props) => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const Router = useRouter();
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logOut());

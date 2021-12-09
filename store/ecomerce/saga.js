@@ -20,8 +20,8 @@ import {
   setCartItemsSuccess,
   setCartId,
   setWishlistItemsSuccess,
-  setCompareItemsSuccess,
   setWishlistId,
+  setCoupon,
 } from './action';
 
 const createNotification = (action, text) => {
@@ -66,7 +66,7 @@ function* deleteCartItem({ payload }) {
   }
 }
 
-function* addCartItem({ payload }) {
+export function* addCartItem({ payload }) {
   NProgress.start();
   try {
     yield call(CartRepository.addItem, {
@@ -138,6 +138,28 @@ function* addWishlistItem({ payload }) {
   }
 }
 
+function* applyCoupon({ payload }) {
+  NProgress.start();
+
+  try {
+    const data = yield call(CartRepository.applyCoupon, payload);
+    console.log('🚀 ~ function*applyCoupon ~ data', data);
+    NProgress.done();
+    notification.success({
+      message: 'Success',
+      description: data.message,
+    });
+    yield put(setCoupon(data.data));
+  } catch (error) {
+    NProgress.done();
+    console.log('🚀 ~ function*applyCoupon ~ error', error);
+    notification.error({
+      message: 'Error',
+      description: `Invalid Coupon code ${payload.code}`,
+    });
+  }
+}
+
 export default function* rootSaga() {
   yield takeLatest(actionTypes.GET_CART_ITEMS, getCartItems);
   yield takeLatest(actionTypes.DELETE_CART_ITEM, deleteCartItem);
@@ -145,4 +167,5 @@ export default function* rootSaga() {
   yield takeLatest(actionTypes.GET_WISHLIST_ITEMS, getWishlistItems);
   yield takeLatest(actionTypes.DELETE_WISHLIST_ITEM, deleteWishlistItem);
   yield takeLatest(actionTypes.ADD_WISHLIST_ITEM, addWishlistItem);
+  yield takeLatest(actionTypes.APPLY_COUPON, applyCoupon);
 }

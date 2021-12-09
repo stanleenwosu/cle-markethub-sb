@@ -82,5 +82,14 @@ export default function useGetProducts() {
         // );
       }
     },
+
+    getPromoProducts: async () => {
+      setLoading(true);
+      const responseData = await ProductRepository.getPromo();
+      if (responseData) {
+        setProductItems(responseData.data);
+        setLoading(false);
+      }
+    },
   };
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Radio } from 'antd';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -15,7 +15,7 @@ import { calculateAmount } from '~/utilities/ecomerce-helpers';
 import CartRepository from '~/repositories/CartRepository';
 
 const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
-  let amount;
+  // let amount;
   const Router = useRouter();
   const [method, setMethod] = useState(1);
   // const auth = useSelector((state) => state.auth);
@@ -23,7 +23,14 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
   const store = require('store');
   const delivery = store.get('delivery');
 
-  amount = calculateAmount(ecomerce.cartItems);
+  const amount = useMemo(() => {
+    return (
+      parseFloat(calculateAmount(ecomerce.cartItems)) -
+      (ecomerce.coupon?.total_discount || 0)
+    );
+  }, [ecomerce]);
+
+  // amount = calculateAmount(ecomerce.cartItems);
 
   const config = {
     reference: new Date().getTime().toString(),
@@ -79,7 +86,7 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
         amount: (config.amount / 100).toString(),
       },
     });
-    clearCart();
+    // clearCart();
     Router.push('/account/payment-success');
   }
 
@@ -171,7 +178,7 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
           </div>
           <div className="form-group submit">
             <button type="submit" className="ps-btn ps-btn--fullwidth">
-              Pay using COOP
+              Pay using Cooperative Wallet
             </button>
           </div>
         </Form>
@@ -187,7 +194,7 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
           <Radio.Group onChange={(e) => handleChangeMethod(e)} value={method}>
             <Radio value={1}>Paystack</Radio>
             <Radio value={2}>Flutterwave</Radio>
-            <Radio value={3}>COOP</Radio>
+            <Radio value={3}>Cooperative Wallet</Radio>
           </Radio.Group>
         </div>
         {paymentView}

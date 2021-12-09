@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { connect } from 'react-redux';
 import useEcomerce from '~/hooks/useEcomerce';
@@ -7,12 +7,19 @@ import { calculateAmount } from '~/utilities/ecomerce-helpers';
 
 const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
   const { products, getProducts } = useEcomerce();
+  // const [amount, setamount] = useState(0);
 
   // view
   let listItemsView, shippingView, totalView;
-  let amount;
+  // let amount;
+  const amount = useMemo(() => {
+    return (
+      parseFloat(calculateAmount(ecomerce.cartItems)) -
+      (ecomerce.coupon?.total_discount || 0)
+    );
+  }, [ecomerce]);
+
   if (ecomerce.cartItems && ecomerce.cartItems.length > 0) {
-    amount = calculateAmount(ecomerce.cartItems);
     listItemsView = ecomerce.cartItems.map((item) => (
       <Link href="/" key={item.id}>
         <a>
@@ -41,12 +48,23 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
       </figure>
     );
     totalView = (
-      <figure className="ps-block__total">
-        <h3>
-          Total
-          <strong>{formatCurrency(amount)}</strong>
-        </h3>
-      </figure>
+      <>
+        {ecomerce.coupon.total_discount ? (
+          <figure className="ps-block__total">
+            <h3>
+              Discount
+              <strong>-{formatCurrency(ecomerce.coupon.total_discount)}</strong>
+            </h3>
+          </figure>
+        ) : null}
+
+        <figure className="ps-block__total">
+          <h3>
+            Total
+            <strong>{formatCurrency(amount)}</strong>
+          </h3>
+        </figure>
+      </>
     );
   } else {
     totalView = (

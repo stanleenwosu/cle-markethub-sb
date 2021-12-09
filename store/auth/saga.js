@@ -1,4 +1,11 @@
-import { call, all, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import {
+  call,
+  all,
+  put,
+  takeEvery,
+  takeLatest,
+  select,
+} from 'redux-saga/effects';
 import { notification } from 'antd';
 import {
   actionTypes,
@@ -7,7 +14,7 @@ import {
   logOutSuccess,
   userSuccess,
 } from './action';
-import { testSaga } from '~/store/order/saga';
+import { addCartItem } from '~/store/ecomerce/saga';
 import AuthRepository from '~/repositories/AuthRepository';
 import UserRepository from '~/repositories/UserRepository';
 import CartRepository from '~/repositories/CartRepository';
@@ -27,37 +34,38 @@ const modalWarning = (type) => {
   });
 };
 
-// const isServer = typeof window === 'undefined';
+const isServer = typeof window === 'undefined';
+let cookiesCart;
+if (!isServer && Cookies.get('cart')) {
+  cookiesCart = JSON.parse(Cookies.get('cart'));
+}
+console.log(`cookiesCart`, cookiesCart);
 
-// let cookiesCart;
-// if (!isServer) {
-//   cookiesCart = JSON.parse(Cookies.get('cart'));
+// function* handleCart(action) {
+//   if (cookiesCart) {
+//     cookiesCart.forEach(async (element) => {
+//       const data = await CartRepository.getUserCartId({
+//         customerId: action.user.customer_id,
+//       });
+//       this.props.dispatch(
+//         addCartItem({
+//           itemId: element.id,
+//           cartId: data.data.id,
+//           quantity: element.quantity,
+//         })
+//       );
+//     });
+//     this.props.dispatch(
+//       getCartItems({
+//         userId: action.user.id,
+//         customerId: action.user.customer_id,
+//       })
+//     );
+//   }
 // }
 
-function* handleCart(action) {
-  if (cookiesCart) {
-    cookiesCart.forEach(async (element) => {
-      const data = await CartRepository.getUserCartId({
-        customerId: action.user.customer_id,
-      });
-      this.props.dispatch(
-        addCartItem({
-          itemId: element.id,
-          cartId: data.data.id,
-          quantity: element.quantity,
-        })
-      );
-    });
-    this.props.dispatch(
-      getCartItems({
-        userId: action.user.id,
-        customerId: action.user.customer_id,
-      })
-    );
-  }
-}
-
 function* loginSaga(action) {
+  const auth = yield select((state) => state.auth);
   try {
     const auth = yield call(AuthRepository.login, action.payload);
     const { data: user } = yield call(UserRepository.getUser, {
@@ -66,6 +74,20 @@ function* loginSaga(action) {
     yield put(loginSuccess(auth.data));
     const fullUser = { ...user, ...auth.data };
     yield put(userSuccess(fullUser));
+
+    // if (cookiesCart.length > 0) {
+    //   for (const element of cookiesCart) {
+    //     yield call(addCartItem, {
+    //       payload: {
+    //         itemId: element.id,
+    //         quantity: element.quantity,
+    //         userId: fullUser.id,
+    //         customerId: auth.user.customer_id,
+    //       },
+    //     });
+    //   }
+    // }
+
     modalSuccess('success');
   } catch (err) {
     console.log('err: ', err);
@@ -107,5 +129,4 @@ export default function* rootSaga() {
   yield takeLatest(actionTypes.LOGIN_REQUEST, loginSaga);
   yield takeLatest(actionTypes.REGISTER_REQUEST, registerSaga);
   yield takeLatest(actionTypes.LOGOUT, logOutSaga);
-  yield takeLatest('HANDLE_CART_COOKIES', handleCart);
 }

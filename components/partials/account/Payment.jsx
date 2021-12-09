@@ -5,6 +5,7 @@ import Link from 'next/link';
 import ModulePaymentOrderSummary from '~/components/partials/account/modules/ModulePaymentOrderSummary';
 import ModulePaymentShipping from '~/components/ecomerce/modules/ModulePaymentShipping';
 import ModulePaymentMethods from '~/components/ecomerce/modules/ModulePaymentMethods';
+import ModulePaymentCoupons from '~/components/ecomerce/modules/ModulePaymentCoupons';
 
 const Payment = () => {
   return (
@@ -18,6 +19,7 @@ const Payment = () => {
             <div className="col-xl-8 col-lg-8 col-md-12 col-sm-12">
               <div className="ps-block--shipping">
                 <ModulePaymentShipping />
+                <ModulePaymentCoupons />
                 <ModulePaymentMethods />
                 <div className="ps-block__footer">
                   <Link href="/account/shipping">

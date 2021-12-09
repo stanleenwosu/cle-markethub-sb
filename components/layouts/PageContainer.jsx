@@ -43,19 +43,13 @@ const PageContainer = ({
       {header}
       {children}
       {footer}
-      <Script
+      {/* <Script
         type="text/javascript"
         dangerouslySetInnerHTML={{
           __html: `
-          window.__be = window.__be || {};
-    window.__be.id = "619dda7101350500076d4a55";
-    (function() {
-        var be = document.createElement('script'); be.type = 'text/javascript'; be.async = true;
-        be.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'cdn.chatbot.com/widget/plugin.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(be, s);
-    })()
+          !function(e,t,a){var c=e.head||e.getElementsByTagName("head")[0],n=e.createElement("script");n.async=!0,n.defer=!0, n.type="text/javascript",n.src=t+"/static/js/chat_widget.js?config="+JSON.stringify(a),c.appendChild(n)}(document,"https://app.engati.com",{bot_key:"719c117e6a7c4f6d",welcome_msg:true,branding_key:"default",server:"https://app.engati.com",e:"p" });
   `,
-        }}></Script>
+        }}></Script> */}
     </>
   );
 };

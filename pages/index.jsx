@@ -16,6 +16,7 @@ import ProductOnCart from '~/components/elements/products/ProductOnCart';
 import { connect } from 'react-redux';
 import { Modal } from 'antd';
 import Router, { useRouter } from 'next/router';
+import MarketPlaceDealOfDay from '~/components/partials/homepage/marketplace/MarketPlaceDealOfDay';
 
 const ShopDefaultPage = ({ ecomerce, auth }) => {
   // await ProductRepository.getCategories()
@@ -67,11 +68,13 @@ const ShopDefaultPage = ({ ecomerce, auth }) => {
     <PageContainer title="Shop">
       <div className="ps-page--shop">
         <BreadCrumb breacrumb={breadCrumb} layout="fullwidth" />
+        <ShopBanner />
+        <SiteFeatures className="mb-5" />
+        <MarketPlaceDealOfDay collectionSlug="deal-of-the-day" />
         <div className="ps-container">
-          <ShopBanner />
-          <SiteFeatures className="mb-5" />
           {/* <ShopBrands /> */}
           {/* <ShopCategories /> */}
+
           <div className="ps-layout--shop">
             {/* <div className="ps-layout__left">
               <WidgetShopCategories />

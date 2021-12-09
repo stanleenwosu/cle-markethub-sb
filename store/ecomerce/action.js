@@ -13,6 +13,11 @@ export const actionTypes = {
   SET_WISHLIST_ID: 'SET_WISHLIST_ID',
   SET_WISHLIST_ITEMS_SUCCESS: 'SET_WISHLIST_ITEMS_SUCCESS',
 
+  //Coupon
+  APPLY_COUPON: 'APPLY_COUPON',
+  SET_COUPON: 'SET_COUPON',
+  CLEAR_COUPON: 'CLEAR_COUPON',
+
   // SET_WISHLIST_ITEMS: 'SET_WISHLIST_ITEMS',
   // SET_WISHLIST_ITEMS_SUCCESS: 'SET_WISHLIST_ITEMS_SUCCESS',
 
@@ -61,4 +66,16 @@ export function setWishlistId(payload) {
 
 export function setWishlistItemsSuccess(payload) {
   return { type: actionTypes.SET_WISHLIST_ITEMS_SUCCESS, payload };
+}
+
+export function applyCoupon(payload) {
+  return { type: actionTypes.APPLY_COUPON, payload };
+}
+
+export function setCoupon(payload) {
+  return { type: actionTypes.SET_COUPON, payload };
+}
+
+export function clearCoupon(payload) {
+  return { type: actionTypes.CLEAR_COUPON, payload };
 }

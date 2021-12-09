@@ -6,8 +6,14 @@ import ProductCart from '~/components/elements/products/ProductCart';
 import { formatCurrency } from '~/utils/helpers.ts';
 
 const ModuleEcomerceCartItems = ({ ecomerce, cartItems, auth }) => {
-  const { increaseQty, decreaseQty, removeItemCartLocal, removeItemFromCart } =
-    useEcomerce();
+  const {
+    addItemToCart,
+    addItemToCartLocal,
+    decreaseCartItemQty,
+    decreaseCartItemQtyLocal,
+    removeItemCartLocal,
+    removeItemFromCart,
+  } = useEcomerce();
 
   function handleRemoveItem(e, itemId, cartId) {
     e.preventDefault();
@@ -23,14 +29,32 @@ const ModuleEcomerceCartItems = ({ ecomerce, cartItems, auth }) => {
     }
   }
 
-  function handleIncreaseItemQty(e, productId) {
+  function handleIncreaseItemQty(e, product) {
     e.preventDefault();
-    increaseQty({ id: productId }, ecomerce.cartItems);
+    if (auth.isLoggedIn) {
+      addItemToCart({
+        itemId: product.product_id,
+        cartId: ecomerce.cartId,
+        userId: auth.user.id,
+        customerId: auth.user.customer_id,
+      });
+    } else {
+      addItemToCartLocal({ ...product, quantity: 1 });
+    }
   }
 
-  function handleDecreaseItemQty(e, productId) {
+  function handleDecreaseItemQty(e, product) {
     e.preventDefault();
-    decreaseQty({ id: productId }, ecomerce.cartItems);
+    if (auth.isLoggedIn) {
+      decreaseCartItemQty({
+        itemId: product.product_id,
+        cartId: ecomerce.cartId,
+        userId: auth.user.id,
+        customerId: auth.user.customer_id,
+      });
+    } else {
+      decreaseCartItemQtyLocal({ ...product, quantity: 1 });
+    }
   }
 
   // View
@@ -46,16 +70,18 @@ const ModuleEcomerceCartItems = ({ ecomerce, cartItems, auth }) => {
         </td>
         <td data-label="quantity">
           <div className="form-group--number">
-            {/* <button
+            <button
               className="up"
-              onClick={(e) => handleIncreaseItemQty(e, item.id)}>
+              onClick={(e) => handleIncreaseItemQty(e, item)}>
               +
             </button>
-            <button
-              className="down"
-              onClick={(e) => handleDecreaseItemQty(e, item.id)}>
-              -
-            </button> */}
+            {auth.isLoggedIn ? null : (
+              <button
+                className="down"
+                onClick={(e) => handleDecreaseItemQty(e, item)}>
+                -
+              </button>
+            )}
             <input
               className="form-control"
               type="text"

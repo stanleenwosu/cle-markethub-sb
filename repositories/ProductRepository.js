@@ -65,6 +65,17 @@ class ProductRepository {
       });
     return response;
   }
+
+  async getPromo() {
+    const params = { limit: 10, offset: 0 };
+    const endPoint = `promos/promotions?${serializeQuery(params)}`;
+    try {
+      const response = await Repository.get(`${basePostUrl}/${endPoint}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default new ProductRepository();

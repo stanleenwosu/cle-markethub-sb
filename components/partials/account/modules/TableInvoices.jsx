@@ -22,7 +22,7 @@ const TableInvoices = () => {
       key: 'invoiceId',
       width: '120px',
       render: (text, record) => (
-        <Link href="/account/invoice-detail">{record.id}</Link>
+        <Link href={`/account/order/${record.id}`}>{record.id}</Link>
       ),
     },
     {

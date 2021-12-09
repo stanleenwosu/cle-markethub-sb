@@ -119,6 +119,18 @@ class CartRepository {
       }));
     return response;
   }
+
+  async applyCoupon(payload) {
+    const endPoint = `carts/${payload.cartId}/applycoupon`;
+    try {
+      const response = await Repository.post(`${basePostUrl}/${endPoint}`, {
+        code: payload.code,
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default new CartRepository();
