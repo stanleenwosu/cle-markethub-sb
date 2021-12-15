@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { connect } from 'react-redux';
 import ModulePaymentOrderSummary from '~/components/partials/account/modules/ModulePaymentOrderSummary';
+import OrderRepository from '~/repositories/OrderRepository';
+import { formatCurrency } from '~/utils/helpers.ts';
 
-const Shipping = ({ auth }) => {
+const Shipping = ({ auth, ecomerce }) => {
+  const [shippingFee, setshippingFee] = useState(0);
   const store = require('store');
   const order = store.get('delivery');
+
+  useEffect(async () => {
+    if (ecomerce.cartItems[0]?.shop_id) {
+      const response = await OrderRepository.getLogistics({
+        shopId: ecomerce.cartItems[0].shop_id,
+      });
+      setshippingFee(response.data.locations[0].amount);
+      console.log('🚀 ~ useEffect ~ response', response);
+    }
+  }, [ecomerce.cartItems]);
 
   return (
     <div className="ps-checkout ps-section--shopping">
@@ -36,8 +49,8 @@ const Shipping = ({ auth }) => {
                 <h4>Shipping Method</h4>
                 <div className="ps-block__panel">
                   <figure>
-                    <small>International Shipping</small>
-                    <strong>Free</strong>
+                    <small> Shipping</small>
+                    <strong>{formatCurrency(shippingFee)}</strong>
                   </figure>
                 </div>
                 <div className="ps-block__footer">
@@ -55,7 +68,7 @@ const Shipping = ({ auth }) => {
             </div>
             <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12  ps-block--checkout-order">
               <div className="ps-form__orders">
-                <ModulePaymentOrderSummary shipping={true} />
+                <ModulePaymentOrderSummary fee={shippingFee} shipping={true} />
               </div>
             </div>
           </div>

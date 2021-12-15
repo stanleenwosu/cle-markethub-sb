@@ -22,7 +22,7 @@ const BecomeAVendorPage = () => {
   ];
 
   return (
-    <PageContainer footer={<FooterDefault />} title="Become a vendor">
+    <PageContainer title="Become a vendor">
       <div className="ps-page--single">
         <BreadCrumb breacrumb={breadCrumb} />
         <VendorBanner />

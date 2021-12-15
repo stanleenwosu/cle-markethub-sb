@@ -59,6 +59,7 @@ class CartRepository {
       product_id: payload.itemId,
       cart_id: payload.cartId,
       quantity: payload.quantity ? payload.quantity : 1,
+      type: payload.type,
     })
       .then(() => {
         return response.data;

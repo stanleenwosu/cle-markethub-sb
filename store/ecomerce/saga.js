@@ -66,6 +66,26 @@ function* deleteCartItem({ payload }) {
   }
 }
 
+function* reduceQuantity({ payload }) {
+  NProgress.start();
+  try {
+    yield call(CartRepository.addItem, {
+      itemId: payload.itemId,
+      cartId: payload.cartId,
+      quantity: payload.quantity,
+      type: 'SUB',
+    });
+    yield call(getCartItems, {
+      payload: { userId: payload.userId, customerId: payload.customerId },
+    });
+    createNotification('reduced', 'Cart');
+    NProgress.done();
+  } catch (error) {
+    NProgress.done();
+    console.log('🚀 ~ function*reduceQuantity ~ error', error);
+  }
+}
+
 export function* addCartItem({ payload }) {
   NProgress.start();
   try {
@@ -73,6 +93,7 @@ export function* addCartItem({ payload }) {
       itemId: payload.itemId,
       cartId: payload.cartId,
       quantity: payload.quantity,
+      type: 'ADD',
     });
     yield call(getCartItems, {
       payload: { userId: payload.userId, customerId: payload.customerId },
@@ -163,6 +184,7 @@ function* applyCoupon({ payload }) {
 export default function* rootSaga() {
   yield takeLatest(actionTypes.GET_CART_ITEMS, getCartItems);
   yield takeLatest(actionTypes.DELETE_CART_ITEM, deleteCartItem);
+  yield takeLatest(actionTypes.REDUCE_QUANTITY, reduceQuantity);
   yield takeLatest(actionTypes.ADD_CART_ITEM, addCartItem);
   yield takeLatest(actionTypes.GET_WISHLIST_ITEMS, getWishlistItems);
   yield takeLatest(actionTypes.DELETE_WISHLIST_ITEM, deleteWishlistItem);

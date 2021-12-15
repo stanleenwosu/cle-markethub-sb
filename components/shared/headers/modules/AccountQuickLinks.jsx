@@ -25,7 +25,7 @@ const AccountQuickLinks = (props) => {
     //   url: '/account/notifications',
     // },
     {
-      text: 'Invoices',
+      text: 'Orders',
       url: '/account/orders',
     },
     // {

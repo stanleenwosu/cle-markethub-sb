@@ -5,6 +5,7 @@ export const actionTypes = {
   ADD_CART_ITEM: 'ADD_CART_ITEM',
   SET_CART_ID: 'SET_CART_ID',
   SET_CART_ITEMS_SUCCESS: 'SET_CART_ITEMS_SUCCESS',
+  REDUCE_QUANTITY: 'REDUCE_QUANTITY',
 
   // Wishlist
   GET_WISHLIST_ITEMS: 'GET_WISHLIST_ITEMS',
@@ -78,4 +79,7 @@ export function setCoupon(payload) {
 
 export function clearCoupon(payload) {
   return { type: actionTypes.CLEAR_COUPON, payload };
+}
+export function reduceQuantity(payload) {
+  return { type: actionTypes.REDUCE_QUANTITY, payload };
 }

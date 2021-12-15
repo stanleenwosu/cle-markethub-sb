@@ -105,7 +105,21 @@ class AuthRepository {
   }
 
   async getCoop({ orderId, customerId, amount, tenure }) {
-    const endPoint = `orders/${orderId}/payments/coop`;
+    const endPoint = `orders/${orderId}/payments/coop?${serializeQuery({
+      customer_id: customerId,
+      amount,
+      tenure,
+    })}`;
+    try {
+      const response = await Repository.get(`${basePostUrl}/${endPoint}`);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getLogistics({ shopId }) {
+    const endPoint = `logistics/${shopId}`;
     try {
       const response = await Repository.get(`${basePostUrl}/${endPoint}`);
       return response.data;

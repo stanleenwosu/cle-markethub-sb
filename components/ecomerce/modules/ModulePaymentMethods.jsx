@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
 import { calculateAmount } from '~/utilities/ecomerce-helpers';
 import CartRepository from '~/repositories/CartRepository';
 
-const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
+const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order, fee }) => {
   // let amount;
   const Router = useRouter();
   const [method, setMethod] = useState(1);
@@ -26,7 +26,8 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
   const amount = useMemo(() => {
     return (
       parseFloat(calculateAmount(ecomerce.cartItems)) -
-      (ecomerce.coupon?.total_discount || 0)
+      (ecomerce.coupon?.total_discount || 0) +
+      parseFloat(fee)
     );
   }, [ecomerce]);
 
@@ -42,7 +43,7 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
   const flutterwaveConfig = {
     public_key: 'FLWPUBK_TEST-08240e1db88c3643639804ae35bbbcba-X',
     tx_ref: Date.now(),
-    amount: parseInt(amount) + 0,
+    amount: parseInt(amount),
     currency: 'NGN',
     payment_options: 'card,mobilemoney,ussd',
     customer: {
@@ -87,11 +88,12 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order }) => {
       },
     });
     // clearCart();
-    Router.push('/account/payment-success');
+    // Router.push('/account/payment-success');
   }
 
   // you can call this function anything
   const handleSuccess = (reference) => {
+    console.log('🚀 ~ handleSuccess ~ reference', reference);
     dispatch({
       type: 'CREATE_ORDER_PAYSTACK',
       payload: {

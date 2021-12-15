@@ -75,19 +75,6 @@ function* loginSaga(action) {
     const fullUser = { ...user, ...auth.data };
     yield put(userSuccess(fullUser));
 
-    // if (cookiesCart.length > 0) {
-    //   for (const element of cookiesCart) {
-    //     yield call(addCartItem, {
-    //       payload: {
-    //         itemId: element.id,
-    //         quantity: element.quantity,
-    //         userId: fullUser.id,
-    //         customerId: auth.user.customer_id,
-    //       },
-    //     });
-    //   }
-    // }
-
     modalSuccess('success');
   } catch (err) {
     console.log('err: ', err);

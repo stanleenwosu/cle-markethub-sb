@@ -10,6 +10,7 @@ import {
   getWishlistItems,
   deleteWishlistItem,
   addWishlistItem,
+  reduceQuantity,
 } from '~/store/ecomerce/action';
 
 export default function useEcomerce() {
@@ -39,6 +40,12 @@ export default function useEcomerce() {
       // dispatch(getCartItems({ userId, customerId }));
       // }, 1500);
       setLoading(false);
+    },
+
+    decreaseCartItemQty: ({ itemId, cartId, quantity, userId, customerId }) => {
+      dispatch(
+        reduceQuantity({ itemId, cartId, quantity, userId, customerId })
+      );
     },
 
     removeItemFromWishlist: ({ itemId, wishId, userId, customerId }) => {
@@ -117,12 +124,6 @@ export default function useEcomerce() {
       // if (group === 'cart') {
       setCookie('cart', cartItems, { path: '/' });
     },
-
-    decreaseCartItemQty: () => {},
-
-    // getCartItemsLocal: () => {
-    //   setCart(cookies.cart);
-    // },
 
     getProducts: async (payload, group = '') => {
       setLoading(true);

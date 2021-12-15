@@ -75,13 +75,13 @@ const ModuleEcomerceCartItems = ({ ecomerce, cartItems, auth }) => {
               onClick={(e) => handleIncreaseItemQty(e, item)}>
               +
             </button>
-            {auth.isLoggedIn ? null : (
-              <button
-                className="down"
-                onClick={(e) => handleDecreaseItemQty(e, item)}>
-                -
-              </button>
-            )}
+            {/* {auth.isLoggedIn ? null : ( */}
+            <button
+              className="down"
+              onClick={(e) => handleDecreaseItemQty(e, item)}>
+              -
+            </button>
+            {/* )} */}
             <input
               className="form-control"
               type="text"

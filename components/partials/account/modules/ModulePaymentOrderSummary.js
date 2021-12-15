@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import useEcomerce from '~/hooks/useEcomerce';
 import { formatCurrency } from '~/utils/helpers.ts';
 import { calculateAmount } from '~/utilities/ecomerce-helpers';
+import { format } from 'prettier';
 
-const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
+const ModulePaymentOrderSummary = ({ ecomerce, shipping, fee }) => {
   const { products, getProducts } = useEcomerce();
   // const [amount, setamount] = useState(0);
 
@@ -15,7 +16,8 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
   const amount = useMemo(() => {
     return (
       parseFloat(calculateAmount(ecomerce.cartItems)) -
-      (ecomerce.coupon?.total_discount || 0)
+      (ecomerce.coupon?.total_discount || 0) +
+      parseFloat(fee)
     );
   }, [ecomerce]);
 
@@ -43,7 +45,7 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
       <figure>
         <figcaption>
           <strong>Shipping Fee</strong>
-          <small>Free</small>
+          <small>{formatCurrency(fee)}</small>
         </figcaption>
       </figure>
     );
