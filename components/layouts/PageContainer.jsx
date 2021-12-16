@@ -42,14 +42,37 @@ const PageContainer = ({
       </Head>
       {header}
       {children}
-      {footer}
-      {/* <Script
+      <div id="fb-root"></div>
+      <div id="fb-customer-chat" className="fb-customerchat"></div>
+      <Script
         type="text/javascript"
         dangerouslySetInnerHTML={{
           __html: `
-          !function(e,t,a){var c=e.head||e.getElementsByTagName("head")[0],n=e.createElement("script");n.async=!0,n.defer=!0, n.type="text/javascript",n.src=t+"/static/js/chat_widget.js?config="+JSON.stringify(a),c.appendChild(n)}(document,"https://app.engati.com",{bot_key:"719c117e6a7c4f6d",welcome_msg:true,branding_key:"default",server:"https://app.engati.com",e:"p" });
+          var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "1447397042170248");
+      chatbox.setAttribute("attribution", "biz_inbox");
   `,
-        }}></Script> */}
+        }}></Script>
+      <Script
+        type="text/javascript"
+        dangerouslySetInnerHTML={{
+          __html: `
+          window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v12.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+  `,
+        }}></Script>
     </>
   );
 };

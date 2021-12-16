@@ -73,13 +73,21 @@ class AuthRepository {
     return response;
   }
 
-  async createPaystack({ orderId, customerId, status, amount, detail }) {
+  async createPaystack({
+    orderId,
+    customerId,
+    status,
+    amount,
+    detail,
+    referenceNo,
+  }) {
     const endPoint = `orders/${orderId}/payments/card`;
     const response = await Repository.post(`${basePostUrl}/${endPoint}`, {
       customer_id: customerId,
       amount,
       status,
       detail,
+      referenceNo,
     })
       .then((response) => {
         return response.data;

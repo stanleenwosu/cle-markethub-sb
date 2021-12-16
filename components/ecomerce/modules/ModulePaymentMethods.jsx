@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Radio } from 'antd';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
@@ -30,6 +30,15 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order, fee }) => {
       parseFloat(fee)
     );
   }, [ecomerce]);
+
+  // useEffect(() => {
+  //   if (order.success) {
+  //      Router.push('/account/payment-success');
+  //   }
+  //   return () => {
+  //     cleanup;
+  //   };
+  // }, [order.success]);
 
   // amount = calculateAmount(ecomerce.cartItems);
 
@@ -85,6 +94,7 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order, fee }) => {
         delivery,
         tenure: e.tenure,
         amount: (config.amount / 100).toString(),
+        router: Router,
       },
     });
     // clearCart();
@@ -103,6 +113,7 @@ const ModulePaymentMethods = ({ auth, dispatch, ecomerce, order, fee }) => {
         status: reference.status,
         detail: {},
         amount: (config.amount / 100).toString(),
+        referenceNo: reference.reference,
       },
     });
     // clearCart();

@@ -9,9 +9,14 @@ import useSWR, { SWRConfig, useSWRConfig } from 'swr';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
-const fetcher = (customerId, orderId) =>
+const fetcherOrder = (customerId, orderId) =>
   axios
     .get(`https://api.cle.ng:26623/customers/${customerId}/orders/${orderId}`)
+    .then((res) => res.data.data);
+
+const fetcherPayment = (orderId) =>
+  axios
+    .get(`https://api.cle.ng:26623/${orderId}/delivery/info`)
     .then((res) => res.data.data);
 
 const InvoiceDetailPage = ({ auth, ecomerce }) => {
@@ -22,9 +27,14 @@ const InvoiceDetailPage = ({ auth, ecomerce }) => {
     data: order,
     error,
     isValidating,
-  } = useSWR([auth.user.customer_id, oid], fetcher);
-  // console.log('🚀 ~ InvoiceDetailPage ~ error', error);
-  // console.log('🚀 ~ InvoiceDetailPage ~ order', order);
+  } = useSWR([auth.user.customer_id, oid], fetcherOrder);
+
+  // const {
+  //   data: payment,
+  //   error: paymentError,
+  //   isValidating: paymentIsValidating,
+  // } = useSWR(oid, fetcherPayment);
+  // console.log('🚀 ~ InvoiceDetailPage ~ payment', payment);
 
   const breadCrumb = [
     {

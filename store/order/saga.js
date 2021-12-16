@@ -36,8 +36,10 @@ function* createOrderPaystackSaga({ payload }) {
         status: payload.status,
         detail: payload.detail,
         amount: payload.amount,
+        referenceNo: payload.referenceNo,
       },
     });
+    // yield put({ type: 'SAVE_ORDER_SUCCESS_INIT', payload: true });
     yield call(CartRepository.deleteCart, {
       cartId: payload.cartId,
     });
@@ -97,7 +99,6 @@ function* createPaystackSaga({ payload }) {
 function* createCoopSaga({ payload }) {
   try {
     const data = yield call(OrderRepository.getCoop, payload);
-    console.log('🚀 ~ function*createCoopSaga ~ data', data);
     Modal.info().update({
       title: data.message,
       okText: 'Complete Payment',
@@ -110,10 +111,18 @@ function* createCoopSaga({ payload }) {
               amount: parseFloat(payload.amount),
             })
           );
-        }).catch(() => {
-          reject(false);
-          console.log('Oops errors!');
-        });
+        })
+          .then(() => {
+            Modal.success().update({
+              content: 'Payment Successful',
+            });
+            // CartRepository.deleteCart({ cartId: payload.cartId });
+          })
+          .catch(() => {
+            reject(false);
+            notification.error({ content: 'Error processing order.' });
+            console.log('Oops errors!');
+          });
       },
       content: (
         <>
@@ -135,13 +144,12 @@ function* createCoopSaga({ payload }) {
         </>
       ),
     });
-    // const data2 = yield call(OrderRepository.createCoop, payload);
-    // console.log('🚀 ~ function*createCoopSaga ~ data2', data2);
-
-    // yield put({ type: 'SAVE_ORDER_SUCCESS', payload: data });
   } catch (err) {
     console.error(err.response);
     notification.error({ message: err.response.data.message });
+  } finally {
+    CartRepository.deleteCart({ cartId: payload.cartId });
+    payload.router.push('/account/payment-success');
   }
 }
 

@@ -106,7 +106,7 @@ const InvoiceDetail = (props) => {
                 </div>
                 <div className="ps-section__content">
                   <div className="row">
-                    <div className="col-md-4 col-12">
+                    {/* <div className="col-md-4 col-12">
                       <figure className="ps-block--invoice">
                         <figcaption>Address</figcaption>
                         <div className="ps-block__content">
@@ -115,7 +115,7 @@ const InvoiceDetail = (props) => {
                           <p>Phone: 913-489-1853</p>
                         </div>
                       </figure>
-                    </div>
+                    </div> */}
                     <div className="col-md-4 col-12">
                       <figure className="ps-block--invoice">
                         <figcaption>Shipping Fee</figcaption>
@@ -141,25 +141,25 @@ const InvoiceDetail = (props) => {
                   <div className="d-flex justify-content-between mb-4">
                     <button
                       type="button"
-                      class="btn btn-lg btn-primary"
+                      className="btn btn-lg btn-primary"
                       onClick={() => updateOrder('return')}>
                       Return Order
                     </button>
                     <button
                       type="button"
-                      class="btn btn-lg btn-warning"
+                      className="btn btn-lg btn-warning"
                       onClick={() => updateOrder('refund')}>
                       Request Refund
                     </button>
                     <button
                       type="button"
-                      class="btn btn-lg btn-danger"
+                      className="btn btn-lg btn-danger"
                       onClick={() => updateOrder('cancelled')}>
                       Cancel Order
                     </button>
                   </div>
 
-                  <div className="table-responsive">
+                  {/* <div className="table-responsive">
                     <table className="table ps-table--shopping-cart">
                       <thead>
                         <tr>
@@ -183,7 +183,7 @@ const InvoiceDetail = (props) => {
                         ))}
                       </tbody>
                     </table>
-                  </div>
+                  </div> */}
                   <Link href="/account/orders">
                     <a className="ps-btn ps-btn--sm ">Back to orders</a>
                   </Link>
