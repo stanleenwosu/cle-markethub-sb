@@ -44,7 +44,7 @@ const PageContainer = ({
       {children}
       <div id="fb-root"></div>
       <div id="fb-customer-chat" className="fb-customerchat"></div>
-      <Script
+      {/* <Script
         type="text/javascript"
         dangerouslySetInnerHTML={{
           __html: `
@@ -72,7 +72,7 @@ const PageContainer = ({
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
   `,
-        }}></Script>
+        }}></Script> */}
     </>
   );
 };

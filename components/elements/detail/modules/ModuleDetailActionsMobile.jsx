@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import useEcomerce from '~/hooks/useEcomerce';
 
-const ModuleDetailActionsMobile = ({ ecomerce, product }) => {
+const ModuleDetailActionsMobile = ({ ecomerce, product, auth }) => {
   const { addItem, addItemToCart, addItemToCartLocal, addItemToWishlist } =
     useEcomerce();
   const handleAddItemToCart = (e) => {

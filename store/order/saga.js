@@ -1,4 +1,11 @@
-import { call, all, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import {
+  call,
+  all,
+  put,
+  takeEvery,
+  takeLatest,
+  select,
+} from 'redux-saga/effects';
 import OrderRepository from '~/repositories/OrderRepository';
 import CartRepository from '~/repositories/CartRepository';
 import { actionTypes, saveDeliverySuccess, saveOrderSuccess } from './action';
@@ -116,7 +123,7 @@ function* createCoopSaga({ payload }) {
             Modal.success().update({
               content: 'Payment Successful',
             });
-            // CartRepository.deleteCart({ cartId: payload.cartId });
+            //* CartRepository.deleteCart({ cartId: payload.cartId });
           })
           .catch(() => {
             reject(false);
@@ -148,8 +155,8 @@ function* createCoopSaga({ payload }) {
     console.error(err.response);
     notification.error({ message: err.response.data.message });
   } finally {
-    CartRepository.deleteCart({ cartId: payload.cartId });
     payload.router.push('/account/payment-success');
+    // CartRepository.deleteCart({ cartId: payload.cartId });
   }
 }
 

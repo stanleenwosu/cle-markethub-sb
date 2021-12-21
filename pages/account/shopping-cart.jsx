@@ -155,22 +155,20 @@ const ShoppingCartScreen = ({ ecomerce, auth }) => {
   }
 
   return (
-    <>
-      <PageContainer title="Shopping Cart">
-        <div className="ps-page--simple">
-          <BreadCrumb breacrumb={breadCrumb} />
-          <div className="ps-section--shopping ps-shopping-cart">
-            <div className="container">
-              <div className="ps-section__header">
-                <h1>Shopping Cart</h1>
-              </div>
-              {contentView}
+    <PageContainer title="Shopping Cart">
+      <div className="ps-page--simple">
+        <BreadCrumb breacrumb={breadCrumb} />
+        <div className="ps-section--shopping ps-shopping-cart">
+          <div className="container">
+            <div className="ps-section__header">
+              <h1>Shopping Cart</h1>
             </div>
+            {contentView}
           </div>
         </div>
-        <Newletters layout="container" />
-      </PageContainer>
-    </>
+      </div>
+      <Newletters layout="container" />
+    </PageContainer>
   );
 };
 
