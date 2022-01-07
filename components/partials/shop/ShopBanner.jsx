@@ -20,6 +20,11 @@ const ShopBanner = () => {
         <img src="/static/img/mine/slide-1.png" alt="CLE" />
         <img src="/static/img/mine/slide-2.png" alt="CLE" />
         <img src="/static/img/mine/slide-3.png" alt="CLE" />
+        <img src="/static/img/mine/slide-4.jpg" alt="CLE" />
+        <img src="/static/img/mine/slide-5.jpg" alt="CLE" />
+        <img src="/static/img/mine/slide-6.jpg" alt="CLE" />
+        <img src="/static/img/mine/slide-7.jpg" alt="CLE" />
+        <img src="/static/img/mine/slide-8.jpg" alt="CLE" />
       </Slider>
     </div>
   );
