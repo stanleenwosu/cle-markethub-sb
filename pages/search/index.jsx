@@ -28,7 +28,8 @@ const SearchPage = () => {
       const queries = {
         offset: 0,
         limit: pageSize,
-        searchString: query.keyword,
+        q: query.keyword,
+        category_id: query.cat,
       };
       searchProducts(queries);
     }

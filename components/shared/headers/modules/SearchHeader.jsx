@@ -30,6 +30,8 @@ const SearchHeader = () => {
   const [keyword, setKeyword] = useState('');
   const [resultItems, setResultItems] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
+
   const debouncedSearchTerm = useDebounce(keyword, 300);
   const { categories, getAllCategories } = useGetProducts();
 
@@ -45,7 +47,7 @@ const SearchHeader = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    Router.push(`/search?keyword=${keyword}`);
+    Router.push(`/search?keyword=${keyword}&cat=${selectedCategory}`);
   }
 
   useEffect(() => {
@@ -55,7 +57,8 @@ const SearchHeader = () => {
         const queries = {
           offset: 0,
           limit: 5,
-          searchString: keyword,
+          q: keyword,
+          category_id: selectedCategory,
         };
         const products = ProductRepository.searchProducts(queries);
         products.then((result) => {
@@ -77,7 +80,7 @@ const SearchHeader = () => {
   }, [debouncedSearchTerm]);
 
   const handleCategoryChange = (e) => {
-    console.log('🚀 ~ SearchHeader ~ e', e);
+    setSelectedCategory(e.target.value);
   };
 
   // Views
@@ -133,9 +136,8 @@ const SearchHeader = () => {
       <div className="ps-form__categories">
         <select
           className="form-control"
-          // value={categories[0].id}
-          // onChange={handleCategoryChange}
-        >
+          value={categories && categories[0].id}
+          onChange={(evt) => handleCategoryChange(evt)}>
           {selectOptionView}
         </select>
       </div>
