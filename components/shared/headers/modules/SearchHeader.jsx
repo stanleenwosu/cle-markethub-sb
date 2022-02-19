@@ -153,7 +153,11 @@ const SearchHeader = () => {
         {clearTextView}
         {loadingView}
       </div>
-      <button onClick={handleSubmit}>Search</button>
+      <button
+        style={{ backgroundColor: 'white', color: '#0d1c52' }}
+        onClick={handleSubmit}>
+        Search
+      </button>
       <div className={`ps-panel--search-result${isSearch ? ' active ' : ''}`}>
         <div className="ps-panel__content">{productItemsView}</div>
         {loadMoreView}

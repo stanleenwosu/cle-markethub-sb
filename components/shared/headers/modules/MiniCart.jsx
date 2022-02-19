@@ -142,8 +142,8 @@ const MiniCart = ({ ecomerce, auth, dispatch, ...rest }) => {
   return (
     <div className="ps-cart--mini">
       <a className="header__extra" href="#">
-        <i className="icon-bag2"></i>
-        <span>
+        <i className="icon-bag2" style={{ color: 'white' }}></i>
+        <span style={{ backgroundColor: 'white' }}>
           {auth.isLoggedIn ? (
             <i>{ecomerce.cartItems ? ecomerce.cartItems.length : 0}</i>
           ) : (

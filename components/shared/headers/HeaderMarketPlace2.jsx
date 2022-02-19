@@ -24,7 +24,7 @@ const HeaderMarketPlace2 = ({ isReady = true }) => {
 
   return (
     <header
-      className="header header--standard header--market-place-2"
+      className="header header--standard header--market-place-3"
       id="headerSticky">
       <div className="header__top">
         <div className="container">
@@ -53,12 +53,12 @@ const HeaderMarketPlace2 = ({ isReady = true }) => {
           </div>
         </div>
       </div>
-      <div className="header__content">
+      <div className="header__content" style={{ backgroundColor: '#0d1c52' }}>
         <div className="container">
           <div className="header__content-left">
             <Link href="/">
               <a className="ps-logo">
-                <img height="60" src="/static/img/logo.png" alt="CLE" />
+                <img height="60" src="/static/img/logo-white.png" alt="CLE" />
               </a>
             </Link>
             {/* <div className="menu--product-categories">

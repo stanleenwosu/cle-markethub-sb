@@ -54,7 +54,9 @@ const AccountQuickLinks = (props) => {
 
   if (isLoggedIn === true) {
     return (
-      <div className="ps-block--user-account text-center ">
+      <div
+        className="ps-block--user-account text-center "
+        style={{ color: 'white' }}>
         <i className="icon-user mb-0"></i> <br />
         <small className="mt-n1">{user.firstname + ' ' + user.lastname}</small>
         <div className="ps-block__content">
@@ -71,7 +73,7 @@ const AccountQuickLinks = (props) => {
     );
   } else {
     return (
-      <div className="ps-block--user-header">
+      <div className="ps-block--user-header" style={{ color: 'white' }}>
         <div className="ps-block__left">
           <i className="icon-user"></i>
         </div>

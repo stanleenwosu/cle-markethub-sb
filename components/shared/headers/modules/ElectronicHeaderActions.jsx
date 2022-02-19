@@ -22,10 +22,10 @@ const ElectronicHeaderActions = ({ auth, ecomerce, dispatch }) => {
   return (
     <div className="header__actions">
       {auth.isLoggedIn && Boolean(auth.isLoggedIn) === true ? (
-        <Link href="/account/wishlist">
+        <Link href="/account/wishlist" style={{ color: 'white' }}>
           <a className="header__extra">
-            <i className="icon-heart"></i>
-            <span>
+            <i className="icon-heart" style={{ color: 'white' }}></i>
+            <span style={{ backgroundColor: 'white' }}>
               <i>{ecomerce.wishlistItems.length}</i>
             </span>
           </a>
