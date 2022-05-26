@@ -23,14 +23,14 @@ const ShopBanner = () => {
           src="/static/img/mine/slide-1.png"
           alt="CLE"
         />
-        <img src="/static/img/mine/slide-2.png" alt="CLE" />
-        <img src="/static/img/mine/slide-3.png" alt="CLE" />
-        <img src="/static/img/mine/slide-4.png" alt="CLE" />
-        <img src="/static/img/mine/slide-5.png" alt="CLE" />
-        <img src="/static/img/mine/slide-6.png" alt="CLE" />
+        <img src="/static/img/mine/insurance.png" alt="CLE Insurance Services" />
+        <img src="/static/img/mine/hospitality-services.png" alt="CLE Hospitality Services" />
+        <img src="/static/img/mine/handyman-services.png" alt="CLE Handyman Services" />
+        <img src="/static/img/mine/automobile.png" alt="CLE Automobile" />
+        {/* <img src="/static/img/mine/slide-6.png" alt="CLE" />
         <img src="/static/img/mine/slide-7.png" alt="CLE" />
         <img src="/static/img/mine/slide-8.png" alt="CLE" />
-        <img src="/static/img/mine/slide-9.png" alt="CLE" />
+        <img src="/static/img/mine/slide-9.png" alt="CLE" /> */}
       </Slider>
     </div>
   );
